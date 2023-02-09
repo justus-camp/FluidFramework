@@ -12,7 +12,7 @@ import {
 } from "../../feature-libraries";
 import { brand } from "../../util";
 import { SharedTreeTestFactory, SummarizeType, TestTreeProvider } from "../utils";
-import { ISharedTree } from "../../shared-tree";
+import { ISharedTree, SharedTreeFactory } from "../../shared-tree";
 import {
 	compareUpPaths,
 	FieldKey,
@@ -31,6 +31,9 @@ import {
 	SchemaData,
 } from "../../core";
 import { SharedTreeCore } from "../../shared-tree-core";
+import { Container } from "@fluidframework/container-loader";
+import { createAndAttachContainer, ITestContainerConfig, ITestFluidObject } from "@fluidframework/test-utils";
+import { requestFluidObject } from "@fluidframework/runtime-utils";
 
 const fooKey: FieldKey = brand("foo");
 const globalFieldKey: GlobalFieldKey = brand("globalFieldKey");
@@ -501,6 +504,20 @@ describe("SharedTree", () => {
 	});
 
 	describe("Rebasing", () => {
+		it.only("rebases stashed ops", async () => {
+			const provider = await TestTreeProvider.create(2);
+			const pausedContainer = provider.containers[1];
+			const url = await pausedContainer.getAbsoluteUrl("");
+			const pausedTree = provider.trees[1];
+			await provider.opProcessingController.pauseProcessing(pausedContainer);
+			insert(pausedTree, 0, "y");
+			const pendingOps = pausedContainer.closeAndGetPendingLocalState();
+			provider.opProcessingController.resumeProcessing();
+			const loader = provider.makeTestLoader();
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const loadedContainer = await loader.resolve({ url: url! }, pendingOps)
+		});
+
 		it("can rebase two inserts", async () => {
 			const provider = await TestTreeProvider.create(2);
 			const [tree1, tree2] = provider.trees;

@@ -171,6 +171,7 @@ export class TestTreeProvider {
 								? { state: "disabled" }
 								: undefined,
 					},
+					enableOfflineLoad: true
 				},
 			);
 
