@@ -3,6 +3,7 @@
  * Licensed under the MIT License.
  */
 import { strict as assert } from "assert";
+import { SharedTreeCore } from "../../shared-tree-core";
 import {
 	FieldKinds,
 	singleTextCursor,
@@ -12,7 +13,7 @@ import {
 } from "../../feature-libraries";
 import { brand } from "../../util";
 import { SharedTreeTestFactory, SummarizeType, TestTreeProvider } from "../utils";
-import { ISharedTree, SharedTreeFactory } from "../../shared-tree";
+import { ISharedTree } from "../../shared-tree";
 import {
 	compareUpPaths,
 	FieldKey,
@@ -30,10 +31,6 @@ import {
 	GlobalFieldKey,
 	SchemaData,
 } from "../../core";
-import { SharedTreeCore } from "../../shared-tree-core";
-import { Container } from "@fluidframework/container-loader";
-import { createAndAttachContainer, ITestContainerConfig, ITestFluidObject } from "@fluidframework/test-utils";
-import { requestFluidObject } from "@fluidframework/runtime-utils";
 
 const fooKey: FieldKey = brand("foo");
 const globalFieldKey: GlobalFieldKey = brand("globalFieldKey");
@@ -515,7 +512,7 @@ describe("SharedTree", () => {
 			provider.opProcessingController.resumeProcessing();
 			const loader = provider.makeTestLoader();
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			const loadedContainer = await loader.resolve({ url: url! }, pendingOps)
+			const loadedContainer = await loader.resolve({ url: url! }, pendingOps);
 		});
 
 		it("can rebase two inserts", async () => {
