@@ -31,6 +31,8 @@ import {
 	GlobalFieldKey,
 	SchemaData,
 } from "../../core";
+import { requestFluidObject } from "@fluidframework/runtime-utils";
+import { ITestFluidObject, waitForContainerConnection } from "@fluidframework/test-utils";
 
 const fooKey: FieldKey = brand("foo");
 const globalFieldKey: GlobalFieldKey = brand("globalFieldKey");
@@ -503,16 +505,32 @@ describe("SharedTree", () => {
 	describe("Rebasing", () => {
 		it.only("rebases stashed ops", async () => {
 			const provider = await TestTreeProvider.create(2);
-			const pausedContainer = provider.containers[1];
+			const pausedContainer = provider.containers[0];
 			const url = await pausedContainer.getAbsoluteUrl("");
-			const pausedTree = provider.trees[1];
+			const pausedTree = provider.trees[0];
 			await provider.opProcessingController.pauseProcessing(pausedContainer);
-			insert(pausedTree, 0, "y");
+			insert(pausedTree, 0, "x");
+			insert(pausedTree, 1, "y");
+			insert(pausedTree, 2, "z");
 			const pendingOps = pausedContainer.closeAndGetPendingLocalState();
 			provider.opProcessingController.resumeProcessing();
+
+			const otherLoadedTree = provider.trees[1];
+			insert(otherLoadedTree, 0, "a");
+			insert(otherLoadedTree, 1, "b");
+			insert(otherLoadedTree, 2, "c");
+			await provider.ensureSynchronized();
+
 			const loader = provider.makeTestLoader();
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const loadedContainer = await loader.resolve({ url: url! }, pendingOps);
+			const dataStore = await requestFluidObject<ITestFluidObject>(loadedContainer, "/");
+			const tree = await dataStore.getSharedObject<ISharedTree>("TestSharedTree");
+			await waitForContainerConnection(loadedContainer, true);
+			await provider.ensureSynchronized();
+
+			validateRootField(tree, ["x", "y", "z", "x", "y", "z", "a", "b", "c"]);
+			validateRootField(otherLoadedTree, ["x", "y", "z", "x", "y", "z", "a", "b", "c"]);
 		});
 
 		it("can rebase two inserts", async () => {

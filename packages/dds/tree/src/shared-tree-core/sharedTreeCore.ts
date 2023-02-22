@@ -247,7 +247,16 @@ export class SharedTreeCore<
 	}
 
 	protected applyStashedOp(content: any): unknown {
-		throw new Error("Method not implemented.");
+		console.log("applying stashed op");
+		const { changeset } = content as Message;
+		const changes = this.changeFamily.encoder.decodeJson(formatVersion, changeset);
+		/*
+		const delta = this.editManager.addLocalChange(changes);
+		return {};
+		*/
+
+		this.submitEdit(changes);
+		return {};
 	}
 
 	public getGCData(fullGC?: boolean): IGarbageCollectionData {
