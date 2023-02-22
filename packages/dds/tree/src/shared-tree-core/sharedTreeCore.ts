@@ -247,15 +247,6 @@ export class SharedTreeCore<
 	}
 
 	protected applyStashedOp(content: any): unknown {
-		console.log("applying stashed op");
-		const { changeset } = content as Message;
-		const changes = this.changeFamily.encoder.decodeJson(formatVersion, changeset);
-		/*
-		const delta = this.editManager.addLocalChange(changes);
-		return {};
-		*/
-
-		this.submitEdit(changes);
 		return {};
 	}
 

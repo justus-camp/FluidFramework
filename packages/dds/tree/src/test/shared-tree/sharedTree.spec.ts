@@ -529,8 +529,8 @@ describe("SharedTree", () => {
 			await waitForContainerConnection(loadedContainer, true);
 			await provider.ensureSynchronized();
 
-			validateRootField(tree, ["x", "y", "z", "x", "y", "z", "a", "b", "c"]);
-			validateRootField(otherLoadedTree, ["x", "y", "z", "x", "y", "z", "a", "b", "c"]);
+			validateRootField(tree, ["x", "y", "z", "a", "b", "c"]);
+			validateRootField(otherLoadedTree, ["x", "y", "z", "a", "b", "c"]);
 		});
 
 		it("can rebase two inserts", async () => {
