@@ -62,3 +62,4 @@ export {
 	RecursiveReadonly,
 	zipIterables,
 } from "./utils";
+export { generateStableId, isStableId } from "./uuidUtilities";

@@ -4,7 +4,7 @@
  */
 
 import { assert } from "@fluidframework/common-utils";
-import { generateStableId, isStableId, StableId } from "../../id-compressor";
+import { generateStableId, isStableId } from "../../util";
 
 /**
  * The identifier for a particular session/user/client that can generate `GraphCommit`s
@@ -16,8 +16,8 @@ export type SessionId = string;
  * the same, will share the same revision tag.
  * @alpha
  */
-// TODO: These can be compressed by an `IdCompressor` in the future
-export type RevisionTag = StableId;
+// TODO: These can be compressed by an `IdCompressor` in the future and should be typed as StableId
+export type RevisionTag = string;
 
 /**
  * @returns a `RevisionTag` from the given string, or fails if the string is not a valid `RevisionTag`
