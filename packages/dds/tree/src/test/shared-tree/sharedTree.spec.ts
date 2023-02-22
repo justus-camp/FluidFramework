@@ -3,6 +3,8 @@
  * Licensed under the MIT License.
  */
 import { strict as assert } from "assert";
+import { requestFluidObject } from "@fluidframework/runtime-utils";
+import { ITestFluidObject, waitForContainerConnection } from "@fluidframework/test-utils";
 import { SharedTreeCore } from "../../shared-tree-core";
 import {
 	FieldKinds,
@@ -31,8 +33,6 @@ import {
 	GlobalFieldKey,
 	SchemaData,
 } from "../../core";
-import { requestFluidObject } from "@fluidframework/runtime-utils";
-import { ITestFluidObject, waitForContainerConnection } from "@fluidframework/test-utils";
 
 const fooKey: FieldKey = brand("foo");
 const globalFieldKey: GlobalFieldKey = brand("globalFieldKey");
@@ -503,7 +503,7 @@ describe("SharedTree", () => {
 	});
 
 	describe("Rebasing", () => {
-		it.only("rebases stashed ops", async () => {
+		it("rebases stashed ops", async () => {
 			const provider = await TestTreeProvider.create(2);
 			const pausedContainer = provider.containers[0];
 			const url = await pausedContainer.getAbsoluteUrl("");
@@ -531,6 +531,77 @@ describe("SharedTree", () => {
 
 			validateRootField(tree, ["x", "y", "z", "a", "b", "c"]);
 			validateRootField(otherLoadedTree, ["x", "y", "z", "a", "b", "c"]);
+		});
+
+		it("rebases stashed ops with prior state present", async () => {
+			const provider = await TestTreeProvider.create(2);
+
+			insert(provider.trees[0], 0, "a");
+			await provider.ensureSynchronized();
+
+			const pausedContainer = provider.containers[0];
+			const url = await pausedContainer.getAbsoluteUrl("");
+			const pausedTree = provider.trees[0];
+			await provider.opProcessingController.pauseProcessing(pausedContainer);
+			insert(pausedTree, 1, "b");
+			insert(pausedTree, 2, "c");
+			const pendingOps = pausedContainer.closeAndGetPendingLocalState();
+			provider.opProcessingController.resumeProcessing();
+
+			const otherLoadedTree = provider.trees[1];
+			insert(otherLoadedTree, 1, "d");
+			await provider.ensureSynchronized();
+
+			const loader = provider.makeTestLoader();
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const loadedContainer = await loader.resolve({ url: url! }, pendingOps);
+			const dataStore = await requestFluidObject<ITestFluidObject>(loadedContainer, "/");
+			const tree = await dataStore.getSharedObject<ISharedTree>("TestSharedTree");
+			await waitForContainerConnection(loadedContainer, true);
+			await provider.ensureSynchronized();
+
+			validateRootField(tree, ["a", "b", "c", "d"]);
+			validateRootField(otherLoadedTree, ["a", "b", "c", "d"]);
+		});
+
+		it.only("rebases stashed delete over move", async () => {
+			const provider = await TestTreeProvider.create(2);
+
+			insert(provider.trees[0], 0, "a", "b");
+			await provider.ensureSynchronized();
+
+			const pausedContainer = provider.containers[0];
+			const url = await pausedContainer.getAbsoluteUrl("");
+			const pausedTree = provider.trees[0];
+			await provider.opProcessingController.pauseProcessing(pausedContainer);
+			// Delete b
+			pausedTree.runTransaction((forest, editor) => {
+				const field = editor.sequenceField(undefined, rootFieldKeySymbol);
+				field.delete(1, 1);
+				return TransactionResult.Apply;
+			});
+
+			const pendingOps = pausedContainer.closeAndGetPendingLocalState();
+			provider.opProcessingController.resumeProcessing();
+
+			const otherLoadedTree = provider.trees[1];
+			// Move b before a
+			otherLoadedTree.runTransaction((forest, editor) => {
+				editor.move(undefined, rootFieldKeySymbol, 1, 1, undefined, rootFieldKeySymbol, 0);
+				return TransactionResult.Apply;
+			});
+			await provider.ensureSynchronized();
+
+			const loader = provider.makeTestLoader();
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			const loadedContainer = await loader.resolve({ url: url! }, pendingOps);
+			const dataStore = await requestFluidObject<ITestFluidObject>(loadedContainer, "/");
+			const tree = await dataStore.getSharedObject<ISharedTree>("TestSharedTree");
+			await waitForContainerConnection(loadedContainer, true);
+			await provider.ensureSynchronized();
+
+			validateRootField(tree, ["b"]);
+			validateRootField(otherLoadedTree, ["b"]);
 		});
 
 		it("can rebase two inserts", async () => {
