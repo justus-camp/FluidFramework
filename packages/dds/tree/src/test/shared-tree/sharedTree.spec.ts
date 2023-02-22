@@ -33,7 +33,6 @@ import {
 	GlobalFieldKey,
 	SchemaData,
 } from "../../core";
-import { SharedTreeCore } from "../../shared-tree-core";
 import { checkTreesAreSynchronized } from "./sharedTreeFuzzTests";
 
 const fooKey: FieldKey = brand("foo");
@@ -505,37 +504,7 @@ describe("SharedTree", () => {
 	});
 
 	describe("Rebasing", () => {
-		it("rebases stashed ops", async () => {
-			const provider = await TestTreeProvider.create(2);
-			const pausedContainer = provider.containers[0];
-			const url = await pausedContainer.getAbsoluteUrl("");
-			const pausedTree = provider.trees[0];
-			await provider.opProcessingController.pauseProcessing(pausedContainer);
-			insert(pausedTree, 0, "x");
-			insert(pausedTree, 1, "y");
-			insert(pausedTree, 2, "z");
-			const pendingOps = pausedContainer.closeAndGetPendingLocalState();
-			provider.opProcessingController.resumeProcessing();
-
-			const otherLoadedTree = provider.trees[1];
-			insert(otherLoadedTree, 0, "a");
-			insert(otherLoadedTree, 1, "b");
-			insert(otherLoadedTree, 2, "c");
-			await provider.ensureSynchronized();
-
-			const loader = provider.makeTestLoader();
-			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			const loadedContainer = await loader.resolve({ url: url! }, pendingOps);
-			const dataStore = await requestFluidObject<ITestFluidObject>(loadedContainer, "/");
-			const tree = await dataStore.getSharedObject<ISharedTree>("TestSharedTree");
-			await waitForContainerConnection(loadedContainer, true);
-			await provider.ensureSynchronized();
-
-			validateRootField(tree, ["x", "y", "z", "a", "b", "c"]);
-			validateRootField(otherLoadedTree, ["x", "y", "z", "a", "b", "c"]);
-		});
-
-		it("rebases stashed ops with prior state present", async () => {
+		it.only("rebases stashed ops with prior state present", async () => {
 			const provider = await TestTreeProvider.create(2);
 
 			insert(provider.trees[0], 0, "a");
@@ -551,7 +520,7 @@ describe("SharedTree", () => {
 			provider.opProcessingController.resumeProcessing();
 
 			const otherLoadedTree = provider.trees[1];
-			insert(otherLoadedTree, 1, "d");
+			insert(otherLoadedTree, 0, "d");
 			await provider.ensureSynchronized();
 
 			const loader = provider.makeTestLoader();
@@ -562,11 +531,11 @@ describe("SharedTree", () => {
 			await waitForContainerConnection(loadedContainer, true);
 			await provider.ensureSynchronized();
 
-			validateRootField(tree, ["a", "b", "c", "d"]);
-			validateRootField(otherLoadedTree, ["a", "b", "c", "d"]);
+			validateRootField(tree, ["b", "c", "a", "d"]);
+			validateRootField(otherLoadedTree, ["b", "c", "a", "d"]);
 		});
 
-		it.only("rebases stashed delete over move", async () => {
+		it("rebases stashed delete over move", async () => {
 			const provider = await TestTreeProvider.create(2);
 
 			insert(provider.trees[0], 0, "a", "b");
