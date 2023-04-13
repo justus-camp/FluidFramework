@@ -30,6 +30,8 @@ import {
 	TypedSchema,
 } from "../../feature-libraries";
 import { rootFieldKey } from "../../core";
+import { describeNoCompat } from "@fluid-internal/test-version-utils";
+import { ITestObjectProvider } from "@fluidframework/test-utils";
 
 const nodeFieldSchema = TypedSchema.field(FieldKinds.optional, "node");
 const nodeSchema = TypedSchema.tree("node", {
@@ -45,9 +47,11 @@ const nodeSchemaData = SchemaAware.typedSchemaData(
 	identifierSchema,
 );
 
-describe("Node Identifier Index", () => {
+describeNoCompat("Node Identifier Index", (getTestObjectProvider) => {
 	let nextId: Identifier = 42;
+	let testProvider: ITestObjectProvider;
 	beforeEach(() => {
+		testProvider = getTestObjectProvider();
 		nextId = 42;
 	});
 	// All tests should use this function to make their IDs - this makes it easier to change the
@@ -68,7 +72,7 @@ describe("Node Identifier Index", () => {
 	}
 
 	it("can look up a node that was inserted", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		const id = makeId();
 		initializeTestTree(
@@ -85,7 +89,7 @@ describe("Node Identifier Index", () => {
 	});
 
 	it("can look up a deep node that was inserted", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		const id = makeId();
 		initializeTestTree(
@@ -118,7 +122,7 @@ describe("Node Identifier Index", () => {
 	});
 
 	it("can look up multiple nodes that were inserted at once", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		const ids = [makeId(), makeId(), makeId()];
 		initializeTestTree(
@@ -157,7 +161,7 @@ describe("Node Identifier Index", () => {
 	});
 
 	it("can look up multiple nodes that were inserted over time", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		const idA = makeId();
 		initializeTestTree(
@@ -188,7 +192,7 @@ describe("Node Identifier Index", () => {
 	});
 
 	it("forgets about nodes that are deleted", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		initializeTestTree(
 			tree,
@@ -206,7 +210,7 @@ describe("Node Identifier Index", () => {
 	});
 
 	it("fails if multiple nodes have the same ID", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		const id = makeId();
 		assert.throws(
@@ -238,7 +242,7 @@ describe("Node Identifier Index", () => {
 	});
 
 	it("can look up a node that was loaded from summary", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		const id = makeId();
 		initializeTestTree(
@@ -282,7 +286,7 @@ describe("Node Identifier Index", () => {
 			identifierSchema,
 		);
 
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		initializeTestTree(
 			tree,
@@ -298,7 +302,7 @@ describe("Node Identifier Index", () => {
 	});
 
 	it("skips nodes which have identifiers of the wrong type", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		initializeTestTree(
 			tree,
@@ -315,7 +319,7 @@ describe("Node Identifier Index", () => {
 
 	it("skips nodes which should have identifiers, but do not", async () => {
 		// This is policy choice rather than correctness. It could also fail.
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		initializeTestTree(
 			tree,
@@ -338,7 +342,7 @@ describe("Node Identifier Index", () => {
 			identifierSchema,
 		);
 
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		initializeTestTree(
 			tree,
@@ -370,7 +374,7 @@ describe("Node Identifier Index", () => {
 			identifierSchema,
 		);
 
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		const id = makeId();
 		initializeTestTree(
@@ -387,7 +391,7 @@ describe("Node Identifier Index", () => {
 	});
 
 	it("is synchronized after each batch update", async () => {
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 
 		const id = makeId();
@@ -429,7 +433,7 @@ describe("Node Identifier Index", () => {
 			identifierSchema,
 		);
 
-		const provider = await TestTreeProvider.create(1);
+		const provider = await TestTreeProvider.create(testProvider, 1);
 		const [tree] = provider.trees;
 		const id = makeId();
 		initializeTestTree(
@@ -451,7 +455,7 @@ describe("Node Identifier Index", () => {
 
 	function describeForkingTests(prefork: boolean): void {
 		async function getTree(): Promise<ISharedTreeView> {
-			const provider = await TestTreeProvider.create(1);
+			const provider = await TestTreeProvider.create(testProvider, 1);
 			const [tree] = provider.trees;
 			return prefork ? tree.fork() : tree;
 		}

@@ -20,14 +20,17 @@ import {
 } from "./fuzzEditGenerators";
 import { fuzzReducer } from "./fuzzEditReducers";
 import { initialTreeState, runFuzzBatch, testSchema } from "./fuzzUtils";
+import { describeNoCompat } from "@fluid-internal/test-version-utils";
+import { ITestObjectProvider } from "@fluidframework/test-utils";
 
 export async function performFuzzActionsAbort(
+	testProvider: ITestObjectProvider,
 	generator: AsyncGenerator<Operation, FuzzTestState>,
 	seed: number,
 	saveInfo?: SaveInfo,
 ): Promise<FuzzTestState> {
 	const random = makeRandom(seed);
-	const provider = await TestTreeProvider.create(1, SummarizeType.onDemand);
+	const provider = await TestTreeProvider.create(testProvider, 1, SummarizeType.onDemand);
 	const tree = provider.trees[0];
 
 	initializeTestTree(provider.trees[0], initialTreeState, testSchema);
@@ -87,7 +90,12 @@ export async function performFuzzActionsAbort(
  *
  * See the "Fuzz - Top-Level" test suite for tests are more general in scope.
  */
-describe("Fuzz - Targeted", () => {
+describeNoCompat("Fuzz - Targeted", (getTestObjectProvider) => {
+	let testProvider: ITestObjectProvider;
+	beforeEach(() => {
+		testProvider = getTestObjectProvider();
+	});
+
 	const random = makeRandom(0);
 	const runsPerBatch = 20;
 	const opsPerRun = 20;
@@ -96,6 +104,7 @@ describe("Fuzz - Targeted", () => {
 	};
 	describe("Anchors are unaffected by aborted transaction", () => {
 		runFuzzBatch(
+			testProvider,
 			makeOpGenerator,
 			performFuzzActionsAbort,
 			opsPerRun,

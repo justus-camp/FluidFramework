@@ -139,7 +139,6 @@ export enum SummarizeType {
 export class TestTreeProvider {
 	private static readonly treeId = "TestSharedTree";
 
-	private readonly provider: ITestObjectProvider;
 	private readonly _trees: ISharedTree[] = [];
 	private readonly _containers: IContainer[] = [];
 	private readonly summarizer?: ISummarizer;
@@ -168,6 +167,7 @@ export class TestTreeProvider {
 	 * ```
 	 */
 	public static async create(
+		provider: ITestObjectProvider,
 		trees = 0,
 		summarizeType: SummarizeType = SummarizeType.disabled,
 		factory: SharedTreeFactory = new SharedTreeFactory(),
@@ -194,30 +194,31 @@ export class TestTreeProvider {
 				},
 			);
 
-		const objProvider = new TestObjectProvider(Loader, driver, containerRuntimeFactory);
-
 		if (summarizeType === SummarizeType.onDemand) {
-			const container = await objProvider.makeTestContainer();
+			const container = await provider.createContainer(containerRuntimeFactory());
 			const dataObject = await requestFluidObject<ITestFluidObject>(container, "/");
 			const firstTree = await dataObject.getSharedObject<ISharedTree>(
 				TestTreeProvider.treeId,
 			);
-			const { summarizer } = await createSummarizer(objProvider, container);
-			const provider = new TestTreeProvider(objProvider, [
+			const { summarizer } = await createSummarizer(provider, container);
+			const treeProvider = new TestTreeProvider(provider, containerRuntimeFactory(), [
 				container,
 				firstTree,
 				summarizer,
 			]) as ITestTreeProvider;
 			for (let i = 1; i < trees; i++) {
-				await provider.createTree();
+				await treeProvider.createTree();
 			}
-			return provider;
+			return treeProvider;
 		} else {
-			const provider = new TestTreeProvider(objProvider) as ITestTreeProvider;
+			const treeProvider = new TestTreeProvider(
+				provider,
+				containerRuntimeFactory(),
+			) as ITestTreeProvider;
 			for (let i = 0; i < trees; i++) {
-				await provider.createTree();
+				await treeProvider.createTree();
 			}
-			return provider;
+			return treeProvider;
 		}
 	}
 
@@ -229,8 +230,8 @@ export class TestTreeProvider {
 	public async createTree(): Promise<ISharedTree> {
 		const container =
 			this.trees.length === 0
-				? await this.provider.makeTestContainer()
-				: await this.provider.loadTestContainer();
+				? await this.provider.createContainer(this.factory)
+				: await this.provider.loadContainer(this.factory);
 
 		this._containers.push(container);
 		const dataObject = await requestFluidObject<ITestFluidObject>(container, "/");
@@ -258,10 +259,10 @@ export class TestTreeProvider {
 	}
 
 	private constructor(
-		provider: ITestObjectProvider,
+		private readonly provider: ITestObjectProvider,
+		private readonly factory: any,
 		firstTreeParams?: [IContainer, ISharedTree, ISummarizer],
 	) {
-		this.provider = provider;
 		if (firstTreeParams !== undefined) {
 			const [container, firstTree, summarizer] = firstTreeParams;
 			this._containers.push(container);

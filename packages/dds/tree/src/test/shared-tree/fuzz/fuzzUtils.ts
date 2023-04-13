@@ -13,12 +13,15 @@ import { JsonableTree, fieldSchema, SchemaData, rootFieldKey } from "../../../co
 import { FieldKinds, namedTreeSchema } from "../../../feature-libraries";
 import { brand } from "../../../util";
 import { FuzzTestState, Operation, EditGeneratorOpWeights } from "./fuzzEditGenerators";
+import { ITestObjectProvider } from "@fluidframework/test-utils";
 
 export function runFuzzBatch(
+	testProvider: ITestObjectProvider,
 	opGenerator: (
 		editGeneratorOpWeights?: EditGeneratorOpWeights,
 	) => AsyncGenerator<Operation, FuzzTestState>,
 	fuzzActions: (
+		provider: ITestObjectProvider,
 		generatorFactory: AsyncGenerator<Operation, FuzzTestState>,
 		seed: number,
 		saveInfo?: SaveInfo,
@@ -38,7 +41,7 @@ export function runFuzzBatch(
 			filepath: path.join(__dirname, `fuzz-tests-saved-ops/ops_with_seed_${runSeed}`),
 		};
 		it(`with seed ${runSeed}`, async () => {
-			await fuzzActions(generatorFactory(), runSeed, saveInfo);
+			await fuzzActions(testProvider, generatorFactory(), runSeed, saveInfo);
 		}).timeout(20000);
 	}
 }

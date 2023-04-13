@@ -21,6 +21,8 @@ import {
 	Value,
 	ValueSchema,
 } from "../../core";
+import { describeNoCompat } from "@fluid-internal/test-version-utils";
+import { ITestObjectProvider } from "@fluidframework/test-utils";
 
 const stringSchema = namedTreeSchema({
 	name: brand("String"),
@@ -338,7 +340,12 @@ const getSuccessfulOpByteSize = (
 
 const BENCHMARK_NODE_COUNT = 100;
 
-describe("SharedTree Op Size Benchmarks", () => {
+describeNoCompat("SharedTree Op Size Benchmarks", (getTestObjectProvider) => {
+	let testProvider: ITestObjectProvider;
+	beforeEach(() => {
+		testProvider = getTestObjectProvider();
+	});
+
 	const opsByBenchmarkName: Map<string, ISequencedDocumentMessage[]> = new Map();
 	let currentBenchmarkName = "";
 	const currentTestOps: ISequencedDocumentMessage[] = [];
@@ -444,7 +451,7 @@ describe("SharedTree Op Size Benchmarks", () => {
 				percentile: number,
 				testName: string,
 			) => {
-				const provider = await TestTreeProvider.create(1);
+				const provider = await TestTreeProvider.create(testProvider, 1);
 				initializeOpDataCollection(provider, testName);
 				initializeTestTree(provider.trees[0]);
 				deleteCurrentOps(); // We don't want to record any ops from initializing the tree.
@@ -487,7 +494,7 @@ describe("SharedTree Op Size Benchmarks", () => {
 				percentile: number,
 				testName: string,
 			) => {
-				const provider = await TestTreeProvider.create(1);
+				const provider = await TestTreeProvider.create(testProvider, 1);
 				initializeOpDataCollection(provider, testName);
 				initializeTestTree(provider.trees[0]);
 				deleteCurrentOps(); // We don't want to record any ops from initializing the tree.
@@ -532,7 +539,7 @@ describe("SharedTree Op Size Benchmarks", () => {
 				percentile: number,
 				testName: string,
 			) => {
-				const provider = await TestTreeProvider.create(1);
+				const provider = await TestTreeProvider.create(testProvider, 1);
 				initializeOpDataCollection(provider, testName);
 				const childByteSize = getSuccessfulOpByteSize("DELETE", "INDIVIDUAL", percentile);
 				initializeTestTree(
@@ -571,7 +578,7 @@ describe("SharedTree Op Size Benchmarks", () => {
 				percentile: number,
 				testName: string,
 			) => {
-				const provider = await TestTreeProvider.create(1);
+				const provider = await TestTreeProvider.create(testProvider, 1);
 				initializeOpDataCollection(provider, testName);
 				const childByteSize = getSuccessfulOpByteSize("DELETE", "SINGLE", percentile);
 				initializeTestTree(
@@ -612,7 +619,7 @@ describe("SharedTree Op Size Benchmarks", () => {
 				percentile: number,
 				testName: string,
 			) => {
-				const provider = await TestTreeProvider.create(1);
+				const provider = await TestTreeProvider.create(testProvider, 1);
 				initializeOpDataCollection(provider, testName);
 				// Note that the child node byte size for the intial tree here should be arbitrary
 				initializeTestTree(
@@ -660,7 +667,7 @@ describe("SharedTree Op Size Benchmarks", () => {
 
 		describe("3b. With Single transaction", () => {
 			const benchmarkEditNodesWithSingleTx = async (percentile: number, testName: string) => {
-				const provider = await TestTreeProvider.create(1);
+				const provider = await TestTreeProvider.create(testProvider, 1);
 				initializeOpDataCollection(provider, testName);
 				// Note that the child node byte size for the intial tree here should be arbitrary
 				initializeTestTree(
@@ -716,7 +723,7 @@ describe("SharedTree Op Size Benchmarks", () => {
 				deleteNodeCount: number,
 				editNodeCount: number,
 			) => {
-				const provider = await TestTreeProvider.create(1);
+				const provider = await TestTreeProvider.create(testProvider, 1);
 				initializeOpDataCollection(provider, testName);
 
 				// delete
@@ -919,7 +926,7 @@ describe("SharedTree Op Size Benchmarks", () => {
 				deleteNodeCount: number,
 				editNodeCount: number,
 			) => {
-				const provider = await TestTreeProvider.create(1);
+				const provider = await TestTreeProvider.create(testProvider, 1);
 				initializeOpDataCollection(provider, testName);
 
 				// delete

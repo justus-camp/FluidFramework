@@ -53,6 +53,8 @@ import {
 	phonesSchema,
 	personJsonableTree,
 } from "./mockData";
+import { ITestObjectProvider } from "@fluidframework/test-utils";
+import { describeNoCompat } from "@fluid-internal/test-version-utils";
 
 const globalFieldKey: GlobalFieldKey = brand("foo");
 const globalFieldSymbol = symbolFromKey(globalFieldKey);
@@ -82,11 +84,12 @@ function getTestSchema(fieldKind: FieldKind): SchemaData {
 // Tests which are testing collaboration between multiple trees should be adjusted to not do that, or moved elsewhere (merge/collaboration is not the focus of this file).
 // Tests which are using a single tree should just use a MockFluidDataStoreRuntime instead of all the complexity of TestTreeProvider.
 async function createSharedTrees(
+	testProvider: ITestObjectProvider,
 	schemaData: SchemaData,
 	data?: JsonableTree[],
 	numberOfTrees = 1,
 ): Promise<readonly [ITestTreeProvider, readonly ISharedTree[]]> {
-	const provider = await TestTreeProvider.create(numberOfTrees);
+	const provider = await TestTreeProvider.create(testProvider, numberOfTrees);
 	for (const tree of provider.trees) {
 		assert(tree.isAttached());
 	}
@@ -103,9 +106,15 @@ const testCases: (readonly [string, FieldKey])[] = [
 	["a local field", localFieldKey],
 ];
 
-describe("editable-tree: editing", () => {
+describeNoCompat("editable-tree: editing", (getTestObjectProvider) => {
+	let testProvider: ITestObjectProvider;
+	beforeEach(() => {
+		testProvider = getTestObjectProvider();
+	});
 	it("edit using contextually typed API", async () => {
-		const [, trees] = await createSharedTrees(fullSchemaData, [personJsonableTree()]);
+		const [, trees] = await createSharedTrees(testProvider, fullSchemaData, [
+			personJsonableTree(),
+		]);
 		assert.equal((trees[0].root as Person).name, "Adam");
 		// delete optional root
 		trees[0].root = undefined;
@@ -239,7 +248,7 @@ describe("editable-tree: editing", () => {
 	});
 
 	it("edit using typed data model", async () => {
-		const [, trees] = await createSharedTrees(fullSchemaData);
+		const [, trees] = await createSharedTrees(testProvider, fullSchemaData);
 
 		trees[0].root = getPerson();
 		const person = trees[0].root as Person;
@@ -368,7 +377,7 @@ describe("editable-tree: editing", () => {
 			[[rootFieldKey, TypedSchema.field(FieldKinds.value, stringSchema)]],
 			stringSchema,
 		);
-		const [, trees] = await createSharedTrees(schemaData, [
+		const [, trees] = await createSharedTrees(testProvider, schemaData, [
 			{ type: stringSchema.name, value: "x" },
 		]);
 		const root = trees[0].context.root.getNode(0);
@@ -389,6 +398,7 @@ describe("editable-tree: editing", () => {
 		describe(`can create, edit and delete ${fieldDescription}`, () => {
 			it("as sequence field", async () => {
 				const [provider, trees] = await createSharedTrees(
+					testProvider,
 					getTestSchema(FieldKinds.sequence),
 					[{ type: rootSchemaName }],
 					2,
@@ -516,6 +526,7 @@ describe("editable-tree: editing", () => {
 
 			it("as optional field", async () => {
 				const [provider, trees] = await createSharedTrees(
+					testProvider,
 					getTestSchema(FieldKinds.optional),
 					[{ type: rootSchemaName }],
 					2,
@@ -574,6 +585,7 @@ describe("editable-tree: editing", () => {
 
 			it("as value field", async () => {
 				const [provider, trees] = await createSharedTrees(
+					testProvider,
 					getTestSchema(FieldKinds.value),
 					[{ type: rootSchemaName }],
 					2,

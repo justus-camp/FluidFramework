@@ -21,6 +21,8 @@ import {
 } from "../../core";
 // eslint-disable-next-line import/no-internal-modules
 import { PlacePath } from "../../feature-libraries/sequence-change-family";
+import { describeNoCompat } from "@fluid-internal/test-version-utils";
+import { ITestObjectProvider } from "@fluidframework/test-utils";
 
 const globalFieldKey: GlobalFieldKey = brand("globalFieldKey");
 
@@ -30,9 +32,14 @@ enum TreeShape {
 }
 
 // TODO: report these sizes as benchmark output which can be tracked over time.
-describe("Summary size benchmark", () => {
+describeNoCompat("Summary size benchmark", (getTestObjectProvider) => {
+	let testProvider: ITestObjectProvider;
+	beforeEach(() => {
+		testProvider = getTestObjectProvider();
+	});
+
 	it("for an empty tree.", async () => {
-		const provider = await TestTreeProvider.create(1, SummarizeType.onDemand);
+		const provider = await TestTreeProvider.create(testProvider, 1, SummarizeType.onDemand);
 		const tree = provider.trees[0];
 		const { summary } = tree.getAttachSummary();
 		const summaryString = JSON.stringify(summary);
@@ -40,42 +47,42 @@ describe("Summary size benchmark", () => {
 		assert(summarySize < 1000);
 	});
 	it("for a tree with 1 node.", async () => {
-		const summaryTree = await getInsertsSummaryTree(1, TreeShape.Wide);
+		const summaryTree = await getInsertsSummaryTree(testProvider, 1, TreeShape.Wide);
 		const summaryString = JSON.stringify(summaryTree);
 		const summarySize = IsoBuffer.from(summaryString).byteLength;
 		assert(summarySize > 1000);
 		assert(summarySize < 2000);
 	});
 	it("for a wide tree with 10 nodes", async () => {
-		const summaryTree = await getInsertsSummaryTree(10, TreeShape.Wide);
+		const summaryTree = await getInsertsSummaryTree(testProvider, 10, TreeShape.Wide);
 		const summaryString = JSON.stringify(summaryTree);
 		const summarySize = IsoBuffer.from(summaryString).byteLength;
 		assert(summarySize > 1000);
 		assert(summarySize < 20000);
 	});
 	it("for a wide tree with 100 nodes", async () => {
-		const summaryTree = await getInsertsSummaryTree(100, TreeShape.Wide);
+		const summaryTree = await getInsertsSummaryTree(testProvider, 100, TreeShape.Wide);
 		const summaryString = JSON.stringify(summaryTree);
 		const summarySize = IsoBuffer.from(summaryString).byteLength;
 		assert(summarySize > 1000);
 		assert(summarySize < 1000000);
 	});
 	it("for a deep tree with 10 nodes", async () => {
-		const summaryTree = await getInsertsSummaryTree(10, TreeShape.Deep);
+		const summaryTree = await getInsertsSummaryTree(testProvider, 10, TreeShape.Deep);
 		const summaryString = JSON.stringify(summaryTree);
 		const summarySize = IsoBuffer.from(summaryString).byteLength;
 		assert(summarySize > 1000);
 		assert(summarySize < 50000);
 	});
 	it("for a deep tree with 100 nodes.", async () => {
-		const summaryTree = await getInsertsSummaryTree(100, TreeShape.Deep);
+		const summaryTree = await getInsertsSummaryTree(testProvider, 100, TreeShape.Deep);
 		const summaryString = JSON.stringify(summaryTree);
 		const summarySize = IsoBuffer.from(summaryString).byteLength;
 		assert(summarySize > 1000);
 		assert(summarySize < 2000000);
 	});
 	it("for a deep tree with 200 nodes.", async () => {
-		const summaryTree = await getInsertsSummaryTree(200, TreeShape.Deep);
+		const summaryTree = await getInsertsSummaryTree(testProvider, 200, TreeShape.Deep);
 		const summaryString = JSON.stringify(summaryTree);
 		const summarySize = IsoBuffer.from(summaryString).byteLength;
 		assert(summarySize > 1000);
@@ -119,10 +126,11 @@ function setTestValuesWide(tree: ISharedTree, numberOfNodes: number): void {
  * @returns the byte size of the tree's summary
  */
 export async function getInsertsSummaryTree(
+	testProvider: ITestObjectProvider,
 	numberOfNodes: number,
 	shape: TreeShape,
 ): Promise<ISummaryTree> {
-	const provider = await TestTreeProvider.create(1, SummarizeType.onDemand);
+	const provider = await TestTreeProvider.create(testProvider, 1, SummarizeType.onDemand);
 	const tree = provider.trees[0];
 	initializeTestTreeWithValue(tree, 1);
 

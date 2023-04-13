@@ -21,13 +21,16 @@ import { ITestTreeProvider, TestTreeProvider } from "../../utils";
 import { ProxyContext } from "../../../feature-libraries/editable-tree/editableTreeContext";
 
 import { fullSchemaData, int32Schema, personData, Person } from "./mockData";
+import { ITestObjectProvider } from "@fluidframework/test-utils";
+import { describeNoCompat } from "@fluid-internal/test-version-utils";
 
 async function createSharedTrees(
+	testProvider: ITestObjectProvider,
 	schemaData: SchemaData,
 	data: ContextuallyTypedNodeData,
 	numberOfTrees = 1,
 ): Promise<readonly [ITestTreeProvider, readonly ISharedTree[]]> {
-	const provider = await TestTreeProvider.create(numberOfTrees);
+	const provider = await TestTreeProvider.create(testProvider, numberOfTrees);
 	for (const tree of provider.trees) {
 		assert(tree.isAttached());
 	}
@@ -42,9 +45,19 @@ async function createSharedTrees(
 	return [provider, provider.trees];
 }
 
-describe("editable-tree context", () => {
+describeNoCompat("editable-tree context", (getTestObjectProvider) => {
+	let testProvider: ITestObjectProvider;
+	beforeEach(() => {
+		testProvider = getTestObjectProvider();
+	});
+
 	it("can clear and reuse context", async () => {
-		const [provider, [tree1, tree2]] = await createSharedTrees(fullSchemaData, personData, 2);
+		const [provider, [tree1, tree2]] = await createSharedTrees(
+			testProvider,
+			fullSchemaData,
+			personData,
+			2,
+		);
 		const context2 = tree2.context;
 		const person1 = tree1.root as Person;
 
@@ -73,7 +86,7 @@ describe("editable-tree context", () => {
 
 	it("can create fields while clearing the context in afterHandlers", async () => {
 		const ageField: FieldKey = brand("age");
-		const [, [tree]] = await createSharedTrees(fullSchemaData, personData);
+		const [, [tree]] = await createSharedTrees(testProvider, fullSchemaData, personData);
 
 		tree.context.on("afterDelta", () => {
 			tree.context.clear();

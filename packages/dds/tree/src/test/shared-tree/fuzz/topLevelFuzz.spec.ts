@@ -19,14 +19,17 @@ import {
 } from "./fuzzEditGenerators";
 import { checkTreesAreSynchronized, fuzzReducer } from "./fuzzEditReducers";
 import { initialTreeState, runFuzzBatch, testSchema } from "./fuzzUtils";
+import { ITestObjectProvider } from "@fluidframework/test-utils";
+import { describeNoCompat } from "@fluid-internal/test-version-utils";
 
 export async function performFuzzActions(
+	testProvider: ITestObjectProvider,
 	generator: AsyncGenerator<Operation, FuzzTestState>,
 	seed: number,
 	saveInfo?: SaveInfo,
 ): Promise<FuzzTestState> {
 	const random = makeRandom(seed);
-	const provider = await TestTreeProvider.create(4, SummarizeType.onDemand);
+	const provider = await TestTreeProvider.create(testProvider, 4, SummarizeType.onDemand);
 	initializeTestTree(provider.trees[0], initialTreeState, testSchema);
 	await provider.ensureSynchronized();
 
@@ -58,7 +61,12 @@ export async function performFuzzActions(
  * The fuzz tests should validate that the clients do not crash and that their document states do not diverge.
  * See the "Fuzz - Targeted" test suite for tests that validate more specific code paths or invariants.
  */
-describe("Fuzz - Top-Level", () => {
+describeNoCompat("Fuzz - Top-Level", (getTestObjectProvider) => {
+	let testProvider: ITestObjectProvider;
+	beforeEach(() => {
+		testProvider = getTestObjectProvider();
+	});
+
 	const random = makeRandom(0);
 	const runsPerBatch = 20;
 	const opsPerRun = 20;
@@ -71,6 +79,7 @@ describe("Fuzz - Top-Level", () => {
 	 */
 	describe("Everything", () => {
 		runFuzzBatch(
+			testProvider,
 			makeOpGenerator,
 			performFuzzActions,
 			opsPerRun,
@@ -81,11 +90,20 @@ describe("Fuzz - Top-Level", () => {
 	});
 });
 
-describe.skip("Re-run form ops saved on file", () => {
+describeNoCompat.skip("Re-run form ops saved on file", (getTestObjectProvider) => {
+	let testProvider: ITestObjectProvider;
+	beforeEach(() => {
+		testProvider = getTestObjectProvider();
+	});
+
 	// For using saved operations set the value of the runSeed used to saved the ops in the file.
 	const runSeed = 0;
 	const filepath = path.join(__dirname, `fuzz-tests-saved-ops/ops_with_seed_${runSeed}`);
 	it(`with seed ${runSeed}`, async () => {
-		await performFuzzActions(await makeOpGeneratorFromFilePath(filepath), runSeed);
+		await performFuzzActions(
+			testProvider,
+			await makeOpGeneratorFromFilePath(filepath),
+			runSeed,
+		);
 	}).timeout(20000);
 });
