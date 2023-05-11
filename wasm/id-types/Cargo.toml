@@ -1,0 +1,15 @@
+[package]
+name = "id-types"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["uuid-generation"]
+uuid-generation = ["uuid/v4", "uuid/fast-rng"]
+
+[dependencies.uuid]
+version = "1.2.2"
+features = [
+    "js"
+]
+

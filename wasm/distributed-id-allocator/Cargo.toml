@@ -1,0 +1,17 @@
+[package]
+name = "distributed-id-allocator"
+version = "0.1.0"
+edition = "2021"
+
+[features]
+default = ["uuid-generation"]
+uuid-generation = ["id-types/uuid-generation"]
+
+[dev-dependencies.uuid]
+version = "1.2.2"
+features = [
+    "js"
+]
+
+[dependencies]
+id-types = { path = "../id-types", version = "0.1", default-features = false }
