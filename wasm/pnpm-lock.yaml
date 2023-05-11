@@ -50,6 +50,7 @@ importers:
   typescript/typescript-id-allocator:
     specifiers:
       '@fluid-tools/benchmark': 0.47.0-140906
+      '@fluidframework/build-common': ^1.1.0
       '@fluidframework/common-definitions': ^0.20.1
       '@fluidframework/eslint-config-fluid': ^2.0.0
       '@fluidframework/telemetry-utils': ^1.3.6
@@ -78,6 +79,7 @@ importers:
       uuid: 9.0.0
     devDependencies:
       '@fluid-tools/benchmark': 0.47.0-140906
+      '@fluidframework/build-common': 1.1.0
       '@fluidframework/eslint-config-fluid': 2.0.0_gjyy5httvgp5f6clrc7roy2fom
       '@fluidframework/telemetry-utils': 1.3.6
       '@fluidframework/test-runtime-utils': 1.3.6

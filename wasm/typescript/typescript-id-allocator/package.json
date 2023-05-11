@@ -39,6 +39,7 @@
 	},
 	"devDependencies": {
 		"@fluid-tools/benchmark": "0.47.0-140906",
+		"@fluidframework/build-common": "^1.1.0",
 		"@fluidframework/eslint-config-fluid": "^2.0.0",
 		"@fluidframework/telemetry-utils": "^1.3.6",
 		"@fluidframework/test-runtime-utils": "^1.3.6",

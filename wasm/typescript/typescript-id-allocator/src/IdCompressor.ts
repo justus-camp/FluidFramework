@@ -42,10 +42,6 @@ export class IdCompressor implements IIdCompressor, IIdCompressorCore {
 		this.localSessionId = uuidStringFromBytes(sessionBytes) as SessionId;
 	}
 
-	public get sessionCount(): number {
-		return this.wasmCompressor.get_session_count();
-	}
-
 	public static create(logger?: ITelemetryLogger): IdCompressor;
 	public static create(sessionId: SessionId, logger?: ITelemetryLogger): IdCompressor;
 	public static create(
