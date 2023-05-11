@@ -5,7 +5,6 @@ export {
 	SerializedIdCompressorWithOngoingSession,
 	VersionedSerializedIdCompressor,
 	currentWrittenVersion,
-	IdCreationRangeWithStashedState,
 } from "./persisted-types";
 
 export { IIdCompressorCore, IIdCompressor } from "./idCompressor";

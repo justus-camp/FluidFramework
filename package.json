@@ -159,7 +159,8 @@
 			"@types/node": "^14.18.38",
 			"node-fetch": "^2.6.9",
 			"qs": "^6.11.0",
-			"@fluid-experimental/arithmetic": "/workspaces/FluidFramework/wasm/typescript/arithmetic"
+			"@fluid-experimental/arithmetic": "/workspaces/FluidFramework/wasm/typescript/arithmetic",
+			"@fluid-experimental/id-allocator": "/workspaces/FluidFramework/wasm/typescript/typescript-id-allocator"
 		},
 		"peerDependencyRules": {
 			"allowedVersions": {

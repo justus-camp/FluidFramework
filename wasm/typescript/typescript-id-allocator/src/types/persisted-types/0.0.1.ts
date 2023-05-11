@@ -46,7 +46,3 @@ export interface IdCreationRange {
 		readonly count: number;
 	};
 }
-
-export type IdCreationRangeWithStashedState = IdCreationRange & {
-	stashedState: SerializedIdCompressorWithOngoingSession;
-};

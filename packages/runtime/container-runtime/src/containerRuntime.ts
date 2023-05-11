@@ -703,13 +703,26 @@ export class ContainerRuntime
 			}
 		};
 
+		const fetchBytes = async (blobName: string): Promise<ArrayBufferLike | undefined> => {
+			const blobId = context.baseSnapshot?.blobs[blobName];
+			if (context.baseSnapshot && blobId) {
+				// IContainerContext storage api return type still has undefined in 0.39 package version.
+				// So once we release 0.40 container-defn package we can remove this check.
+				assert(
+					context.storage !== undefined,
+					0x1f5 /* "Attached state should have storage" */,
+				);
+				return context.storage.readBlob(blobId);
+			}
+		};
+
 		const [chunks, metadata, electedSummarizerData, aliases, serializedIdCompressor] =
 			await Promise.all([
 				tryFetchBlob<[string, string[]][]>(chunksBlobName),
 				tryFetchBlob<IContainerRuntimeMetadata>(metadataBlobName),
 				tryFetchBlob<ISerializedElection>(electedSummarizerBlobName),
 				tryFetchBlob<[string, string][]>(aliasBlobName),
-				tryFetchBlob<SerializedIdCompressorWithNoSession>(idCompressorBlobName),
+				fetchBytes(idCompressorBlobName),
 			]);
 
 		const loadExisting = existing === true || context.existing === true;
@@ -759,11 +772,23 @@ export class ContainerRuntime
 			metadata?.idCompressorEnabled ?? runtimeOptions.enableRuntimeIdCompressor ?? false;
 		let idCompressor: (IIdCompressor & IIdCompressorCore) | undefined;
 		if (idCompressorEnabled) {
-			const { IdCompressor, createSessionId } = await import("./id-compressor");
+			const { IdCompressor, createSessionId } = await import(
+				"@fluid-experimental/id-allocator"
+			);
+
+			if (serializedIdCompressor !== undefined) {
+				console.log(serializedIdCompressor);
+			}
+
 			idCompressor =
 				serializedIdCompressor !== undefined
-					? IdCompressor.deserialize(serializedIdCompressor, createSessionId())
-					: new IdCompressor(createSessionId(), logger);
+					? IdCompressor.deserialize(
+							new Uint8Array(
+								serializedIdCompressor,
+							) as unknown as SerializedIdCompressorWithNoSession,
+							createSessionId(),
+					  )
+					: IdCompressor.create(logger);
 		}
 
 		const runtime = new containerRuntimeCtor(
@@ -1073,8 +1098,6 @@ export class ContainerRuntime
 		initializeEntryPoint?: (containerRuntime: IContainerRuntime) => Promise<FluidObject>,
 	) {
 		super();
-
-		console.log(multiply(5, 10));
 
 		this.innerDeltaManager = context.deltaManager;
 		this.deltaManager = new DeltaManagerSummarizerProxy(context.deltaManager);
@@ -1699,8 +1722,8 @@ export class ContainerRuntime
 				this.idCompressor !== undefined,
 				0x67a /* IdCompressor should be defined if enabled */,
 			);
-			const idCompressorState = JSON.stringify(this.idCompressor.serialize(false));
-			addBlobToSummary(summaryTree, idCompressorBlobName, idCompressorState);
+			const compressorSerialized = this.idCompressor.serialize(false);
+			addBlobToSummary(summaryTree, idCompressorBlobName, compressorSerialized.bytes);
 		}
 
 		if (this.remoteMessageProcessor.partialMessages.size > 0) {
@@ -1811,7 +1834,7 @@ export class ContainerRuntime
 	 * @param content - An IdAllocationOp with "stashedState", which is a representation of un-ack'd local state.
 	 */
 	private async applyStashedIdAllocationOp(op: IdCreationRangeWithStashedState) {
-		const { IdCompressor } = await import("./id-compressor");
+		const { IdCompressor } = await import("@fluid-experimental/id-allocator");
 		this.idCompressor = IdCompressor.deserialize(op.stashedState);
 	}
 
@@ -2965,7 +2988,7 @@ export class ContainerRuntime
 				);
 				idRange = this.idCompressor.takeNextCreationRange();
 				// Don't include the idRange if there weren't any Ids allocated
-				idRange = idRange?.ids?.first !== undefined ? idRange : undefined;
+				idRange = idRange?.ids?.count !== undefined ? idRange : undefined;
 			}
 
 			if (idRange !== undefined) {

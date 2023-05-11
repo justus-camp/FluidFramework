@@ -5,6 +5,7 @@ overrides:
   node-fetch: ^2.6.9
   qs: ^6.11.0
   '@fluid-experimental/arithmetic': /workspaces/FluidFramework/wasm/typescript/arithmetic
+  '@fluid-experimental/id-allocator': /workspaces/FluidFramework/wasm/typescript/typescript-id-allocator
 
 importers:
 
@@ -8835,6 +8836,7 @@ importers:
   packages/runtime/container-runtime:
     specifiers:
       '@fluid-experimental/arithmetic': /workspaces/FluidFramework/wasm/typescript/arithmetic
+      '@fluid-experimental/id-allocator': /workspaces/FluidFramework/wasm/typescript/typescript-id-allocator
       '@fluid-internal/stochastic-test-utils': workspace:~
       '@fluid-tools/benchmark': ^0.46.0
       '@fluid-tools/build-cli': ^0.17.0
@@ -8885,6 +8887,7 @@ importers:
       uuid: ^8.3.1
     dependencies:
       '@fluid-experimental/arithmetic': link:../../../wasm/typescript/arithmetic
+      '@fluid-experimental/id-allocator': link:../../../wasm/typescript/typescript-id-allocator
       '@fluidframework/common-definitions': 0.20.1
       '@fluidframework/common-utils': 1.1.1
       '@fluidframework/container-definitions': link:../../common/container-definitions

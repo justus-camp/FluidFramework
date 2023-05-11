@@ -1,11 +1,7 @@
-/*!
- * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
- * Licensed under the MIT License.
- */
-
-import { assert } from "@fluidframework/common-utils";
-import { StableId, UuidString } from "@fluidframework/runtime-definitions";
+/* eslint-disable import/no-internal-modules */
 import { v4, NIL } from "uuid";
+import { SessionId, StableId, UuidString } from "./types";
+import { assert } from "./copied-utils/assert";
 
 const hexadecimalCharCodes = Array.from("09afAF").map((c) => c.charCodeAt(0)) as [
 	zero: number,
@@ -30,7 +26,7 @@ export const nilUuid = assertIsUuidString(NIL);
 /**
  * Asserts that the given string is a UUID
  */
-export function assertIsUuidString(uuidString: string): UuidString {
+function assertIsUuidString(uuidString: string): UuidString {
 	assert(isUuidString(uuidString), 0x4a2 /* Expected an UuidString */);
 	return uuidString;
 }
@@ -39,7 +35,7 @@ export function assertIsUuidString(uuidString: string): UuidString {
  * Returns true iff the given string is a valid UUID-like string of hexadecimal characters
  * 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
  */
-export function isUuidString(str: string): str is UuidString {
+function isUuidString(str: string): str is UuidString {
 	for (let i = 0; i < str.length; i++) {
 		switch (i) {
 			case 8:
@@ -63,25 +59,33 @@ export function isUuidString(str: string): str is UuidString {
 }
 
 /**
- * Generate a random stable ID
+ * Generate a random session ID
  */
-export function generateStableId(): StableId {
-	return assertIsStableId(v4());
+export function createSessionId(): SessionId {
+	return assertIsStableId(v4()) as SessionId;
 }
 
 /**
  * Asserts that the given string is a stable ID.
  */
-export function assertIsStableId(stableId: string): StableId {
+function assertIsStableId(stableId: string): StableId {
 	assert(isStableId(stableId), 0x4a3 /* Expected a StableId */);
 	return stableId;
+}
+
+/**
+ * Asserts that the given string is a stable ID.
+ */
+export function assertIsSessionId(stableId: string): SessionId {
+	assert(isStableId(stableId), 0x4a3 /* Expected a StableId */);
+	return stableId as SessionId;
 }
 
 /**
  * Returns true iff the given string is a valid Version 4, variant 2 UUID
  * 'xxxxxxxx-xxxx-4xxx-vxxx-xxxxxxxxxxxx'
  */
-export function isStableId(str: string): str is StableId {
+function isStableId(str: string): str is StableId {
 	if (str.length !== 36) {
 		return false;
 	}
@@ -120,4 +124,19 @@ export function isStableId(str: string): str is StableId {
 	}
 
 	return true;
+}
+
+export function isNaN(num: any): boolean {
+	return Object.is(num, Number.NaN);
+}
+
+export function uuidStringFromBytes(uuidBytes: Uint8Array | undefined): string | undefined {
+	if (uuidBytes === undefined) {
+		return undefined;
+	}
+	let uuidString = "";
+	for (let i = 0; i < 36; i++) {
+		uuidString += String.fromCharCode(uuidBytes[i]);
+	}
+	return uuidString;
 }

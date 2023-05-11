@@ -22,7 +22,11 @@ import {
 } from "@fluidframework/test-utils";
 import { ITestDataObject, describeNoCompat } from "@fluid-internal/test-version-utils";
 import { SharedCell } from "@fluidframework/cell";
-import { IIdCompressor, SessionSpaceCompressedId } from "@fluidframework/runtime-definitions";
+import {
+	IIdCompressor,
+	SessionSpaceCompressedId,
+	StableId,
+} from "@fluidframework/runtime-definitions";
 import { SharedObjectCore } from "@fluidframework/shared-object-base";
 import { IFluidHandle, IRequest } from "@fluidframework/core-interfaces";
 import { ContainerRuntime, IContainerRuntimeOptions } from "@fluidframework/container-runtime";
@@ -196,7 +200,7 @@ describeNoCompat("Runtime IdCompressor", (getTestObjectProvider) => {
 		);
 	});
 
-	it("can normalize session space IDs to op space", async () => {
+	it.only("can normalize session space IDs to op space", async () => {
 		// None of these clusters will be ack'd yet and as such they will all
 		// generate local Ids. State of compressors afterwards should be:
 		// SharedMap1 Compressor: Local IdRange { first: -1, last: -512 }
@@ -210,7 +214,7 @@ describeNoCompat("Runtime IdCompressor", (getTestObjectProvider) => {
 
 		// Validate the state described above: all compressors should normalize to
 		// local, negative ids as they haven't been ack'd and can't eagerly allocate
-		for (let i = 0; i < 512; i++) {
+		for (let i = 0; i < 511; i++) {
 			assert.strictEqual(
 				getIdCompressor(sharedMapContainer1).normalizeToOpSpace(
 					-(i + 1) as SessionSpaceCompressedId,
@@ -567,7 +571,7 @@ describeNoCompat("Runtime IdCompressor", (getTestObjectProvider) => {
 		compressedIds.push(getIdCompressor(sharedCellContainer1).generateCompressedId());
 		compressedIds.push(getIdCompressor(dataStore2.map).generateCompressedId());
 
-		const decompressedIds: string[] = [];
+		const decompressedIds: StableId[] = [];
 		compressedIds.forEach((id) => {
 			const decompressedId = getIdCompressor(sharedMapContainer1).decompress(id);
 

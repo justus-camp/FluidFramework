@@ -69,6 +69,7 @@ function build(target) {
 
 	const output_path = path.join(pathname, `${nameWithUnderscores}_bg.wasm`);
 
+	/*
 	child_process.execSync(
 		`wasm-snip ${output_path} --snip-rust-fmt-code --snip-rust-panicking-code -o ${output_path}`,
 	);
@@ -76,16 +77,24 @@ function build(target) {
 	child_process.execSync(
 		`wasm-opt -O2 --enable-mutable-globals -o ${output_path} ${output_path}`,
 	);
+	*/
 }
 
 build(webFolderName);
 rimraf.sync(path.join(webPackagesPath, name, webFolderName, "package.json"));
 rimraf.sync(path.join(webPackagesPath, name, webFolderName, ".gitignore"));
-const outputWebEntryPath = path.join(webPackagesPath, package, `${webFolderName}/${webEntryName}.js`);
-fs.writeFileSync(outputWebEntryPath, `
+const outputWebEntryPath = path.join(
+	webPackagesPath,
+	package,
+	`${webFolderName}/${webEntryName}.js`,
+);
+fs.writeFileSync(
+	outputWebEntryPath,
+	`
 await import("./${nameWithUnderscores}");
 export * from "./${nameWithUnderscores}";
-`);
+`,
+);
 
 build(nodeFolderName);
 rimraf.sync(path.join(webPackagesPath, name, nodeFolderName, "package.json"));

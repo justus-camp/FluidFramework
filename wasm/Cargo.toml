@@ -2,7 +2,7 @@
 members = ["./fluid-wasm-add", "./fluid-wasm-subtract", "./distributed-id-allocator", "./id-types", "wasm-id-allocator", "./client-wasm"]
 
 [workspace.metadata]
-fluid-wasm-output-bundles = ["./client-wasm"]
+fluid-wasm-output-bundles = ["./client-wasm", "./wasm-id-allocator"]
 
 [profile.release]
 debug = true

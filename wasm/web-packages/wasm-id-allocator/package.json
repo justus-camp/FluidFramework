@@ -1,0 +1,25 @@
+{
+    "name": "@fluidframework/wasm-id-allocator",
+    "author": "Microsoft and contributors",
+    "version": "0.1.0",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/microsoft/FluidFramework"
+    },
+    "files": [
+        "/nodejs/wasm_id_allocator_bg.wasm",
+        "/nodejs/wasm_id_allocator.js",
+        "/nodejs/wasm_id_allocator.d.ts",
+        "/bundler/wasm_id_allocator_bg.wasm",
+        "/bundler/wasm_id_allocator.js",
+        "/bundler/wasm_id_allocator_bg.js",
+        "/bundler/entry.js"
+    ],
+    "main": "./nodejs/wasm_id_allocator.js",
+    "types": "./nodejs/wasm_id_allocator.d.ts",
+    "module": "./bundler/entry.js",
+    "sideEffects": [
+        "./bundler/wasm_id_allocator.js"
+    ]
+}
