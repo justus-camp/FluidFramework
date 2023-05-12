@@ -1,5 +1,6 @@
 {
     "name": "@fluidframework/wasm-id-allocator",
+    "description": "wasm id allocator",
     "author": "Microsoft and contributors",
     "version": "0.1.0",
     "license": "MIT",
