@@ -256,6 +256,8 @@ export class IdCompressor implements IIdCompressor, IIdCompressorCore {
 		*/
 		const localSessionId = sessionId ?? createSessionId();
 
-		return new IdCompressor(WasmIdCompressor.deserialize(serialized.bytes, localSessionId));
+		return new IdCompressor(
+			WasmIdCompressor.deserialize(serialized as unknown as Uint8Array, localSessionId),
+		);
 	}
 }
