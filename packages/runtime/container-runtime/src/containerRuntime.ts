@@ -98,6 +98,7 @@ import {
 	IdCreationRange,
 	IdCreationRangeWithStashedState,
 } from "@fluidframework/runtime-definitions";
+import type { SerializedIdCompressorWithOngoingSession } from "@fluid-experimental/id-allocator";
 import {
 	addBlobToSummary,
 	addSummarizeResultToSummary,
@@ -1834,7 +1835,9 @@ export class ContainerRuntime
 	 */
 	private async applyStashedIdAllocationOp(op: IdCreationRangeWithStashedState) {
 		const { IdCompressor } = await import("@fluid-experimental/id-allocator");
-		this.idCompressor = IdCompressor.deserialize(op.stashedState);
+		this.idCompressor = IdCompressor.deserialize(
+			op.stashedState.bytes as unknown as SerializedIdCompressorWithOngoingSession,
+		);
 	}
 
 	private async applyStashedOp(

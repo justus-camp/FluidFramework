@@ -4,9 +4,8 @@
  */
 
 import { assert } from "@fluidframework/common-utils";
-import { generateStableId, isStableId } from "@fluidframework/container-runtime";
 import { StableId } from "@fluidframework/runtime-definitions";
-import { brandedStringType } from "../../util";
+import { brandedStringType, generateStableId, isStableId } from "../../util";
 
 /**
  * The identifier for a particular session/user/client that can generate `GraphCommit`s

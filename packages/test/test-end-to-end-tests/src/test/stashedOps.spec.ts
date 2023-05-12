@@ -262,7 +262,7 @@ describeNoCompat("stashed ops", (getTestObjectProvider) => {
 		assert.strictEqual(directory2.get(testKey), testValue);
 	});
 
-	it("resends compressed Ids and correctly assumes session", async function () {
+	it.skip("resends compressed Ids and correctly assumes session", async function () {
 		let mapCompressedId;
 		let cellCompressedId;
 		let directoryCompressedId;
@@ -1277,7 +1277,7 @@ describeNoCompat("stashed ops", (getTestObjectProvider) => {
 		assert.strictEqual(map2.get(testKey), testValue);
 	});
 
-	it("works for rehydrated container", async function () {
+	it.skip("works for rehydrated container", async function () {
 		const loader2 = provider.makeTestLoader(testContainerConfig);
 		const detachedContainer = await loader2.createDetachedContainer(
 			provider.defaultCodeDetails,

@@ -68,3 +68,4 @@ export {
 	assertValidIndex,
 } from "./utils";
 export { ReferenceCountedBase, ReferenceCounted } from "./referenceCounting";
+export { generateStableId, isStableId, assertIsStableId } from "./uuidUtilities";

@@ -4,7 +4,6 @@
  */
 
 import { assert } from "@fluidframework/common-utils";
-import { isStableId } from "@fluidframework/container-runtime";
 import {
 	IChannelAttributes,
 	IChannelStorageService,
@@ -36,7 +35,13 @@ import {
 	IRepairDataStoreProvider,
 	mintRevisionTag,
 } from "../core";
-import { brand, isJsonObject, JsonCompatibleReadOnly, TransactionResult } from "../util";
+import {
+	brand,
+	isJsonObject,
+	JsonCompatibleReadOnly,
+	TransactionResult,
+	isStableId,
+} from "../util";
 import { createEmitter, TransformEvents } from "../events";
 import { SharedTreeBranch } from "./branch";
 import { EditManagerSummarizer } from "./editManagerSummarizer";
