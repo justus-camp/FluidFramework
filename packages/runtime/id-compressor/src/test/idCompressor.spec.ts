@@ -30,7 +30,7 @@ import {
 	assertIsStableId,
 	isStableId,
 	fail,
-} from "../../id-compressor";
+} from "../";
 import {
 	createCompressor,
 	performFuzzActions,

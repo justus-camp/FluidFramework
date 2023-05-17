@@ -758,7 +758,7 @@ export class ContainerRuntime
 			metadata?.idCompressorEnabled ?? runtimeOptions.enableRuntimeIdCompressor ?? false;
 		let idCompressor: (IIdCompressor & IIdCompressorCore) | undefined;
 		if (idCompressorEnabled) {
-			const { IdCompressor, createSessionId } = await import("./id-compressor");
+			const { IdCompressor, createSessionId } = await import("@fluidframework/id-compressor");
 			idCompressor =
 				serializedIdCompressor !== undefined
 					? IdCompressor.deserialize(serializedIdCompressor, createSessionId())
@@ -1808,7 +1808,7 @@ export class ContainerRuntime
 	 * @param content - An IdAllocationOp with "stashedState", which is a representation of un-ack'd local state.
 	 */
 	private async applyStashedIdAllocationOp(op: IdCreationRangeWithStashedState) {
-		const { IdCompressor } = await import("./id-compressor");
+		const { IdCompressor } = await import("@fluidframework/id-compressor");
 		this.idCompressor = IdCompressor.deserialize(op.stashedState);
 	}
 

@@ -42,7 +42,7 @@ import {
 	assertIsStableId,
 	getOrCreate,
 	fail,
-} from "../../id-compressor";
+} from "../";
 
 /**
  * A readonly `Map` which is known to contain a value for every possible key

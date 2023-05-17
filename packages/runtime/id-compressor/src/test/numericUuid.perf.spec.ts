@@ -12,7 +12,7 @@ import {
 	stableIdFromNumericUuid,
 	assertIsStableId,
 	generateStableId,
-} from "../../id-compressor";
+} from "../";
 
 describe("NumericUuid Perf", () => {
 	const stableId = assertIsStableId("4779fbf2-2012-4510-b4f0-28a99a9f8946");

@@ -27,7 +27,7 @@ import {
 	stableIdFromNumericUuid,
 	fail,
 	Mutable,
-} from "../../id-compressor";
+} from "../";
 import {
 	Client,
 	IdCompressorTestNetwork,

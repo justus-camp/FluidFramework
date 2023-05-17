@@ -4,7 +4,7 @@
  */
 
 import { assert } from "@fluidframework/common-utils";
-import { isStableId } from "@fluidframework/container-runtime";
+import { isStableId } from "@fluidframework/id-compressor";
 import {
 	IChannelAttributes,
 	IChannelStorageService,

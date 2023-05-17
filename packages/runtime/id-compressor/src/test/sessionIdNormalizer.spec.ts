@@ -22,7 +22,7 @@ import {
 	LocalCompressedId,
 	SessionSpaceCompressedId,
 } from "@fluidframework/runtime-definitions";
-import { isFinalId, isLocalId, SessionIdNormalizer, fail } from "../../id-compressor";
+import { isFinalId, isLocalId, SessionIdNormalizer, fail } from "../";
 
 describe("SessionIdNormalizer", () => {
 	it("fails when adding finals with no corresponding locals", () => {

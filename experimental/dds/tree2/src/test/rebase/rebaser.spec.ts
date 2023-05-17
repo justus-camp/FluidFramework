@@ -4,7 +4,7 @@
  */
 
 import { strict as assert } from "assert";
-import { assertIsStableId } from "@fluidframework/container-runtime";
+import { assertIsStableId } from "@fluidframework/id-compressor";
 import { ChangeRebaser, RevisionTag } from "../../core";
 
 // Allow importing from these specific files which are being tested:

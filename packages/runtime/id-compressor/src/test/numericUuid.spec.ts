@@ -20,7 +20,7 @@ import {
 	assertIsStableId,
 	isStableId,
 	compareStrings,
-} from "../../id-compressor";
+} from "../";
 import { integerToStableId } from "./idCompressorTestUtilities";
 
 describe("NumericUuid", () => {

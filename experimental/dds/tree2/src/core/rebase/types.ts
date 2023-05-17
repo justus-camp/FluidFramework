@@ -4,7 +4,7 @@
  */
 
 import { assert } from "@fluidframework/common-utils";
-import { generateStableId, isStableId } from "@fluidframework/container-runtime";
+import { generateStableId, isStableId } from "@fluidframework/id-compressor";
 import { StableId } from "@fluidframework/runtime-definitions";
 import { brandedStringType } from "../../util";
 
