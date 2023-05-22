@@ -6,10 +6,12 @@ importers:
     specifiers:
       rimraf: ^3.0.2
       toml: ^3.0.0
+      wasm-opt: 1.4.0
       wasm-pack: ^0.11.1
     devDependencies:
       rimraf: 3.0.2
       toml: 3.0.0
+      wasm-opt: 1.4.0
       wasm-pack: 0.11.1
 
   typescript/arithmetic:
@@ -4406,7 +4408,7 @@ packages:
     requiresBuild: true
     dependencies:
       node-fetch: 2.6.11
-      tar: 6.1.14
+      tar: 6.1.15
     transitivePeerDependencies:
       - encoding
     dev: true

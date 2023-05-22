@@ -76,7 +76,7 @@ function build(target) {
 	const pathname = path.join(webPackagesPath, name, target);
 
 	execSync(
-		`wasm-pack build ${
+		`pnpm exec wasm-pack build ${
 			debug ? "--debug" : ""
 		} --target ${target} --out-dir ${pathname} ${package}`,
 	);
@@ -87,7 +87,7 @@ function build(target) {
 		`wasm-snip ${output_path} --snip-rust-fmt-code --snip-rust-panicking-code -o ${output_path}`,
 	);
 
-	execSync(`wasm-opt -O2 --enable-mutable-globals -o ${output_path} ${output_path}`);
+	execSync(`pnpm exec wasm-opt -O2 --enable-mutable-globals -o ${output_path} ${output_path}`);
 }
 
 build(webFolderName);
