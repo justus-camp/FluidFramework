@@ -15685,7 +15685,7 @@ packages:
       '@fluidframework/telemetry-utils': 2.0.0-internal.4.1.0
       axios: 0.26.1
       url: 0.11.0
-      uuid: 8.3.2
+      uuid: 9.0.0
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -15704,7 +15704,7 @@ packages:
       '@fluidframework/telemetry-utils': 2.0.0-internal.4.1.0
       axios: 0.26.1_debug@4.3.4
       url: 0.11.0
-      uuid: 8.3.2
+      uuid: 9.0.0
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -15864,7 +15864,7 @@ packages:
       events: 3.3.0
       jsrsasign: 10.7.0
       url: 0.11.0
-      uuid: 8.3.2
+      uuid: 9.0.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -15893,7 +15893,7 @@ packages:
       events: 3.3.0
       jsrsasign: 10.7.0
       url: 0.11.0
-      uuid: 8.3.2
+      uuid: 9.0.0
     transitivePeerDependencies:
       - bufferutil
       - debug
@@ -16313,7 +16313,7 @@ packages:
       '@fluidframework/runtime-utils': 2.0.0-internal.4.1.0
       '@fluidframework/shared-object-base': 2.0.0-internal.4.1.0
       '@fluidframework/telemetry-utils': 2.0.0-internal.4.1.0
-      uuid: 8.3.2
+      uuid: 9.0.0
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -16744,7 +16744,7 @@ packages:
       '@fluidframework/runtime-definitions': 2.0.0-internal.4.1.0
       '@fluidframework/runtime-utils': 2.0.0-internal.4.1.0
       '@fluidframework/telemetry-utils': 2.0.0-internal.4.1.0
-      uuid: 8.3.2
+      uuid: 9.0.0
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -16765,7 +16765,7 @@ packages:
       '@fluidframework/runtime-definitions': 2.0.0-internal.4.1.0
       '@fluidframework/runtime-utils': 2.0.0-internal.4.1.0
       '@fluidframework/telemetry-utils': 2.0.0-internal.4.1.0
-      uuid: 8.3.2
+      uuid: 9.0.0
     transitivePeerDependencies:
       - debug
       - supports-color
@@ -16855,7 +16855,7 @@ packages:
       '@fluidframework/core-interfaces': 2.0.0-internal.4.1.0
       '@fluidframework/driver-definitions': 2.0.0-internal.4.1.0
       '@fluidframework/protocol-definitions': 1.1.0
-      uuid: 8.3.2
+      uuid: 9.0.0
     dev: true
 
   /@fluidframework/test-runtime-utils/2.0.0-internal.4.1.0:
@@ -24479,7 +24479,7 @@ packages:
   /axios/0.21.4_debug@4.3.2:
     resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==}
     dependencies:
-      follow-redirects: 1.15.2_debug@4.3.2
+      follow-redirects: 1.15.2
     transitivePeerDependencies:
       - debug
 
@@ -29960,17 +29960,6 @@ packages:
     peerDependenciesMeta:
       debug:
         optional: true
-
-  /follow-redirects/1.15.2_debug@4.3.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-    dependencies:
-      debug: 4.3.2
 
   /follow-redirects/1.15.2_debug@4.3.4:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
@@ -43150,6 +43139,11 @@ packages:
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: true
 
   /v8-compile-cache/2.3.0:
     resolution: {integrity: sha512-l8lCEmLcLYZh4nbunNZvQCJc5pv7+RCwa8q/LdUx8u7lsWvPDKmpodJAJNwkAhJC//dFY48KuIEmjtd4RViDrA==}

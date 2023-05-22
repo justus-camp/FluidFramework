@@ -6,9 +6,11 @@ importers:
     specifiers:
       rimraf: ^3.0.2
       toml: ^3.0.0
+      wasm-pack: ^0.11.1
     devDependencies:
       rimraf: 3.0.2
       toml: 3.0.0
+      wasm-pack: 0.11.1
 
   typescript/arithmetic:
     specifiers:
@@ -1578,6 +1580,17 @@ packages:
       axios: 0.21.4
       rimraf: 3.0.2
       tar: 6.1.14
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
+  /binary-install/1.1.0:
+    resolution: {integrity: sha512-rkwNGW+3aQVSZoD0/o3mfPN6Yxh3Id0R/xzTVBVVpGNlVz8EGwusksxRlbk/A5iKTZt9zkMn3qIqmAt3vpfbzg==}
+    engines: {node: '>=10'}
+    dependencies:
+      axios: 0.26.1
+      rimraf: 3.0.2
+      tar: 6.1.15
     transitivePeerDependencies:
       - debug
     dev: true
@@ -4167,6 +4180,18 @@ packages:
       yallist: 4.0.0
     dev: true
 
+  /tar/6.1.15:
+    resolution: {integrity: sha512-/zKt9UyngnxIT/EAGYuxaMYgOIJiP81ab9ZfkILq4oNLPFX50qyYmu7jRj9qeXoxmJHjGlbH0+cm2uy1WCs10A==}
+    engines: {node: '>=10'}
+    dependencies:
+      chownr: 2.0.0
+      fs-minipass: 2.1.0
+      minipass: 5.0.0
+      minizlib: 2.1.2
+      mkdirp: 1.0.4
+      yallist: 4.0.0
+    dev: true
+
   /text-table/0.2.0:
     resolution: {integrity: sha512-N+8UisAXDGk8PFXP4HAzVR9nbfmVJ3zYLAWiTIoqC5v5isinhr+r5uaO8+7r3BMfuNIufIsA7RdpVgacC2cSpw==}
     dev: true
@@ -4392,6 +4417,16 @@ packages:
     requiresBuild: true
     dependencies:
       binary-install: 0.1.1
+    transitivePeerDependencies:
+      - debug
+    dev: true
+
+  /wasm-pack/0.11.1:
+    resolution: {integrity: sha512-0BKEioKJY/SMqahDEoaUUR8jrRkHO0cdYhRqqHKQMY3Bac6Eep3ZRsTlpFSSwS4LYPxd+Tb5KFFNhUikCkq8Yg==}
+    hasBin: true
+    requiresBuild: true
+    dependencies:
+      binary-install: 1.1.0
     transitivePeerDependencies:
       - debug
     dev: true
