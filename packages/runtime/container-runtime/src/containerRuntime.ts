@@ -97,6 +97,8 @@ import {
 	IdCreationRange,
 	IdCreationRangeWithStashedState,
 	IAttachMessage,
+	SessionId,
+	IIdCompressorFactory,
 } from "@fluidframework/runtime-definitions";
 import {
 	addBlobToSummary,
@@ -112,7 +114,7 @@ import {
 	TelemetryContext,
 	ReadAndParseBlob,
 } from "@fluidframework/runtime-utils";
-import { v4 as uuid } from "uuid";
+import { v4 as uuid, v4 } from "uuid";
 import { ContainerFluidHandleContext } from "./containerHandleContext";
 import { FluidDataStoreRegistry } from "./dataStoreRegistry";
 import { ReportOpPerfTelemetry, IPerfSignalReport } from "./connectionTelemetry";
@@ -650,6 +652,7 @@ export class ContainerRuntime
 		containerScope?: FluidObject;
 		containerRuntimeCtor?: typeof ContainerRuntime;
 		initializeEntryPoint?: (containerRuntime: IContainerRuntime) => Promise<FluidObject>;
+		compressorFactory?: IIdCompressorFactory;
 	}): Promise<ContainerRuntime> {
 		const {
 			context,
@@ -660,6 +663,7 @@ export class ContainerRuntime
 			containerScope = {},
 			containerRuntimeCtor = ContainerRuntime,
 			initializeEntryPoint,
+			compressorFactory,
 		} = params;
 
 		// If taggedLogger exists, use it. Otherwise, wrap the vanilla logger:
@@ -754,15 +758,12 @@ export class ContainerRuntime
 			}
 		}
 
-		const idCompressorEnabled =
-			metadata?.idCompressorEnabled ?? runtimeOptions.enableRuntimeIdCompressor ?? false;
-		let idCompressor: (IIdCompressor & IIdCompressorCore) | undefined;
-		if (idCompressorEnabled) {
-			const { IdCompressor, createSessionId } = await import("./id-compressor");
-			idCompressor =
+		let createdCompressor: (IIdCompressor & IIdCompressorCore) | undefined;
+		if (compressorFactory !== undefined) {
+			createdCompressor =
 				serializedIdCompressor !== undefined
-					? IdCompressor.deserialize(serializedIdCompressor, createSessionId())
-					: new IdCompressor(createSessionId(), logger);
+					? compressorFactory.deserialize(serializedIdCompressor, v4() as SessionId)
+					: compressorFactory.create(v4() as SessionId, logger);
 		}
 
 		const runtime = new containerRuntimeCtor(
@@ -789,7 +790,8 @@ export class ContainerRuntime
 			loadExisting,
 			blobManagerSnapshot,
 			context.storage,
-			idCompressor,
+			compressorFactory,
+			createdCompressor,
 			requestHandler,
 			undefined, // summaryConfiguration
 			initializeEntryPoint,
@@ -1058,6 +1060,7 @@ export class ContainerRuntime
 		existing: boolean,
 		blobManagerSnapshot: IBlobManagerLoadInfo,
 		private readonly _storage: IDocumentStorageService,
+		private readonly idCompressorFactory: IIdCompressorFactory | undefined,
 		idCompressor: (IIdCompressor & IIdCompressorCore) | undefined,
 		private readonly requestHandler?: (
 			request: IRequest,
@@ -1808,8 +1811,7 @@ export class ContainerRuntime
 	 * @param content - An IdAllocationOp with "stashedState", which is a representation of un-ack'd local state.
 	 */
 	private async applyStashedIdAllocationOp(op: IdCreationRangeWithStashedState) {
-		const { IdCompressor } = await import("./id-compressor");
-		this.idCompressor = IdCompressor.deserialize(op.stashedState);
+		this.idCompressor = this.idCompressorFactory?.deserialize(op.stashedState);
 	}
 
 	private async applyStashedOp(type: ContainerMessageType, contents: unknown): Promise<unknown> {

@@ -61,7 +61,7 @@ import { SessionIdNormalizer } from "./sessionIdNormalizer";
  * 1. A sequentially allocated UUID that is the result of adding its offset within the cluster to `baseUuid`.
  * 2. An override string (stored in `overrides`) specified at allocation time.
  */
-interface IdCluster {
+export interface IdCluster {
 	/**
 	 * The UUID corresponding to the first final ID in the cluster.
 	 */
@@ -104,7 +104,7 @@ interface IdCluster {
 	overrides?: Map<FinalCompressedId, string | UnifiedOverride>;
 }
 
-type UnifiedOverride = OverrideCompressionDetails & {
+export type UnifiedOverride = OverrideCompressionDetails & {
 	override: string;
 };
 
@@ -112,7 +112,7 @@ type UnifiedOverride = OverrideCompressionDetails & {
  * Data about a SharedTree session.
  * Used to track and allocate identity clusters associated with a particular session ID.
  */
-interface Session {
+export interface Session {
 	readonly sessionUuid: NumericUuid;
 
 	/**
@@ -179,7 +179,7 @@ interface OverrideCompressionDetails {
  * the *first* finalized ID with that string, but `associatedLocal` will be set to the local session's local ID for that string. This is
  * done to preserve the invariant that an override will always compress into the same session-space ID for the lifetime of the session.
  */
-interface FinalizedOverride extends OverrideCompressionDetails {
+export interface FinalizedOverride extends OverrideCompressionDetails {
 	readonly cluster: IdCluster;
 }
 
@@ -244,29 +244,29 @@ export class IdCompressor implements IIdCompressorCore, IIdCompressor {
 	/**
 	 * The `IdCompressor`'s current local session.
 	 */
-	private readonly localSession: Session;
+	public readonly localSession: Session;
 
 	/**
 	 * The base final ID of the next cluster to be created.
 	 */
-	private nextClusterBaseFinalId: FinalCompressedId = 0 as FinalCompressedId;
+	public nextClusterBaseFinalId: FinalCompressedId = 0 as FinalCompressedId;
 
 	/**
 	 * Total number of IDs created locally during the current session.
 	 */
-	private localIdCount = 0;
+	public localIdCount = 0;
 
 	/**
 	 * The most recent (i.e. smallest, due to being negative) local ID in a range returned by `takeNextCreationRange`.
 	 * Undefined if no non-empty ranges have ever been returned by this compressor.
 	 */
-	private lastTakenLocalId: LocalCompressedId | undefined;
+	public lastTakenLocalId: LocalCompressedId | undefined;
 
 	/**
 	 * Maps local IDs to override strings. This will contain an entry for every override assigned to a local ID generated during
 	 * the current session, and retains entries for the lifetime of this compressor.
 	 */
-	private readonly localOverrides = new AppendOnlySortedMap<LocalCompressedId, string>(
+	public readonly localOverrides = new AppendOnlySortedMap<LocalCompressedId, string>(
 		compareFiniteNumbersReversed,
 	);
 
@@ -285,7 +285,7 @@ export class IdCompressor implements IIdCompressorCore, IIdCompressor {
 	 * final ID would be associated with that override.
 	 * See `SessionIdNormalizer` for more.
 	 */
-	private sessionIdNormalizer = new SessionIdNormalizer<IdCluster>();
+	public sessionIdNormalizer = new SessionIdNormalizer<IdCluster>();
 
 	/**
 	 * Contains entries for cluster base UUIDs and override strings (both local and final).
@@ -295,14 +295,14 @@ export class IdCompressor implements IIdCompressorCore, IIdCompressor {
 	 * This is unified as a performance optimization, as the common case does not have overridden IDs. It is a btree due to the need
 	 * to make range queries.
 	 */
-	private readonly clustersAndOverridesInversion: BTree<InversionKey, CompressionMapping> =
+	public readonly clustersAndOverridesInversion: BTree<InversionKey, CompressionMapping> =
 		new BTree(undefined, compareStrings);
 
 	/**
 	 * Maps the first final ID in a cluster to its owning cluster.
 	 * Can be searched in O(log n) to determine clusters for any final ID.
 	 */
-	private readonly finalIdToCluster: AppendOnlySortedMap<FinalCompressedId, IdCluster> =
+	public readonly finalIdToCluster: AppendOnlySortedMap<FinalCompressedId, IdCluster> =
 		new AppendOnlySortedMap(compareFiniteNumbers);
 
 	/**
@@ -322,7 +322,7 @@ export class IdCompressor implements IIdCompressorCore, IIdCompressor {
 	 * @param sessionId - the ID for the session
 	 * @returns the session object for the supplied ID
 	 */
-	private createSession(sessionId: SessionId): Session {
+	public createSession(sessionId: SessionId): Session {
 		assert(
 			!this.clustersAndOverridesInversion.has(sessionId),
 			0x484 /* Attempted to create duplicate session */,
@@ -778,7 +778,7 @@ export class IdCompressor implements IIdCompressorCore, IIdCompressor {
 		return typeof compressionMapping === "number";
 	}
 
-	private static createInversionKey(inversionKey: string): InversionKey {
+	public static createInversionKey(inversionKey: string): InversionKey {
 		return isStableId(inversionKey)
 			? inversionKey
 			: `${nonStableOverridePrefix}${inversionKey}`;
@@ -1828,7 +1828,7 @@ export function hasOngoingSession(
 	);
 }
 
-function deserializeCluster(serializedCluster: SerializedCluster): {
+export function deserializeCluster(serializedCluster: SerializedCluster): {
 	sessionIndex: number;
 	capacity: number;
 	count: number;

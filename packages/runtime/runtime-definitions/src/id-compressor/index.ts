@@ -19,7 +19,7 @@ export {
 	IdCreationRangeWithStashedState,
 } from "./persisted-types";
 
-export { IIdCompressorCore, IIdCompressor } from "./idCompressor";
+export { IIdCompressorFactory, IIdCompressorCore, IIdCompressor } from "./idCompressor";
 
 export {
 	SessionSpaceCompressedId,

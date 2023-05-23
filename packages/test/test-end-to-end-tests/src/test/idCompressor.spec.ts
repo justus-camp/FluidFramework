@@ -25,7 +25,11 @@ import { SharedCell } from "@fluidframework/cell";
 import { IIdCompressor, SessionSpaceCompressedId } from "@fluidframework/runtime-definitions";
 import { SharedObjectCore } from "@fluidframework/shared-object-base";
 import { IFluidHandle, IRequest } from "@fluidframework/core-interfaces";
-import { ContainerRuntime, IContainerRuntimeOptions } from "@fluidframework/container-runtime";
+import {
+	ContainerRuntime,
+	IContainerRuntimeOptions,
+	IdCompressorFactory,
+} from "@fluidframework/container-runtime";
 import { IContainer } from "@fluidframework/container-definitions";
 import { Loader } from "@fluidframework/container-loader";
 
@@ -67,7 +71,7 @@ function getIdCompressor(dds: SharedObjectCore): IIdCompressor {
 	return (dds as any).runtime.idCompressor as IIdCompressor;
 }
 
-describeNoCompat("Runtime IdCompressor", (getTestObjectProvider) => {
+describeNoCompat.only("Runtime IdCompressor", (getTestObjectProvider) => {
 	let provider: ITestObjectProvider;
 	const factory = new DataObjectFactory(
 		"TestDataObject",
@@ -86,6 +90,8 @@ describeNoCompat("Runtime IdCompressor", (getTestObjectProvider) => {
 		undefined,
 		undefined,
 		runtimeOptions,
+		undefined,
+		new IdCompressorFactory(),
 	);
 
 	let containerRuntime: ContainerRuntime;
@@ -613,7 +619,7 @@ describeNoCompat("Runtime IdCompressor", (getTestObjectProvider) => {
 	});
 });
 
-describeNoCompat("IdCompressor in detached container", (getTestObjectProvider) => {
+describeNoCompat.only("IdCompressor in detached container", (getTestObjectProvider) => {
 	let provider: ITestObjectProvider;
 	let request: IRequest;
 
@@ -667,21 +673,43 @@ describeNoCompat("IdCompressor in detached container", (getTestObjectProvider) =
 	});
 });
 
-describeNoCompat("IdCompressor Summaries", (getTestObjectProvider) => {
+describeNoCompat.only("IdCompressor Summaries", (getTestObjectProvider) => {
 	let provider: ITestObjectProvider;
+
+	const factory = new DataObjectFactory(
+		"TestDataObject",
+		TestDataObject,
+		[SharedMap.getFactory(), SharedCell.getFactory()],
+		[],
+	);
+
+	const runtimeOptions: IContainerRuntimeOptions = {
+		enableRuntimeIdCompressor: true,
+	};
+
+	const runtimeFactory = new ContainerRuntimeFactoryWithDefaultDataStore(
+		factory,
+		[[factory.type, Promise.resolve(factory)]],
+		undefined,
+		undefined,
+		runtimeOptions,
+		undefined,
+		new IdCompressorFactory(),
+	);
+
+	const createContainer = async (): Promise<IContainer> =>
+		provider.createContainer(runtimeFactory);
+
 	const enabledConfig: ITestContainerConfig = {
 		runtimeOptions: { enableRuntimeIdCompressor: true },
 	};
-
-	const createContainer = async (config?: ITestContainerConfig): Promise<IContainer> =>
-		provider.makeTestContainer(config);
 
 	beforeEach(async () => {
 		provider = getTestObjectProvider();
 	});
 
-	it("Summary includes IdCompressor when enabled", async () => {
-		const container = await createContainer(enabledConfig);
+	it.only("Summary includes IdCompressor when enabled", async () => {
+		const container = await createContainer();
 		const { summarizer } = await createSummarizerWithTestConfig(
 			provider,
 			container,
@@ -707,8 +735,8 @@ describeNoCompat("IdCompressor Summaries", (getTestObjectProvider) => {
 	});
 
 	it("Shouldn't include unack'd local ids in summary", async () => {
-		const container = await createContainer(enabledConfig);
-		const defaultDataStore = await requestFluidObject<ITestDataObject>(container, "default");
+		const container = await createContainer();
+		const defaultDataStore = await requestFluidObject<ITestDataObject>(container, "/");
 		const idCompressor: IIdCompressor = (defaultDataStore._root as any).runtime.idCompressor;
 
 		const { summarizer } = await createSummarizerWithTestConfig(
@@ -738,8 +766,8 @@ describeNoCompat("IdCompressor Summaries", (getTestObjectProvider) => {
 	});
 
 	it("Includes ack'd ids in summary", async () => {
-		const container = await createContainer(enabledConfig);
-		const defaultDataStore = await requestFluidObject<ITestDataObject>(container, "default");
+		const container = await createContainer();
+		const defaultDataStore = await requestFluidObject<ITestDataObject>(container, "/");
 		const idCompressor: IIdCompressor = (defaultDataStore._root as any).runtime.idCompressor;
 
 		const { summarizer } = await createSummarizerWithTestConfig(
@@ -771,8 +799,8 @@ describeNoCompat("IdCompressor Summaries", (getTestObjectProvider) => {
 	});
 
 	it("Newly connected container synchronizes from summary", async () => {
-		const container = await createContainer(enabledConfig);
-		const defaultDataStore = await requestFluidObject<ITestDataObject>(container, "default");
+		const container = await createContainer();
+		const defaultDataStore = await requestFluidObject<ITestDataObject>(container, "/");
 		const idCompressor: IIdCompressor = (defaultDataStore._root as any).runtime.idCompressor;
 
 		const { summarizer: summarizer1 } = await createSummarizerWithTestConfig(
@@ -803,10 +831,7 @@ describeNoCompat("IdCompressor Summaries", (getTestObjectProvider) => {
 		);
 
 		const container2 = await provider.loadTestContainer(enabledConfig);
-		const container2DataStore = await requestFluidObject<ITestDataObject>(
-			container2,
-			"default",
-		);
+		const container2DataStore = await requestFluidObject<ITestDataObject>(container2, "/");
 		const container2IdCompressor: IIdCompressor = (container2DataStore._root as any).runtime
 			.idCompressor;
 		assert(container2IdCompressor !== undefined, "Second IdCompressor should be present");

@@ -33,3 +33,4 @@ export {
 } from "./uuidUtilities";
 export { SessionIdNormalizer } from "./sessionIdNormalizer";
 export { fail, Mutable, getOrCreate, compareStrings } from "./utils";
+export { IdCompressorFactory } from "./idCompressorFactory";

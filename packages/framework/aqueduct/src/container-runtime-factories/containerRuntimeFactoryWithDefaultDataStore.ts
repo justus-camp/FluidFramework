@@ -6,6 +6,7 @@
 import { IContainerRuntimeOptions } from "@fluidframework/container-runtime";
 import {
 	IFluidDataStoreFactory,
+	IIdCompressorFactory,
 	NamedFluidDataStoreRegistryEntries,
 } from "@fluidframework/runtime-definitions";
 import { IContainerRuntime } from "@fluidframework/container-runtime-definitions";
@@ -42,6 +43,7 @@ export class ContainerRuntimeFactoryWithDefaultDataStore extends BaseContainerRu
 		requestHandlers: RuntimeRequestHandler[] = [],
 		runtimeOptions?: IContainerRuntimeOptions,
 		initializeEntryPoint?: (runtime: IContainerRuntime) => Promise<FluidObject>,
+		compressorFactory?: IIdCompressorFactory,
 	) {
 		super(
 			registryEntries,
@@ -49,6 +51,7 @@ export class ContainerRuntimeFactoryWithDefaultDataStore extends BaseContainerRu
 			[defaultRouteRequestHandler(defaultDataStoreId), ...requestHandlers],
 			runtimeOptions,
 			initializeEntryPoint,
+			compressorFactory,
 		);
 	}
 

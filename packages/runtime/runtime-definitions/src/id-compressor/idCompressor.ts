@@ -3,6 +3,7 @@
  * Licensed under the MIT License.
  */
 
+import { ITelemetryLogger } from "@fluidframework/common-definitions";
 import {
 	SessionSpaceCompressedId,
 	OpSpaceCompressedId,
@@ -15,6 +16,37 @@ import {
 	SerializedIdCompressorWithNoSession,
 	SerializedIdCompressorWithOngoingSession,
 } from "./persisted-types";
+
+export interface IIdCompressorFactory {
+	/**
+	 * @param localSessionId - the `IdCompressor`'s current local session ID.
+	 * {@link generateStableId}.
+	 */
+	create(localSessionId: SessionId, logger?: ITelemetryLogger): IIdCompressor & IIdCompressorCore;
+
+	/**
+	 * Deserialize an serialized IdCompressor that is part of an ongoing session, thereby resuming that session.
+	 */
+	deserialize(
+		serialized: SerializedIdCompressorWithOngoingSession,
+	): IIdCompressor & IIdCompressorCore;
+
+	/**
+	 * Deserialize a serialized IdCompressor with a new session.
+	 * @param serialized - the serialized compressor state
+	 * @param newSessionId - the session ID for the new compressor.
+	 */
+	deserialize(
+		serialized: SerializedIdCompressorWithNoSession,
+		newSessionId: SessionId,
+	): IIdCompressor & IIdCompressorCore;
+
+	deserialize(
+		...args:
+			| [serialized: SerializedIdCompressorWithNoSession, newSessionIdMaybe: SessionId]
+			| [serialized: SerializedIdCompressorWithOngoingSession, newSessionIdMaybe?: undefined]
+	): IIdCompressor & IIdCompressorCore;
+}
 
 export interface IIdCompressorCore {
 	clusterCapacity: number;

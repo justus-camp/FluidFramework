@@ -94,4 +94,5 @@ export {
 	SerializedSessionIdNormalizer,
 	UnackedLocalId,
 	IdCreationRangeWithStashedState,
+	IIdCompressorFactory,
 } from "./id-compressor";

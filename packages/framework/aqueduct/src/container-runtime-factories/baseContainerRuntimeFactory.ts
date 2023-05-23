@@ -13,6 +13,7 @@ import { IContainerRuntime } from "@fluidframework/container-runtime-definitions
 import { RuntimeRequestHandler, buildRuntimeRequestHandler } from "@fluidframework/request-handler";
 import {
 	IFluidDataStoreRegistry,
+	IIdCompressorFactory,
 	IProvideFluidDataStoreRegistry,
 	NamedFluidDataStoreRegistryEntries,
 } from "@fluidframework/runtime-definitions";
@@ -54,6 +55,7 @@ export class BaseContainerRuntimeFactory
 		private readonly initializeEntryPoint?: (
 			runtime: IContainerRuntime,
 		) => Promise<FluidObject>,
+		private readonly compressorFactory?: IIdCompressorFactory,
 	) {
 		super();
 		this.registry = new FluidDataStoreRegistry(registryEntries);
@@ -88,6 +90,7 @@ export class BaseContainerRuntimeFactory
 			registryEntries: this.registryEntries,
 			containerScope: scope,
 			initializeEntryPoint: this.initializeEntryPoint,
+			compressorFactory: this.compressorFactory,
 		});
 	}
 
