@@ -112,6 +112,7 @@ import {
 	TelemetryContext,
 	ReadAndParseBlob,
 } from "@fluidframework/runtime-utils";
+import { multiply } from "@fluid-experimental/arithmetic";
 import { v4 as uuid } from "uuid";
 import { ContainerFluidHandleContext } from "./containerHandleContext";
 import { FluidDataStoreRegistry } from "./dataStoreRegistry";
@@ -1077,6 +1078,8 @@ export class ContainerRuntime
 		this.deltaManager = new DeltaManagerSummarizerProxy(context.deltaManager);
 
 		this.mc = loggerToMonitoringContext(ChildLogger.create(this.logger, "ContainerRuntime"));
+
+		multiply(5, 10);
 
 		let loadSummaryNumber: number;
 		// Get the container creation metadata. For new container, we initialize these. For existing containers,

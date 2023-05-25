@@ -14,7 +14,10 @@ crate-type = ["cdylib", "rlib"]
 [dependencies]
 fluid-wasm-add = { path = "../fluid-wasm-add", version = "0.1" }
 fluid-wasm-subtract = { path = "../fluid-wasm-subtract", version = "0.1" }
-wasm-bindgen = "0.2.84"
+wasm-bindgen = { git = "https://github.com/justus-camp/wasm-bindgen", branch = "walrus_patch"}
+
+[package.metadata.wasm-pack.profile.dev.wasm-bindgen]
+dwarf-debug-info = true
 
 [package.metadata.wasm-pack.profile.release]
 wasm-opt = false
@@ -22,4 +25,4 @@ wasm-opt = false
 [package.metadata.wasm-pack.profile.release.wasm-bindgen]
 debug-js-glue = false
 demangle-name-section = false
-dwarf-debug-info = false
+dwarf-debug-info = true 

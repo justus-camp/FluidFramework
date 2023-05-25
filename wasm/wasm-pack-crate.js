@@ -81,6 +81,7 @@ function build(target) {
 		} --target ${target} --out-dir ${pathname} ${package}`,
 	);
 
+	/*
 	const output_path = path.join(pathname, `${nameWithUnderscores}_bg.wasm`);
 
 	execSync(
@@ -88,6 +89,7 @@ function build(target) {
 	);
 
 	execSync(`pnpm exec wasm-opt -O2 --enable-mutable-globals -o ${output_path} ${output_path}`);
+	*/
 }
 
 build(webFolderName);

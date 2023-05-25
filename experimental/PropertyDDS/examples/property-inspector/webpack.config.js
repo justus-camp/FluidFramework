@@ -53,6 +53,7 @@ module.exports = (env) => {
 		},
 		experiments: {
 			asyncWebAssembly: true,
+			topLevelAwait: true,
 		},
 	};
 };

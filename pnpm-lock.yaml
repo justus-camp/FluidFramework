@@ -4,6 +4,7 @@ overrides:
   '@types/node': ^14.18.38
   node-fetch: ^2.6.9
   qs: ^6.11.0
+  '@fluid-experimental/arithmetic': ../../../wasm/typescript/arithmetic
 
 importers:
 
@@ -1587,6 +1588,7 @@ importers:
       puppeteer: ^1.20.0
       react: ^17.0.1
       rimraf: ^4.4.0
+      source-map-loader: ^2.0.0
       ts-jest: ^26.4.4
       ts-loader: ^9.3.0
       typescript: ~4.5.5
@@ -1625,6 +1627,7 @@ importers:
       prettier: 2.6.2
       puppeteer: 1.20.0
       rimraf: 4.4.0
+      source-map-loader: 2.0.2_webpack@5.76.2
       ts-jest: 26.5.6_iml3gh354yi2jyq3i6mkncucre
       ts-loader: 9.4.1_d664n5xaaib3xfulxjg4qx3hse
       typescript: 4.5.5
@@ -8833,6 +8836,7 @@ importers:
 
   packages/runtime/container-runtime:
     specifiers:
+      '@fluid-experimental/arithmetic': ../../../wasm/typescript/arithmetic
       '@fluid-internal/stochastic-test-utils': workspace:~
       '@fluid-tools/benchmark': ^0.46.0
       '@fluid-tools/build-cli': ^0.17.0
@@ -8882,6 +8886,7 @@ importers:
       typescript: ~4.5.5
       uuid: ^8.3.1
     dependencies:
+      '@fluid-experimental/arithmetic': link:../../../wasm/typescript/arithmetic
       '@fluidframework/common-definitions': 0.20.1
       '@fluidframework/common-utils': 1.1.1
       '@fluidframework/container-definitions': link:../../common/container-definitions

@@ -27,6 +27,11 @@ module.exports = (env) => {
 						test: /\.tsx?$/,
 						loader: "ts-loader",
 					},
+					{
+						test: /\.js$/,
+						enforce: "pre",
+						use: ["source-map-loader"],
+					},
 				],
 			},
 			output: {
@@ -44,6 +49,9 @@ module.exports = (env) => {
 			devServer: {
 				headers: {
 					"Access-Control-Allow-Origin": "*",
+				},
+				static: {
+					directory: "/workspaces/FluidFramework/wasm",
 				},
 			},
 			// This impacts which files are watched by the dev server (and likely by webpack if watch is true).
