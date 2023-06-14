@@ -1254,6 +1254,92 @@ describe("SharedTree", () => {
 	});
 
 	describe("Constraints", () => {
+		it("cross-field move", () => {
+			const provider = new TestTreeProviderLite(2);
+			const [tree1, tree2] = provider.trees;
+			insert(tree1, 0, "a", "b");
+			provider.processMessages();
+
+			const aPath = {
+				parent: undefined,
+				parentField: rootFieldKeySymbol,
+				parentIndex: 0,
+			};
+
+			const bPath = { ...aPath, parentIndex: 1 };
+
+			runSynchronous(tree1, () => {
+				const sequence = tree1.editor.sequenceField({
+					parent: aPath,
+					field: brand("foo"),
+				});
+				sequence.insert(0, singleTextCursor({ type: testValueSchema.name, value: "bar" }));
+			});
+
+			provider.processMessages();
+
+			runSynchronous(tree1, () => {
+				// Move foo from under a to foo2 under b
+				tree1.editor.move(
+					{ parent: aPath, field: brand("foo") },
+					0,
+					1,
+					{
+						parent: bPath,
+						field: brand("foo2"),
+					},
+					0,
+				);
+
+				// Delete a
+				tree1.editor
+					.sequenceField({
+						parent: undefined,
+						field: rootFieldKeySymbol,
+					})
+					.delete(0, 1);
+			});
+
+			runSynchronous(tree2, () => {
+				// put a constraint on foo which is concurrently moved to foo2 under b
+				tree2.editor.addNodeExistsConstraint({
+					parent: aPath,
+					parentField: brand("foo"),
+					parentIndex: 0,
+				});
+
+				const sequence = tree2.editor.sequenceField({
+					parent: undefined,
+					field: rootFieldKeySymbol,
+				});
+				sequence.insert(2, singleTextCursor({ type: testValueSchema.name, value: "c" }));
+			});
+
+			provider.processMessages();
+
+			const expectedState: JsonableTree[] = [
+				{
+					type: testValueSchema.name,
+					value: "b",
+					fields: {
+						foo2: [
+							{
+								type: testValueSchema.name,
+								value: "bar",
+							},
+						],
+					},
+				},
+				{
+					type: testValueSchema.name,
+					value: "c",
+				},
+			];
+
+			validateTree(tree1, expectedState);
+			validateTree(tree2, expectedState);
+		});
+
 		it("handles ancestor revive", () => {
 			const provider = new TestTreeProviderLite(2);
 			const [tree1, tree2] = provider.trees;
