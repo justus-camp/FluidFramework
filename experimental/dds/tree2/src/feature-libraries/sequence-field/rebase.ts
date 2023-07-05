@@ -133,18 +133,13 @@ function rebaseMarkList<TNodeChange>(
 	let baseInputIndex = 0;
 	while (!queue.isEmpty()) {
 		const { baseMark, newMark: currMark } = queue.pop();
-		if (baseMark !== undefined && "revision" in baseMark) {
-			// TODO support rebasing over composite changeset
-			assert(
-				baseMark.revision === baseRevision,
-				0x4f3 /* Unable to keep track of the base input offset in composite changeset */,
-			);
-		}
-		if (baseMark === undefined) {
-			assert(
-				currMark !== undefined,
-				0x4f4 /* Non-empty queue should return at least one mark */,
-			);
+
+		assert(
+			baseMark !== undefined && currMark !== undefined,
+			"Queue should return NoOp for undefined marks",
+		);
+
+		if (isNewAttach(baseMark) || isNewAttach(currMark)) {
 			if (isAttach(currMark)) {
 				handleCurrAttach(
 					currMark,
@@ -152,21 +147,9 @@ function rebaseMarkList<TNodeChange>(
 					lineageRequests,
 					baseDetachOffset,
 					baseIntention,
+					rebaseChild,
 				);
 			} else {
-				if (baseDetachOffset > 0 && baseIntention !== undefined) {
-					updateLineage(lineageRequests, baseIntention);
-					baseDetachOffset = 0;
-				}
-				factory.push(cloneMark(currMark));
-			}
-		} else if (currMark === undefined) {
-			// TODO: Do we need to handle rebasing over baseMark's changes in this case?
-			if (isDetachMark(baseMark)) {
-				const detachLength = getInputLength(baseMark);
-				baseDetachOffset += detachLength;
-				baseInputIndex += detachLength;
-			} else if (isAttach(baseMark)) {
 				if (baseMark.type === "MoveIn" || baseMark.type === "ReturnTo") {
 					const movedMark = getMovedMark(
 						moveEffects,
@@ -184,15 +167,6 @@ function rebaseMarkList<TNodeChange>(
 				}
 			}
 		} else {
-			assert(
-				!isNewAttach(baseMark) && !isNewAttach(currMark),
-				0x4f5 /* A new attach cannot be at the same position as another mark */,
-			);
-			assert(
-				getInputLength(baseMark) === getInputLength(currMark),
-				0x4f6 /* The two marks should be the same size */,
-			);
-
 			const rebasedMark = rebaseMark(
 				currMark,
 				baseMark,
@@ -216,6 +190,14 @@ function rebaseMarkList<TNodeChange>(
 				lineageRequests.length = 0;
 				baseDetachOffset = 0;
 			}
+		}
+
+		if (baseMark !== undefined && "revision" in baseMark) {
+			// TODO support rebasing over composite changeset
+			assert(
+				baseMark.revision === baseRevision,
+				0x4f3 /* Unable to keep track of the base input offset in composite changeset */,
+			);
 		}
 	}
 
@@ -257,7 +239,7 @@ class RebaseQueue<T> {
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const length = getInputLength(newMark!);
 			return {
-				baseMark: length > 0 ? { count: length } : undefined,
+				baseMark: { count: length },
 				newMark: this.newMarks.tryDequeue(),
 			};
 		} else if (newMark === undefined) {
@@ -267,7 +249,7 @@ class RebaseQueue<T> {
 			}
 			return {
 				baseMark: this.baseMarks.tryDequeue(),
-				newMark: length > 0 ? { count: length } : undefined,
+				newMark: { count: length },
 			};
 		} else if (areInputCellsEmpty(baseMark) && areInputCellsEmpty(newMark)) {
 			const cmp = compareCellPositions(
@@ -278,9 +260,11 @@ class RebaseQueue<T> {
 			);
 			if (cmp < 0) {
 				this.reattachOffset += Math.min(getOutputLength(baseMark), -cmp);
-				return { baseMark: this.baseMarks.dequeueUpTo(-cmp) };
+				const dequeuedMark = this.baseMarks.dequeueUpTo(-cmp);
+				return { baseMark: dequeuedMark, newMark: { count: 0 } };
 			} else if (cmp > 0) {
-				return { newMark: this.newMarks.dequeueUpTo(cmp) };
+				const dequeuedMark = this.newMarks.dequeueUpTo(cmp);
+				return { newMark: dequeuedMark, baseMark: { count: 0 } };
 			} else {
 				const length = Math.min(getMarkLength(baseMark), getMarkLength(newMark));
 				if (markFillsCells(baseMark)) {
@@ -300,11 +284,13 @@ class RebaseQueue<T> {
 	}
 
 	private dequeueBase(): RebaseMarks<T> {
-		return { baseMark: this.baseMarks.dequeue() };
+		const baseMark = this.baseMarks.dequeue();
+		return { baseMark, newMark: { count: 0 } };
 	}
 
 	private dequeueNew(): RebaseMarks<T> {
-		return { newMark: this.newMarks.dequeue() };
+		const newMark = this.newMarks.dequeue();
+		return { newMark, baseMark: { count: 0 } };
 	}
 
 	private dequeueBoth(): RebaseMarks<T> {
@@ -680,8 +666,10 @@ function handleCurrAttach<T>(
 	lineageRequests: LineageRequest<T>[],
 	offset: number,
 	baseIntention: RevisionTag | undefined,
+	rebaseChild: NodeChangeRebaser<T>,
 ) {
-	const rebasedMark = cloneMark(currMark);
+	const change = getNodeChange<T>(currMark);
+	const rebasedMark = withNodeChange(currMark, rebaseChild(change, undefined)) as Attach<T>;
 
 	// If the changeset we are rebasing over has the same intention as an event in rebasedMark's lineage,
 	// we assume that the base changeset is the inverse of the changeset in the lineage, so we remove the lineage event.

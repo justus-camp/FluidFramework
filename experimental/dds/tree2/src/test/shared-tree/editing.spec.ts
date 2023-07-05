@@ -1162,7 +1162,7 @@ describe("Editing", () => {
 
 			// TODO: This doesn't update the constraint properly yet because
 			// rebaseChild isn't called inside of handleCurrAttach
-			it.skip("transaction dropped when node can't be inserted", () => {
+			it("transaction dropped when node can't be inserted", () => {
 				const tree = makeTreeFromJson([{}]);
 				const tree2 = tree.fork();
 
