@@ -6,9 +6,15 @@ import { strict as assert } from "assert";
 import { unreachableCase } from "@fluidframework/common-utils";
 
 import { jsonObject, jsonString, singleJsonCursor } from "../../domains";
-import { rootFieldKeySymbol, UpPath, moveToDetachedField, FieldUpPath } from "../../core";
+import {
+	rootFieldKeySymbol,
+	UpPath,
+	moveToDetachedField,
+	FieldUpPath,
+	JsonableTree,
+} from "../../core";
 import { JsonCompatible, brand, makeArray } from "../../util";
-import { makeTreeFromJson, remove, insert, expectJsonTree } from "../utils";
+import { makeTreeFromJson, remove, insert, expectJsonTree, validateTree } from "../utils";
 import { SharedTreeView } from "../../shared-tree";
 import { singleTextCursor } from "../../feature-libraries";
 
@@ -837,6 +843,98 @@ describe("Editing", () => {
 			tree2.rebaseOnto(tree);
 
 			expectJsonTree([tree, tree2], ["43"]);
+		});
+
+		it.only("changes to multiple previously removed nodes", () => {
+			const tree = makeTreeFromJson([]);
+
+			const rootPath: UpPath = {
+				parent: undefined,
+				parentField: rootFieldKeySymbol,
+				parentIndex: 0,
+			};
+
+			const rootSequence = tree.editor.sequenceField({
+				parent: undefined,
+				field: rootFieldKeySymbol,
+			});
+
+			rootSequence.insert(0, singleTextCursor({ type: brand("node") }));
+
+			const subSequence = tree.editor.sequenceField({
+				parent: rootPath,
+				field: brand("foo"),
+			});
+
+			subSequence.insert(0, singleTextCursor({ type: brand("string"), value: "x" }));
+			subSequence.insert(1, singleTextCursor({ type: brand("string"), value: "y" }));
+			subSequence.insert(2, singleTextCursor({ type: brand("string"), value: "z" }));
+
+			const optional = tree.editor.optionalField({
+				parent: rootPath,
+				field: brand("bar"),
+			});
+
+			const optionalPath: UpPath = {
+				parent: rootPath,
+				parentField: brand("bar"),
+				parentIndex: 0,
+			};
+
+			optional.set(singleTextCursor({ type: brand("node") }), true);
+
+			const tree2 = tree.fork();
+
+			tree.editor.move(
+				{
+					parent: rootPath,
+					field: brand("foo"),
+				},
+				0,
+				1,
+				{
+					parent: optionalPath,
+					field: brand("subOptional"),
+				},
+				0,
+			);
+
+			const expected: JsonableTree[] = [
+				{
+					type: brand("node"),
+					fields: {
+						bar: [
+							{
+								fields: {
+									subOptional: [
+										{
+											type: brand("string"),
+											value: "x",
+										},
+									],
+								},
+								type: brand("node"),
+							},
+						],
+						foo: [
+							{
+								type: brand("string"),
+								value: "y",
+							},
+							{
+								type: brand("string"),
+								value: "z",
+							},
+						],
+					},
+				},
+			];
+
+			tree.merge(tree2);
+			tree2.rebaseOnto(tree);
+
+			validateTree(tree, expected);
+			validateTree(tree2, expected);
 		});
 	});
 
