@@ -2,25 +2,18 @@
  * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
+export { SharedTreeFactory, SharedTree, ForestType } from "./sharedTree";
+export type { ISharedTree, SharedTreeOptions } from "./sharedTree";
 
-export {
-	ISharedTree,
-	SharedTreeFactory,
-	SharedTreeOptions,
-	SharedTree,
-	ForestType,
-} from "./sharedTree";
-
-export {
-	createSharedTreeView,
+export { createSharedTreeView, runSynchronous } from "./sharedTreeView";
+export type {
 	ISharedTreeView,
-	runSynchronous,
 	ViewEvents,
 	ITransaction,
 	ISharedTreeBranchView,
 } from "./sharedTreeView";
 
-export {
+export type {
 	SchematizeConfiguration,
 	TreeContent,
 	InitializeAndSchematizeConfiguration,

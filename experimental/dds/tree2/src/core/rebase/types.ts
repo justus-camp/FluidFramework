@@ -5,9 +5,9 @@
 
 import { assert } from "@fluidframework/core-utils";
 import { isStableId } from "@fluidframework/container-runtime";
-import { StableId } from "@fluidframework/runtime-definitions";
+import type { StableId } from "@fluidframework/runtime-definitions";
 import { Brand, brandedStringType, generateStableId } from "../../util";
-import { ReadonlyRepairDataStore } from "../repair";
+import type { ReadonlyRepairDataStore } from "../repair";
 
 /**
  * The identifier for a particular session/user/client that can generate `GraphCommit`s

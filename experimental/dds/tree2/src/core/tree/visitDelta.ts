@@ -11,7 +11,7 @@ import {
 	getFirstFromRangeMap,
 	setInRangeMap,
 } from "../../util";
-import { FieldKey } from "../schema-stored";
+import type { FieldKey } from "../schema-stored";
 import * as Delta from "./delta";
 
 /**

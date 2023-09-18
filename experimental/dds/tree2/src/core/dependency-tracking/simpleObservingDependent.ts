@@ -4,8 +4,8 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { Dependee, InvalidationToken } from "./dependencies";
-import { ObservingDependent } from "./incrementalObservation";
+import type { Dependee, InvalidationToken } from "./dependencies";
+import type { ObservingDependent } from "./incrementalObservation";
 
 /**
  * A basic {@link ObservingDependent} implementation.

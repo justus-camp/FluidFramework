@@ -4,7 +4,7 @@
  */
 
 import type { Static, TSchema } from "@sinclair/typebox";
-import { JsonValidator } from "./codec";
+import type { JsonValidator } from "./codec";
 
 /**
  * A {@link JsonValidator} implementation which performs no validation and accepts all data as valid.

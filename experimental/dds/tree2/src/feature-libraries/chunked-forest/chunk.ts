@@ -11,7 +11,7 @@ import {
 	FieldKey,
 	rootFieldKey,
 } from "../../core";
-import { ReferenceCounted } from "../../util";
+import type { ReferenceCounted } from "../../util";
 
 /**
  * Contiguous part of the tree which get stored together in some data format.

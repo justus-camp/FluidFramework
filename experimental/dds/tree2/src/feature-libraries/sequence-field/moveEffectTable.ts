@@ -4,10 +4,10 @@
  */
 
 import { assert, unreachableCase } from "@fluidframework/core-utils";
-import { RevisionTag } from "../../core";
+import type { RevisionTag } from "../../core";
 import { CrossFieldManager, CrossFieldTarget } from "../modular-schema";
-import { RangeEntry } from "../../util";
-import { Mark, MoveId, MoveIn, MoveOut, ReturnFrom, ReturnTo } from "./format";
+import type { RangeEntry } from "../../util";
+import type { Mark, MoveId, MoveIn, MoveOut, ReturnFrom, ReturnTo } from "./format";
 import { cloneMark, splitMark } from "./utils";
 
 export type MoveEffectTable<T> = CrossFieldManager<MoveEffect<T>>;

@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { RepairDataStore, RevisionTag } from "../core";
+import type { RepairDataStore, RevisionTag } from "../core";
 import { fail } from "../util";
 
 /**

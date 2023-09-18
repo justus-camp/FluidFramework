@@ -3,9 +3,9 @@
  * Licensed under the MIT License.
  */
 
-import { SessionSpaceCompressedId, StableId } from "@fluidframework/runtime-definitions";
+import type { SessionSpaceCompressedId, StableId } from "@fluidframework/runtime-definitions";
 import { Brand, Opaque, brand } from "../../util";
-import { TreeSchemaIdentifier } from "../../core";
+import type { TreeSchemaIdentifier } from "../../core";
 
 /**
  * A key which uniquely identifies a node in the tree within this session.

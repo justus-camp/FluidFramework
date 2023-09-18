@@ -3,15 +3,15 @@
  * Licensed under the MIT License.
  */
 
-import {
+import type {
 	IChannelAttributes,
 	IChannelFactory,
 	IChannelServices,
 	IChannelStorageService,
 	IFluidDataStoreRuntime,
 } from "@fluidframework/datastore-definitions";
-import { ISequencedDocumentMessage } from "@fluidframework/protocol-definitions";
-import { ISharedObject } from "@fluidframework/shared-object-base";
+import type { ISequencedDocumentMessage } from "@fluidframework/protocol-definitions";
+import type { ISharedObject } from "@fluidframework/shared-object-base";
 import { ICodecOptions, noopValidator } from "../codec";
 import { InMemoryStoredSchemaRepository } from "../core";
 import { SharedTreeCore } from "../shared-tree-core";
@@ -35,7 +35,7 @@ import {
 } from "../feature-libraries";
 import { HasListeners, IEmitter, ISubscribable, createEmitter } from "../events";
 import { JsonCompatibleReadOnly, brand } from "../util";
-import { InitializeAndSchematizeConfiguration } from "./schematizedTree";
+import type { InitializeAndSchematizeConfiguration } from "./schematizedTree";
 import {
 	ISharedTreeView,
 	ViewEvents,

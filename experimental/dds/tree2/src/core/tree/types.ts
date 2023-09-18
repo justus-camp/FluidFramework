@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { IFluidHandle } from "@fluidframework/core-interfaces";
+import type { IFluidHandle } from "@fluidframework/core-interfaces";
 import { FieldKey, TreeSchemaIdentifier, ValueSchema } from "../schema-stored";
 import { _InlineTrick, brand, Brand, extractFromOpaque, Opaque } from "../../util";
 

@@ -4,8 +4,8 @@
  */
 
 import { bufferToString } from "@fluid-internal/client-utils";
-import { IChannelStorageService } from "@fluidframework/datastore-definitions";
-import {
+import type { IChannelStorageService } from "@fluidframework/datastore-definitions";
+import type {
 	ITelemetryContext,
 	ISummaryTreeWithStats,
 	IGarbageCollectionData,
@@ -19,7 +19,11 @@ import {
 	mapCursorField,
 	moveToDetachedField,
 } from "../core";
-import { Summarizable, SummaryElementParser, SummaryElementStringifier } from "../shared-tree-core";
+import type {
+	Summarizable,
+	SummaryElementParser,
+	SummaryElementStringifier,
+} from "../shared-tree-core";
 import { jsonableTreeFromCursor, singleTextCursor } from "./treeTextCursor";
 
 /**

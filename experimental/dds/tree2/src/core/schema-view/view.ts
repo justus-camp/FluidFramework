@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { TreeSchemaIdentifier, SchemaData } from "../schema-stored";
+import type { TreeSchemaIdentifier, SchemaData } from "../schema-stored";
 
 /**
  * APIs for applying `view schema` to documents.

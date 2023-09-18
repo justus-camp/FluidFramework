@@ -15,12 +15,12 @@ import {
 	BrandedMapSubset,
 	brandedSlot,
 } from "../../util";
-import { FieldKey } from "../schema-stored";
-import { UpPath } from "./pathTree";
+import type { FieldKey } from "../schema-stored";
+import type { UpPath } from "./pathTree";
 import { Value, detachedFieldAsKey, DetachedField, EmptyKey } from "./types";
-import { PathVisitor } from "./visitPath";
-import { DeltaVisitor } from "./visitDelta";
-import * as Delta from "./delta";
+import type { PathVisitor } from "./visitPath";
+import type { DeltaVisitor } from "./visitDelta";
+import type * as Delta from "./delta";
 
 /**
  * A way to refer to a particular tree location within an {@link AnchorSet}.

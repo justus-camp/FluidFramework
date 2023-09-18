@@ -3,8 +3,8 @@
  * Licensed under the MIT License.
  */
 
-import { FieldKey } from "../schema-stored";
-import { NodeData } from "./types";
+import type { FieldKey } from "../schema-stored";
+import type { NodeData } from "./types";
 
 /**
  * This modules provides a simple in memory tree format.

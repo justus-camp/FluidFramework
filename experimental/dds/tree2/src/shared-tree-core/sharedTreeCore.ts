@@ -4,13 +4,13 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import {
+import type {
 	IChannelAttributes,
 	IChannelStorageService,
 	IFluidDataStoreRuntime,
 } from "@fluidframework/datastore-definitions";
-import { ISequencedDocumentMessage } from "@fluidframework/protocol-definitions";
-import {
+import type { ISequencedDocumentMessage } from "@fluidframework/protocol-definitions";
+import type {
 	ITelemetryContext,
 	ISummaryTreeWithStats,
 	IGarbageCollectionData,
@@ -21,8 +21,8 @@ import {
 	ISharedObjectEvents,
 	SharedObject,
 } from "@fluidframework/shared-object-base";
-import { ICodecOptions, IJsonCodec } from "../codec";
-import {
+import type { ICodecOptions, IJsonCodec } from "../codec";
+import type {
 	ChangeFamily,
 	Delta,
 	ChangeFamilyEditor,
@@ -34,8 +34,8 @@ import { createEmitter, TransformEvents } from "../events";
 import { SharedTreeBranch, getChangeReplaceType } from "./branch";
 import { EditManagerSummarizer } from "./editManagerSummarizer";
 import { EditManager, minimumPossibleSequenceNumber } from "./editManager";
-import { SeqNumber } from "./editManagerFormat";
-import { DecodedMessage } from "./messageTypes";
+import type { SeqNumber } from "./editManagerFormat";
+import type { DecodedMessage } from "./messageTypes";
 import { makeMessageCodec } from "./messageCodecs";
 
 /**

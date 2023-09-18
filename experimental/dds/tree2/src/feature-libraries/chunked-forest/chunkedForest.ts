@@ -29,7 +29,7 @@ import { brand, fail, getOrAddEmptyToMap } from "../../util";
 import { createEmitter } from "../../events";
 import { BasicChunk, BasicChunkCursor, SiblingsOrKey } from "./basicChunk";
 import { basicChunkTree, chunkTree, IChunker } from "./chunkTree";
-import { ChunkedCursor, TreeChunk } from "./chunk";
+import type { ChunkedCursor, TreeChunk } from "./chunk";
 
 function makeRoot(): BasicChunk {
 	return new BasicChunk(brand("above root placeholder"), new Map());

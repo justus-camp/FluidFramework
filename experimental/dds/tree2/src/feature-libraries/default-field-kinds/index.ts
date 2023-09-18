@@ -2,22 +2,19 @@
  * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
-
-export {
-	FieldKinds,
+export { FieldKinds, fieldKinds } from "./defaultFieldKinds";
+export type {
 	ValueFieldKind,
 	Optional,
 	Sequence,
 	NodeKeyFieldKind,
 	Forbidden,
 	FieldKindTypes,
-	fieldKinds,
 } from "./defaultFieldKinds";
 
-export {
+export { DefaultChangeFamily, DefaultEditBuilder } from "./defaultChangeFamily";
+export type {
 	DefaultChangeset,
-	DefaultChangeFamily,
-	DefaultEditBuilder,
 	IDefaultEditBuilder,
 	ValueFieldEditBuilder,
 	OptionalFieldEditBuilder,

@@ -3,12 +3,12 @@
  * Licensed under the MIT License.
  */
 
-import { Delta, TaggedChange, RevisionTag } from "../../core";
+import type { Delta, TaggedChange, RevisionTag } from "../../core";
 import { fail, IdAllocator, Invariant } from "../../util";
-import { ICodecFamily, IJsonCodec } from "../../codec";
-import { MemoizedIdRangeAllocator } from "../memoizedIdRangeAllocator";
-import { CrossFieldManager } from "./crossFieldQueries";
-import { NodeChangeset, RevisionInfo } from "./modularChangeTypes";
+import type { ICodecFamily, IJsonCodec } from "../../codec";
+import type { MemoizedIdRangeAllocator } from "../memoizedIdRangeAllocator";
+import type { CrossFieldManager } from "./crossFieldQueries";
+import type { NodeChangeset, RevisionInfo } from "./modularChangeTypes";
 
 /**
  * Functionality provided by a field kind which will be composed with other `FieldChangeHandler`s to

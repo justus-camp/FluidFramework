@@ -14,13 +14,13 @@ import {
 	FieldKey,
 	SchemaData,
 } from "../../core";
-import { ISubscribable } from "../../events";
-import { DefaultEditBuilder } from "../default-field-kinds";
-import { NodeKeyManager } from "../node-key";
-import { FieldGenerator, NewFieldContent } from "../contextuallyTyped";
-import { EditableField, UnwrappedEditableField } from "./editableTreeTypes";
+import type { ISubscribable } from "../../events";
+import type { DefaultEditBuilder } from "../default-field-kinds";
+import type { NodeKeyManager } from "../node-key";
+import type { FieldGenerator, NewFieldContent } from "../contextuallyTyped";
+import type { EditableField, UnwrappedEditableField } from "./editableTreeTypes";
 import { makeField, unwrappedField } from "./editableField";
-import { ProxyTarget } from "./ProxyTarget";
+import type { ProxyTarget } from "./ProxyTarget";
 
 /**
  * A common context of a "forest" of EditableTrees.

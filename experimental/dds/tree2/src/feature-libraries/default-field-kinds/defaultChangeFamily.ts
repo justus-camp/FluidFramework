@@ -3,8 +3,8 @@
  * Licensed under the MIT License.
  */
 
-import { ICodecFamily, ICodecOptions } from "../../codec";
-import {
+import type { ICodecFamily, ICodecOptions } from "../../codec";
+import type {
 	ChangeFamily,
 	ChangeRebaser,
 	Delta,

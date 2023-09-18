@@ -3,14 +3,14 @@
  * Licensed under the MIT License.
  */
 
-import {
+import type {
 	ChangeAtomId,
 	ChangesetLocalId,
 	ITreeCursorSynchronous,
 	JsonableTree,
 	RevisionTag,
 } from "../../core";
-import { NodeChangeset } from "../modular-schema";
+import type { NodeChangeset } from "../modular-schema";
 
 export type NodeUpdate =
 	| {

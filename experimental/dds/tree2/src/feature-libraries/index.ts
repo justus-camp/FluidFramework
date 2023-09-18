@@ -4,23 +4,32 @@
  */
 
 export {
-	EditableField,
-	EditableTree,
-	EditableTreeContext,
-	EditableTreeOrPrimitive,
 	getEditableTreeContext,
 	isEditableField,
 	isPrimitive,
 	isEditableTree,
 	proxyTargetSymbol,
-	UnwrappedEditableField,
-	UnwrappedEditableTree,
 	localNodeKeySymbol,
 	createDataBinderBuffering,
 	createDataBinderDirect,
 	createDataBinderInvalidating,
 	createBinderOptions,
 	createFlushableBinderOptions,
+	indexSymbol,
+	BindingType,
+	toDownPath,
+	comparePipeline,
+	compileSyntaxTree,
+	setField,
+	TreeStatus,
+} from "./editable-tree";
+export type {
+	EditableField,
+	EditableTree,
+	EditableTreeContext,
+	EditableTreeOrPrimitive,
+	UnwrappedEditableField,
+	UnwrappedEditableTree,
 	DataBinder,
 	BinderOptions,
 	Flushable,
@@ -29,14 +38,12 @@ export {
 	MatchPolicy,
 	SubtreePolicy,
 	BindSyntaxTree,
-	indexSymbol,
 	BindPolicy,
 	BindTree,
 	BindTreeDefault,
 	DownPath,
 	BindPath,
 	PathStep,
-	BindingType,
 	BindingContextType,
 	BindingContext,
 	VisitorBindingContext,
@@ -49,11 +56,6 @@ export {
 	CompareFunction,
 	BinderEventsCompare,
 	AnchorsCompare,
-	toDownPath,
-	comparePipeline,
-	compileSyntaxTree,
-	setField,
-	TreeStatus,
 } from "./editable-tree";
 
 export {
@@ -61,41 +63,39 @@ export {
 	valueSymbol,
 	isPrimitiveValue,
 	getPrimaryField,
+	isContextuallyTypedNodeDataObject,
+	getFieldKind,
+	getFieldSchema,
+	cursorFromContextualData,
+	cursorsFromContextualData,
+	cursorForTypedData,
+	cursorForTypedTreeData,
+	cursorsForTypedFieldData,
+	normalizeNewFieldContent,
+	assertAllowedValue,
+} from "./contextuallyTyped";
+export type {
 	PrimitiveValue,
 	ContextuallyTypedNodeDataObject,
 	ContextuallyTypedNodeData,
 	MarkedArrayLike,
-	isContextuallyTypedNodeDataObject,
-	getFieldKind,
-	getFieldSchema,
 	ArrayLikeMut,
-	cursorFromContextualData,
-	cursorsFromContextualData,
 	ContextuallyTypedFieldData,
-	cursorForTypedData,
-	cursorForTypedTreeData,
-	cursorsForTypedFieldData,
 	FieldGenerator,
 	TreeDataContext,
-	normalizeNewFieldContent,
 	NewFieldContent,
-	assertAllowedValue,
 } from "./contextuallyTyped";
 
 export { ForestSummarizer } from "./forestSummarizer";
 export { singleMapTreeCursor, mapTreeFromCursor } from "./mapTreeCursor";
-export { MemoizedIdRangeAllocator, IdRange } from "./memoizedIdRangeAllocator";
+export { MemoizedIdRangeAllocator } from "./memoizedIdRangeAllocator";
+export type { IdRange } from "./memoizedIdRangeAllocator";
 export { buildForest } from "./object-forest";
 export { SchemaSummarizer, SchemaEditor } from "./schemaSummarizer";
 // This is exported because its useful for doing comparisons of schema in tests.
 export { makeSchemaCodec } from "./schemaIndexFormat";
-export {
-	singleStackTreeCursor,
-	CursorAdapter,
-	prefixPath,
-	prefixFieldPath,
-	CursorWithNode,
-} from "./treeCursorUtils";
+export { singleStackTreeCursor, prefixPath, prefixFieldPath } from "./treeCursorUtils";
+export type { CursorAdapter, CursorWithNode } from "./treeCursorUtils";
 export { singleTextCursor, jsonableTreeFromCursor } from "./treeTextCursor";
 
 // Split this up into separate import and export for compatibility with API-Extractor.
@@ -105,6 +105,15 @@ export { SequenceField };
 export {
 	isNeverField,
 	ModularEditBuilder,
+	CrossFieldTarget,
+	FieldKind,
+	Multiplicity,
+	allowsRepoSuperset,
+	genericFieldKind,
+	revisionMetadataSourceFromInfo,
+	NodeExistenceState,
+} from "./modular-schema";
+export type {
 	EditDescription,
 	FieldChangeHandler,
 	FieldChangeRebaser,
@@ -119,39 +128,23 @@ export {
 	NodeChangeInverter,
 	NodeChangeRebaser,
 	CrossFieldManager,
-	CrossFieldTarget,
-	FieldKind,
-	Multiplicity,
 	FullSchemaPolicy,
-	allowsRepoSuperset,
 	GenericChangeset,
-	genericFieldKind,
 	NodeReviver,
 	RevisionIndexer,
 	RevisionMetadataSource,
 	RevisionInfo,
 	HasFieldChanges,
-	revisionMetadataSourceFromInfo,
 	NodeExistsConstraint,
-	NodeExistenceState,
 	BrandedFieldKind,
 } from "./modular-schema";
 
 export {
 	TreeSchema,
-	AllowedTypes,
 	FieldSchema,
-	TypedSchemaCollection,
 	Any,
-	SchemaLibraryData,
-	LazyTreeSchema,
 	InternalTypedSchemaTypes,
 	ViewSchema,
-	SchemaLintConfiguration,
-	FieldNodeSchema,
-	LeafSchema,
-	MapSchema,
-	StructSchema,
 	schemaIsFieldNode,
 	schemaIsLeaf,
 	schemaIsMap,
@@ -160,7 +153,19 @@ export {
 	fieldApiPrefixes,
 	validateStructFieldName,
 } from "./typed-schema";
-export { SchemaBuilder, SchemaLibrary } from "./schemaBuilder";
+export type {
+	AllowedTypes,
+	TypedSchemaCollection,
+	SchemaLibraryData,
+	LazyTreeSchema,
+	SchemaLintConfiguration,
+	FieldNodeSchema,
+	LeafSchema,
+	MapSchema,
+	StructSchema,
+} from "./typed-schema";
+export { SchemaBuilder } from "./schemaBuilder";
+export type { SchemaLibrary } from "./schemaBuilder";
 
 export { mapFieldMarks, mapMark, mapMarkList, populateChildModifications } from "./deltaUtils";
 
@@ -168,27 +173,30 @@ export { ForestRepairDataStore, ForestRepairDataStoreProvider } from "./forestRe
 export { dummyRepairDataStore } from "./fakeRepairDataStore";
 
 export {
-	TreeChunk,
 	chunkTree,
 	buildChunkedForest,
 	defaultChunkPolicy,
 	makeTreeChunker,
 } from "./chunked-forest";
+export type { TreeChunk } from "./chunked-forest";
 
 export {
 	compareLocalNodeKeys,
-	LocalNodeKey,
 	createNodeKeyManager,
 	createMockNodeKeyManager,
-	StableNodeKey,
 	NodeKeyIndex,
-	NodeKeyManager,
 	nodeKeyFieldKey,
 	nodeKeyTreeIdentifier,
 } from "./node-key";
+export type { LocalNodeKey, StableNodeKey, NodeKeyManager } from "./node-key";
 
 export {
 	FieldKinds,
+	DefaultChangeFamily,
+	DefaultEditBuilder,
+	defaultSchemaPolicy,
+} from "./default-field-kinds";
+export type {
 	ValueFieldKind,
 	Optional,
 	Sequence,
@@ -196,16 +204,14 @@ export {
 	Forbidden,
 	FieldKindTypes,
 	DefaultChangeset,
-	DefaultChangeFamily,
-	DefaultEditBuilder,
 	IDefaultEditBuilder,
 	ValueFieldEditBuilder,
 	OptionalFieldEditBuilder,
 	SequenceFieldEditBuilder,
-	defaultSchemaPolicy,
 } from "./default-field-kinds";
 
-export {
+export { typeSymbol, getField, parentField, on, contextSymbol, treeStatus } from "./untypedTree";
+export type {
 	UntypedField,
 	UntypedTree,
 	UntypedTreeContext,
@@ -213,26 +219,19 @@ export {
 	UnwrappedUntypedField,
 	UnwrappedUntypedTree,
 	UntypedTreeOrPrimitive,
-	typeSymbol,
-	getField,
-	parentField,
 	EditableTreeEvents,
-	on,
-	contextSymbol,
-	treeStatus,
 } from "./untypedTree";
 
-export {
+export { InternalEditableTreeTypes, Skip, getTreeContext } from "./editable-tree-2";
+export type {
 	FieldNode,
 	FlexibleFieldContent,
 	FlexibleNodeContent,
-	InternalEditableTreeTypes,
 	Leaf,
 	MapNode,
 	OptionalField,
 	RequiredField,
 	Sequence as Sequence2,
-	Skip,
 	Struct,
 	StructTyped,
 	TreeContext,
@@ -242,7 +241,6 @@ export {
 	Tree,
 	TreeField,
 	TreeNode,
-	getTreeContext,
 } from "./editable-tree-2";
 
 // Split into separate import and export for compatibility with API-Extractor.

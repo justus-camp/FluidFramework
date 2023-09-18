@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { ChangeFamily, ChangeFamilyEditor } from "./changeFamily";
+import type { ChangeFamily, ChangeFamilyEditor } from "./changeFamily";
 
 export abstract class EditBuilder<TChange> implements ChangeFamilyEditor {
 	public constructor(

@@ -19,7 +19,7 @@ import {
 	Shape as ShapeGeneric,
 	handleShapesAndIdentifiers,
 } from "./chunkEncodingGeneric";
-import { Counter, DeduplicationTable } from "./chunkCodecUtilities";
+import type { Counter, DeduplicationTable } from "./chunkCodecUtilities";
 import {
 	EncodedChunk,
 	version,

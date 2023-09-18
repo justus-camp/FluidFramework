@@ -11,13 +11,13 @@ import {
 	FieldStoredSchema,
 	FieldKey,
 } from "../../core";
-import { ISubscribable } from "../../events";
-import { DefaultEditBuilder } from "../default-field-kinds";
-import { NodeKeyManager } from "../node-key";
-import { FieldGenerator } from "../contextuallyTyped";
-import { TypedSchemaCollection } from "../typed-schema";
+import type { ISubscribable } from "../../events";
+import type { DefaultEditBuilder } from "../default-field-kinds";
+import type { NodeKeyManager } from "../node-key";
+import type { FieldGenerator } from "../contextuallyTyped";
+import type { TypedSchemaCollection } from "../typed-schema";
 import { disposeSymbol, IDisposable } from "../../util";
-import { TreeField } from "./editableTreeTypes";
+import type { TreeField } from "./editableTreeTypes";
 import { makeField } from "./lazyField";
 import { LazyEntity, prepareForEditSymbol } from "./lazyEntity";
 

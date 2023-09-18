@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-export {
+export type {
 	TreeField,
 	TreeNode,
 	Tree,
@@ -30,7 +30,8 @@ export {
 	visitIterableTreeWithState,
 } from "./navigation";
 
-export { getTreeContext, TreeContext } from "./context";
+export { getTreeContext } from "./context";
+export type { TreeContext } from "./context";
 
 // Below here are things that are used by the above, but not part of the desired API surface.
 import * as InternalEditableTreeTypes from "./internal";

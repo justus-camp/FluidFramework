@@ -3,10 +3,10 @@
  * Licensed under the MIT License.
  */
 
-import { TreeValue } from "../../../core";
+import type { TreeValue } from "../../../core";
 import { fail } from "../../../util";
-import { FluidSerializableReadOnly } from "../../contextuallyTyped";
-import { EncodedChunkGeneric } from "./formatGeneric";
+import type { FluidSerializableReadOnly } from "../../contextuallyTyped";
+import type { EncodedChunkGeneric } from "./formatGeneric";
 import {
 	Counter,
 	CounterFilter,

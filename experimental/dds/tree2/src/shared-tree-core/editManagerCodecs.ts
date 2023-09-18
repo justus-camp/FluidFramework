@@ -4,9 +4,9 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { ICodecOptions, IJsonCodec, IMultiFormatCodec } from "../codec";
+import type { ICodecOptions, IJsonCodec, IMultiFormatCodec } from "../codec";
 import { JsonCompatibleReadOnly, JsonCompatibleReadOnlySchema, mapIterable } from "../util";
-import { SummaryData } from "./editManager";
+import type { SummaryData } from "./editManager";
 import { Commit, EncodedEditManager } from "./editManagerFormat";
 
 export function makeEditManagerCodec<TChangeset>(

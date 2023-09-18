@@ -4,12 +4,12 @@
  */
 
 // Used by public types, but not part of the desired API surface.
-export {
+export { BrandedType } from "./util";
+export type {
 	MakeNominal,
 	Invariant,
 	Contravariant,
 	Covariant,
-	BrandedType,
 	ExtractFromOpaque,
 	Assume,
 	AllowOptional,

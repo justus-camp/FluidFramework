@@ -46,7 +46,7 @@ import {
 	getOwnArrayKeys,
 	treeStatusFromPath,
 } from "./utilities";
-import { ProxyContext } from "./editableTreeContext";
+import type { ProxyContext } from "./editableTreeContext";
 import {
 	EditableField,
 	EditableTree,

@@ -4,8 +4,8 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { Adapters, TreeSchemaIdentifier, ValueSchema } from "../core";
-import { RestrictiveReadonlyRecord } from "../util";
+import type { Adapters, TreeSchemaIdentifier, ValueSchema } from "../core";
+import type { RestrictiveReadonlyRecord } from "../util";
 import { FieldKindTypes, FieldKinds } from "./default-field-kinds";
 import {
 	SchemaLibraryData,

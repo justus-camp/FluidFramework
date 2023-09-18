@@ -3,9 +3,9 @@
  * Licensed under the MIT License.
  */
 
-import { FieldChangeRebaser } from "../modular-schema";
+import type { FieldChangeRebaser } from "../modular-schema";
 import { amendCompose, compose } from "./compose";
-import { Changeset } from "./format";
+import type { Changeset } from "./format";
 import { amendInvert, invert } from "./invert";
 import { amendRebase, rebase } from "./rebase";
 

@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import {
+import type {
 	Value,
 	FieldKey,
 	FieldStoredSchema,
@@ -14,10 +14,10 @@ import {
 	PathVisitor,
 	TreeStoredSchema,
 } from "../core";
-import { ISubscribable } from "../events";
-import { Named } from "../util";
+import type { ISubscribable } from "../events";
+import type { Named } from "../util";
 import { PrimitiveValue, MarkedArrayLike, typeNameSymbol, valueSymbol } from "./contextuallyTyped";
-import { TreeStatus } from "./editable-tree";
+import type { TreeStatus } from "./editable-tree";
 
 /**
  * This file provides an API for working with trees which is type safe even when schema is not known.

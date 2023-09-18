@@ -4,7 +4,7 @@
  */
 
 import { makeAnonChange } from "./changeRebaser";
-import { ChangeRebaser } from ".";
+import type { ChangeRebaser } from ".";
 
 export type Failure<TCase> = Violation<TCase> | Exception<TCase>;
 

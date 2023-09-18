@@ -4,7 +4,7 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { ICodecFamily, ICodecOptions } from "../../codec";
+import type { ICodecFamily, ICodecOptions } from "../../codec";
 import {
 	ChangeFamily,
 	EditBuilder,
@@ -47,11 +47,11 @@ import {
 	RevisionMetadataSource,
 	NodeExistenceState,
 } from "./fieldChangeHandler";
-import { FieldKind } from "./fieldKind";
+import type { FieldKind } from "./fieldKind";
 import { convertGenericChange, genericFieldKind, newGenericChangeset } from "./genericFieldKind";
-import { GenericChangeset } from "./genericFieldKindTypes";
+import type { GenericChangeset } from "./genericFieldKindTypes";
 import { makeModularChangeCodecFamily } from "./modularChangeCodecs";
-import {
+import type {
 	FieldChange,
 	FieldChangeMap,
 	FieldChangeset,

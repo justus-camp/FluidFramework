@@ -5,9 +5,9 @@
 
 import { assert } from "@fluidframework/core-utils";
 import { _InlineTrick, assertValidIndex, fail, objectToMap } from "../../../util";
-import { TreeChunk } from "../chunk";
+import type { TreeChunk } from "../chunk";
 import { FluidSerializableReadOnly, assertAllowedValue } from "../../contextuallyTyped";
-import { TreeValue } from "../../../core";
+import type { TreeValue } from "../../../core";
 
 /**
  * Utilities related to chunk encoding and decoding that do not depend on specific chunk types or formats.

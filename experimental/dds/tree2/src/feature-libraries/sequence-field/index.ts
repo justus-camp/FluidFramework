@@ -13,10 +13,8 @@ export {
 	HasRevisionTag,
 	Insert,
 	Mark,
-	MarkList,
 	MoveIn,
 	MoveOut,
-	NodeChangeType,
 	CellCount as NodeCount,
 	MoveId,
 	ProtoNode,
@@ -32,18 +30,23 @@ export {
 	HasLineage,
 	IdRange,
 } from "./format";
-export {
-	SequenceFieldChangeHandler,
-	sequenceFieldChangeHandler,
-} from "./sequenceFieldChangeHandler";
-export { SequenceChangeRebaser, sequenceFieldChangeRebaser } from "./sequenceFieldChangeRebaser";
+export type { MarkList, NodeChangeType } from "./format";
+export { sequenceFieldChangeHandler } from "./sequenceFieldChangeHandler";
+export type { SequenceFieldChangeHandler } from "./sequenceFieldChangeHandler";
+export { sequenceFieldChangeRebaser } from "./sequenceFieldChangeRebaser";
+export type { SequenceChangeRebaser } from "./sequenceFieldChangeRebaser";
 export { sequenceFieldChangeCodecFactory } from "./sequenceFieldChangeEncoder";
-export { sequenceFieldToDelta, ToDelta } from "./sequenceFieldToDelta";
-export { SequenceFieldEditor, sequenceFieldEditor } from "./sequenceFieldEditor";
+export { sequenceFieldToDelta } from "./sequenceFieldToDelta";
+export type { ToDelta } from "./sequenceFieldToDelta";
+export { sequenceFieldEditor } from "./sequenceFieldEditor";
+export type { SequenceFieldEditor } from "./sequenceFieldEditor";
 export { MarkListFactory } from "./markListFactory";
-export { amendRebase, NodeChangeRebaser, rebase } from "./rebase";
-export { amendInvert, invert, NodeChangeInverter } from "./invert";
-export { amendCompose, compose, NodeChangeComposer } from "./compose";
+export { amendRebase, rebase } from "./rebase";
+export type { NodeChangeRebaser } from "./rebase";
+export { amendInvert, invert } from "./invert";
+export type { NodeChangeInverter } from "./invert";
+export { amendCompose, compose } from "./compose";
+export type { NodeChangeComposer } from "./compose";
 export {
 	areComposable,
 	areRebasable,
@@ -53,13 +56,8 @@ export {
 	DetachedNodeTracker,
 	newCrossFieldTable,
 	newMoveEffectTable,
-	CrossFieldTable,
 	cloneMark,
 } from "./utils";
-export {
-	isMoveMark,
-	MoveMark,
-	MoveEffectTable,
-	MoveEffect,
-	PairedMarkUpdate,
-} from "./moveEffectTable";
+export type { CrossFieldTable } from "./utils";
+export { isMoveMark, PairedMarkUpdate } from "./moveEffectTable";
+export type { MoveMark, MoveEffectTable, MoveEffect } from "./moveEffectTable";

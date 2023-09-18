@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { FullSchemaPolicy } from "../modular-schema";
+import type { FullSchemaPolicy } from "../modular-schema";
 import { fieldKinds } from "./defaultFieldKinds";
 
 /**

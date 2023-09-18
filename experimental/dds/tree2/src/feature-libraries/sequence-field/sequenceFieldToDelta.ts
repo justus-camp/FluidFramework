@@ -6,7 +6,7 @@
 import { assert, unreachableCase } from "@fluidframework/core-utils";
 import { brandOpaque, fail, Mutable, OffsetListFactory } from "../../util";
 import { Delta, RevisionTag, TaggedChange } from "../../core";
-import { MemoizedIdRangeAllocator } from "../memoizedIdRangeAllocator";
+import type { MemoizedIdRangeAllocator } from "../memoizedIdRangeAllocator";
 import { singleTextCursor } from "../treeTextCursor";
 import { Mark, MarkList, NoopMarkType } from "./format";
 import {

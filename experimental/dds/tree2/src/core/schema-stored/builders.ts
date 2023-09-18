@@ -4,7 +4,7 @@
  */
 
 import { brand } from "../../util";
-import {
+import type {
 	FieldKindIdentifier,
 	FieldStoredSchema,
 	TreeStoredSchema,

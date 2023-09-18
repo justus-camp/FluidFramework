@@ -15,7 +15,7 @@ import {
 	Compatibility,
 } from "../../core";
 import { FullSchemaPolicy, allowsRepoSuperset, isNeverTree } from "../modular-schema";
-import { TypedSchemaCollection } from "./typedTreeSchema";
+import type { TypedSchemaCollection } from "./typedTreeSchema";
 
 /**
  * A collection of View information for schema, including policy.

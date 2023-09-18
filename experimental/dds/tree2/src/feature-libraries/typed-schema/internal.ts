@@ -5,9 +5,9 @@
 
 // Used by public types, but not part of the desired API surface
 
-export { ObjectToMap, WithDefault, Unbrand, UnbrandList, ArrayToUnion } from "./typeUtils";
+export type { ObjectToMap, WithDefault, Unbrand, UnbrandList, ArrayToUnion } from "./typeUtils";
 
-export {
+export type {
 	TreeSchemaSpecification,
 	NormalizeStructFieldsInner,
 	NormalizeStructFields,
@@ -21,7 +21,7 @@ export {
 	RecursiveTreeSchema,
 } from "./typedTreeSchema";
 
-export {
+export type {
 	FlexList,
 	FlexListToNonLazyArray,
 	ConstantFlexListToNonLazyArray,

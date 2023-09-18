@@ -12,7 +12,7 @@ import {
 	mapCursorFields,
 	ITreeCursorSynchronous,
 } from "../../core";
-import { JsonCompatible } from "../../util";
+import type { JsonCompatible } from "../../util";
 import { CursorAdapter, isPrimitiveValue, singleStackTreeCursor } from "../../feature-libraries";
 import {
 	jsonArray,

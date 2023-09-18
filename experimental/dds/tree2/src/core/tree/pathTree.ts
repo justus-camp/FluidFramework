@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { FieldKey } from "../schema-stored";
+import type { FieldKey } from "../schema-stored";
 import { DetachedField, keyAsDetachedField } from "./types";
 
 /**

@@ -4,7 +4,7 @@
  */
 
 import { assert, unreachableCase } from "@fluidframework/core-utils";
-import * as SchemaAware from "../schema-aware";
+import type * as SchemaAware from "../schema-aware";
 import {
 	Value,
 	Anchor,
@@ -36,10 +36,10 @@ import {
 	Any,
 } from "../typed-schema";
 import { TreeStatus, treeStatusFromPath } from "../editable-tree";
-import { EditableTreeEvents } from "../untypedTree";
+import type { EditableTreeEvents } from "../untypedTree";
 import { FieldKinds } from "../default-field-kinds";
-import { Context } from "./context";
-import {
+import type { Context } from "./context";
+import type {
 	FieldNode,
 	Leaf,
 	MapNode,

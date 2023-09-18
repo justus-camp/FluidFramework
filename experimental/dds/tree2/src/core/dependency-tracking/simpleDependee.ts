@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { Dependee, Dependent, InvalidationToken } from "./dependencies";
+import type { Dependee, Dependent, InvalidationToken } from "./dependencies";
 
 /**
  * Simple implementation of {@link Dependee}.

@@ -23,8 +23,8 @@ import {
 	ViewSchema,
 } from "../feature-libraries";
 import { fail } from "../util";
-import { ISubscribable } from "../events";
-import { ViewEvents } from "./sharedTreeView";
+import type { ISubscribable } from "../events";
+import type { ViewEvents } from "./sharedTreeView";
 
 /**
  * Modify `storedSchema` and invoke `setInitialTree` when it's time to set the tree content.

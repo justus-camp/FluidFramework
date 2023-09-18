@@ -2,15 +2,10 @@
  * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
-
-export {
-	compareLocalNodeKeys,
-	LocalNodeKey,
-	StableNodeKey,
-	nodeKeyFieldKey,
-	nodeKeyTreeIdentifier,
-} from "./nodeKey";
+export { compareLocalNodeKeys, nodeKeyFieldKey, nodeKeyTreeIdentifier } from "./nodeKey";
+export type { LocalNodeKey, StableNodeKey } from "./nodeKey";
 
 export { NodeKeyIndex } from "./nodeKeyIndex";
 
-export { createNodeKeyManager, createMockNodeKeyManager, NodeKeyManager } from "./nodeKeyManager";
+export { createNodeKeyManager, createMockNodeKeyManager } from "./nodeKeyManager";
+export type { NodeKeyManager } from "./nodeKeyManager";

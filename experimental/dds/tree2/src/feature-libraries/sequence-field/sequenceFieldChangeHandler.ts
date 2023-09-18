@@ -3,8 +3,8 @@
  * Licensed under the MIT License.
  */
 
-import { FieldChangeHandler } from "../modular-schema";
-import { Changeset } from "./format";
+import type { FieldChangeHandler } from "../modular-schema";
+import type { Changeset } from "./format";
 import { sequenceFieldChangeRebaser } from "./sequenceFieldChangeRebaser";
 import { sequenceFieldChangeCodecFactory } from "./sequenceFieldChangeEncoder";
 import { SequenceFieldEditor, sequenceFieldEditor } from "./sequenceFieldEditor";

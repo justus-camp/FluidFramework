@@ -48,7 +48,7 @@ import {
 	getDetachCellId,
 	getInputCellId,
 } from "./utils";
-import { GenerativeMark, EmptyInputCellMark } from "./helperTypes";
+import type { GenerativeMark, EmptyInputCellMark } from "./helperTypes";
 
 /**
  * @alpha

@@ -5,18 +5,22 @@
 
 import { bufferToString } from "@fluid-internal/client-utils";
 import { assert } from "@fluidframework/core-utils";
-import { IChannelStorageService } from "@fluidframework/datastore-definitions";
-import {
+import type { IChannelStorageService } from "@fluidframework/datastore-definitions";
+import type {
 	IGarbageCollectionData,
 	ISummaryTreeWithStats,
 	ITelemetryContext,
 } from "@fluidframework/runtime-definitions";
 import { createSingleBlobSummary } from "@fluidframework/shared-object-base";
-import { ICodecOptions, IJsonCodec } from "../codec";
-import { ChangeFamily, ChangeFamilyEditor } from "../core";
-import { JsonCompatibleReadOnly } from "../util";
-import { Summarizable, SummaryElementParser, SummaryElementStringifier } from "./sharedTreeCore";
-import { EditManager, SummaryData } from "./editManager";
+import type { ICodecOptions, IJsonCodec } from "../codec";
+import type { ChangeFamily, ChangeFamilyEditor } from "../core";
+import type { JsonCompatibleReadOnly } from "../util";
+import type {
+	Summarizable,
+	SummaryElementParser,
+	SummaryElementStringifier,
+} from "./sharedTreeCore";
+import type { EditManager, SummaryData } from "./editManager";
 import { makeEditManagerCodec } from "./editManagerCodecs";
 
 const stringKey = "String";

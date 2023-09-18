@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { NodeChangeset } from "./modularChangeTypes";
+import type { NodeChangeset } from "./modularChangeTypes";
 
 /**
  * A field-kind-agnostic change to a single node within a field.

@@ -5,7 +5,7 @@
 
 import { unreachableCase } from "@fluidframework/core-utils";
 import { Delta, FieldKey, isSkipMark } from "../core";
-import { Mutable } from "../util";
+import type { Mutable } from "../util";
 
 /**
  * Converts a `Delta.FieldMarks` whose tree content is represented with by `TIn` instances

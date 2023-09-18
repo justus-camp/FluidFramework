@@ -3,8 +3,8 @@
  * Licensed under the MIT License.
  */
 
-import { Invariant } from "../../util";
-import { ReadonlyRepairDataStore } from "../repair";
+import type { Invariant } from "../../util";
+import type { ReadonlyRepairDataStore } from "../repair";
 import type { RevisionTag } from "./types";
 
 /**

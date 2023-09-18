@@ -5,7 +5,7 @@
 
 import { TAnySchema, Type } from "@sinclair/typebox";
 import { ICodecFamily, IJsonCodec, makeCodecFamily, unitCodec } from "../../codec";
-import { JsonCompatibleReadOnly, Mutable } from "../../util";
+import type { JsonCompatibleReadOnly, Mutable } from "../../util";
 import { jsonableTreeFromCursor, singleTextCursor } from "../treeTextCursor";
 import type { NodeChangeset } from "../modular-schema";
 import type { NodeUpdate, OptionalChangeset, OptionalFieldChange } from "./defaultFieldChangeTypes";

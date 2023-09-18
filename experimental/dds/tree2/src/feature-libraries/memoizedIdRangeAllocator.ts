@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { ChangesetLocalId, RevisionTag } from "../core";
+import type { ChangesetLocalId, RevisionTag } from "../core";
 import {
 	RangeMap,
 	getOrAddEmptyToMap,

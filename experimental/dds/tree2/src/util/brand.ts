@@ -4,7 +4,7 @@
  */
 
 import { TUnsafe, Type } from "@sinclair/typebox";
-import { Invariant, isAny } from "./typeCheck";
+import type { Invariant, isAny } from "./typeCheck";
 
 /**
  * Constructs a "Branded" type, adding a type-checking only field to `ValueType`.

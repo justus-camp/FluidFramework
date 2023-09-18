@@ -4,27 +4,29 @@
  */
 
 export {
-	FieldStoredSchema,
 	ValueSchema,
-	TreeStoredSchema,
-	TreeSchemaIdentifier,
 	TreeSchemaIdentifierSchema,
-	FieldKey,
 	FieldKeySchema,
-	TreeTypeSet,
-	FieldKindIdentifier,
 	FieldKindIdentifierSchema,
-	FieldKindSpecifier,
-	SchemaData,
-	PrimitiveValueSchema,
 	forbiddenFieldKindIdentifier,
 	storedEmptyFieldSchema,
 } from "./schema";
+export type {
+	FieldStoredSchema,
+	TreeStoredSchema,
+	TreeSchemaIdentifier,
+	FieldKey,
+	TreeTypeSet,
+	FieldKindIdentifier,
+	FieldKindSpecifier,
+	SchemaData,
+	PrimitiveValueSchema,
+} from "./schema";
 export {
-	StoredSchemaRepository,
 	InMemoryStoredSchemaRepository,
 	schemaDataIsEmpty,
-	SchemaEvents,
 	cloneSchemaData,
 } from "./storedSchemaRepository";
-export { treeSchema, fieldSchema, emptyMap, emptySet, TreeSchemaBuilder } from "./builders";
+export type { StoredSchemaRepository, SchemaEvents } from "./storedSchemaRepository";
+export { treeSchema, fieldSchema, emptyMap, emptySet } from "./builders";
+export type { TreeSchemaBuilder } from "./builders";

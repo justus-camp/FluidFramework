@@ -11,9 +11,9 @@ import {
 	ITreeCursorSynchronous,
 } from "../../core";
 import { PrimitiveValue, typeNameSymbol, valueSymbol, NewFieldContent } from "../contextuallyTyped";
-import { LocalNodeKey } from "../node-key";
+import type { LocalNodeKey } from "../node-key";
 import { UntypedField, UntypedTreeCore, parentField } from "../untypedTree";
-import { EditableTreeContext } from "./editableTreeContext";
+import type { EditableTreeContext } from "./editableTreeContext";
 
 /**
  * A symbol for extracting target from {@link EditableTree} proxies.

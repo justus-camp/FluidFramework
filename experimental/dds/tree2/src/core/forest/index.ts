@@ -2,21 +2,17 @@
  * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
-
-export {
+export { isFieldLocation, initializeForest } from "./editableForest";
+export type {
 	IEditableForest,
 	FieldLocation,
 	TreeLocation,
-	isFieldLocation,
 	ForestLocation,
-	initializeForest,
 } from "./editableForest";
-export {
+export { ITreeSubscriptionCursorState, TreeNavigationResult, moveToDetachedField } from "./forest";
+export type {
 	IForestSubscription,
 	ITreeSubscriptionCursor,
-	ITreeSubscriptionCursorState,
-	TreeNavigationResult,
 	FieldAnchor,
-	moveToDetachedField,
 	ForestEvents,
 } from "./forest";

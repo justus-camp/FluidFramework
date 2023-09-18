@@ -10,7 +10,7 @@ import {
 	generateStableId as runtimeGenerateStableId,
 	assertIsStableId,
 } from "@fluidframework/container-runtime";
-import { StableId } from "@fluidframework/runtime-definitions";
+import type { StableId } from "@fluidframework/runtime-definitions";
 
 /**
  * Subset of Map interface.

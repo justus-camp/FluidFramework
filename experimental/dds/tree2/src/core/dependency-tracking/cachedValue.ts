@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { ObservingDependent } from "./incrementalObservation";
+import type { ObservingDependent } from "./incrementalObservation";
 import { SimpleObservingDependent } from "./simpleObservingDependent";
 
 /**

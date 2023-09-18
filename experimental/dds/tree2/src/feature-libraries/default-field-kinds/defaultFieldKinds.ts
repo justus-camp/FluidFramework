@@ -24,7 +24,7 @@ import {
 } from "../modular-schema";
 import { sequenceFieldChangeHandler, SequenceFieldEditor } from "../sequence-field";
 import { noChangeCodecFamily } from "./defaultFieldChangeCodecs";
-import { OptionalChangeset } from "./defaultFieldChangeTypes";
+import type { OptionalChangeset } from "./defaultFieldChangeTypes";
 import { OptionalFieldEditor, optionalChangeHandler, optionalFieldEditor } from "./optionalField";
 
 /**

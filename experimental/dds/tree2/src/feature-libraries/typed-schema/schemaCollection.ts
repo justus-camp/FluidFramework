@@ -4,8 +4,8 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { Adapters, TreeAdapter, TreeSchemaIdentifier } from "../../core";
-import { FullSchemaPolicy } from "../modular-schema";
+import type { Adapters, TreeAdapter, TreeSchemaIdentifier } from "../../core";
+import type { FullSchemaPolicy } from "../modular-schema";
 import { capitalize, fail, requireAssignableTo } from "../../util";
 import { defaultSchemaPolicy, FieldKinds, FieldKindTypes } from "../default-field-kinds";
 import {
@@ -15,7 +15,7 @@ import {
 	TypedSchemaCollection,
 } from "./typedTreeSchema";
 import { normalizeFlexListEager } from "./flexList";
-import { Sourced } from "./view";
+import type { Sourced } from "./view";
 
 // TODO: tests for this file
 

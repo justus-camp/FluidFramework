@@ -3,5 +3,5 @@
  * Licensed under the MIT License.
  */
 
-export { ChangeFamily, ChangeFamilyEditor } from "./changeFamily";
+export type { ChangeFamily, ChangeFamilyEditor } from "./changeFamily";
 export { EditBuilder } from "./editBuilder";

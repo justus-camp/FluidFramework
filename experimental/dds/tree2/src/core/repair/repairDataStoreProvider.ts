@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { RepairDataStore } from "./repairDataStore";
+import type { RepairDataStore } from "./repairDataStore";
 
 /**
  * Manages state required for creating {@link RepairDataStore}s.

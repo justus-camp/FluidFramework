@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { GraphCommit, SessionId } from "../core";
+import type { GraphCommit, SessionId } from "../core";
 
 export interface DecodedMessage<TChange> {
 	commit: GraphCommit<TChange>;

@@ -17,7 +17,7 @@ import {
 	ValueSchema,
 } from "../core";
 import { brand, fail, Named } from "../util";
-import { ICodecOptions, IJsonCodec } from "../codec";
+import type { ICodecOptions, IJsonCodec } from "../codec";
 
 const version = "1.0.0" as const;
 

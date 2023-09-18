@@ -5,7 +5,7 @@
 
 import { AllowedTypes, FieldKinds, SchemaBuilder } from "../../feature-libraries";
 import { ValueSchema } from "../../core";
-import { requireAssignableTo } from "../../util";
+import type { requireAssignableTo } from "../../util";
 
 const builder = new SchemaBuilder("Json Domain");
 

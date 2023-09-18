@@ -3,10 +3,10 @@
  * Licensed under the MIT License.
  */
 
-import { FieldStoredSchema, ITreeCursor } from "../../core";
-import { ContextuallyTypedNodeData, NewFieldContent } from "../contextuallyTyped";
-import { Optional, Sequence, ValueFieldKind } from "../default-field-kinds";
-import {
+import type { FieldStoredSchema, ITreeCursor } from "../../core";
+import type { ContextuallyTypedNodeData, NewFieldContent } from "../contextuallyTyped";
+import type { Optional, Sequence, ValueFieldKind } from "../default-field-kinds";
+import type {
 	UntypedField,
 	UntypedTree,
 	UntypedTreeContext,

@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { MakeNominal } from "../../util";
+import type { MakeNominal } from "../../util";
 
 /**
  * This file contains the core invalidation / dependency tracking types.

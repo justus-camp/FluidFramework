@@ -22,7 +22,7 @@ import {
 	rootFieldKey,
 } from "../../core";
 import { brand, fail } from "../../util";
-import { FieldKind } from "../modular-schema";
+import type { FieldKind } from "../modular-schema";
 import {
 	getFieldKind,
 	NewFieldContent,
@@ -30,7 +30,7 @@ import {
 	typeNameSymbol,
 	valueSymbol,
 } from "../contextuallyTyped";
-import { LocalNodeKey } from "../node-key";
+import type { LocalNodeKey } from "../node-key";
 import { FieldKinds } from "../default-field-kinds";
 import {
 	EditableTreeEvents,
@@ -47,7 +47,7 @@ import {
 	getStableNodeKey,
 	treeStatusFromPath,
 } from "./utilities";
-import { ProxyContext } from "./editableTreeContext";
+import type { ProxyContext } from "./editableTreeContext";
 import {
 	EditableField,
 	EditableTree,

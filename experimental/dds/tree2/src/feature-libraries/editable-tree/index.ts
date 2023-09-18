@@ -4,16 +4,18 @@
  */
 
 export {
-	EditableTree,
-	EditableField,
-	EditableTreeOrPrimitive,
 	proxyTargetSymbol,
-	UnwrappedEditableTree,
-	UnwrappedEditableField,
 	areCursors,
 	localNodeKeySymbol,
 	setField,
 	TreeStatus,
+} from "./editableTreeTypes";
+export type {
+	EditableTree,
+	EditableField,
+	EditableTreeOrPrimitive,
+	UnwrappedEditableTree,
+	UnwrappedEditableField,
 } from "./editableTreeTypes";
 
 export { isEditableField } from "./editableField";
@@ -24,6 +26,13 @@ export {
 	createDataBinderInvalidating,
 	createBinderOptions,
 	createFlushableBinderOptions,
+	indexSymbol,
+	BindingType,
+	toDownPath,
+	comparePipeline,
+	compileSyntaxTree,
+} from "./editableTreeBinder";
+export type {
 	DataBinder,
 	BinderOptions,
 	Flushable,
@@ -32,14 +41,12 @@ export {
 	MatchPolicy,
 	SubtreePolicy,
 	BindSyntaxTree,
-	indexSymbol,
 	BindPolicy,
 	BindTree,
 	BindTreeDefault,
 	DownPath,
 	BindPath,
 	PathStep,
-	BindingType,
 	BindingContextType,
 	VisitorBindingContext,
 	BindingContext,
@@ -52,11 +59,9 @@ export {
 	CompareFunction,
 	BinderEventsCompare,
 	AnchorsCompare,
-	toDownPath,
-	comparePipeline,
-	compileSyntaxTree,
 } from "./editableTreeBinder";
 
-export { EditableTreeContext, getEditableTreeContext } from "./editableTreeContext";
+export { getEditableTreeContext } from "./editableTreeContext";
+export type { EditableTreeContext } from "./editableTreeContext";
 
 export { isPrimitive, treeStatusFromPath } from "./utilities";

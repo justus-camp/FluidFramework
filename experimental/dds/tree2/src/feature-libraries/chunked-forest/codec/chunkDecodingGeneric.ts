@@ -4,9 +4,9 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { BrandedType } from "../../../util";
-import { TreeChunk } from "../chunk";
-import { EncodedChunkGeneric, IdentifierOrIndex } from "./formatGeneric";
+import type { BrandedType } from "../../../util";
+import type { TreeChunk } from "../chunk";
+import type { EncodedChunkGeneric, IdentifierOrIndex } from "./formatGeneric";
 import {
 	ChunkDecoder,
 	DiscriminatedUnionDispatcher,

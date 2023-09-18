@@ -14,7 +14,7 @@ import {
 import { FieldKind, FullSchemaPolicy, Multiplicity } from "../../modular-schema";
 import { fail } from "../../../util";
 import { fieldKinds } from "../../default-field-kinds";
-import { EncodedChunk, EncodedValueShape } from "./format";
+import type { EncodedChunk, EncodedValueShape } from "./format";
 import {
 	EncoderCache,
 	FieldEncoder,

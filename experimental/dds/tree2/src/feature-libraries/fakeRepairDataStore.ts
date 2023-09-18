@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { FieldKey, RepairDataStore, RevisionTag, TreeSchemaIdentifier, UpPath } from "../core";
+import type { FieldKey, RepairDataStore, RevisionTag, TreeSchemaIdentifier, UpPath } from "../core";
 import { brand, makeArray } from "../util";
 import { singleTextCursor } from "./treeTextCursor";
 

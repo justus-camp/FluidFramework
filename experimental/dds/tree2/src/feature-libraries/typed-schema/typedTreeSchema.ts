@@ -12,7 +12,7 @@ import {
 	TreeTypeSet,
 	ValueSchema,
 } from "../../core";
-import {
+import type {
 	MakeNominal,
 	Assume,
 	RestrictiveReadonlyRecord,
@@ -22,7 +22,7 @@ import {
 	requireAssignableTo,
 } from "../../util";
 import { FieldKindTypes, FieldKinds } from "../default-field-kinds";
-import { FullSchemaPolicy } from "../modular-schema";
+import type { FullSchemaPolicy } from "../modular-schema";
 import { LazyItem, normalizeFlexList } from "./flexList";
 import { ObjectToMap, WithDefault, objectToMapTyped } from "./typeUtils";
 

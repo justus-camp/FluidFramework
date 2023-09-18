@@ -5,12 +5,12 @@
 
 import { assert, unreachableCase } from "@fluidframework/core-utils";
 import { assertValidIndex } from "../../../util";
-import { FieldKey, TreeSchemaIdentifier, Value } from "../../../core";
-import { TreeChunk } from "../chunk";
+import type { FieldKey, TreeSchemaIdentifier, Value } from "../../../core";
+import type { TreeChunk } from "../chunk";
 import { BasicChunk } from "../basicChunk";
 import { SequenceChunk } from "../sequenceChunk";
 import { emptyChunk } from "../emptyChunk";
-import {
+import type {
 	EncodedAnyShape,
 	EncodedChunk,
 	EncodedChunkShape,

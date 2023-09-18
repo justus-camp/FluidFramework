@@ -4,9 +4,9 @@
  */
 
 import { ITreeCursorSynchronous, forEachField, forEachNode } from "../../../core";
-import { FluidSerializableReadOnly } from "../../contextuallyTyped";
+import type { FluidSerializableReadOnly } from "../../contextuallyTyped";
 import { EncodedChunk, version, EncodedTreeShape, EncodedNestedArray } from "./format";
-import { ShapeIndex } from "./formatGeneric";
+import type { ShapeIndex } from "./formatGeneric";
 
 /**
  * Encode data from `cursor` in the simplest way supported by `EncodedChunk`.

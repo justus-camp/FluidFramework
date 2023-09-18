@@ -4,7 +4,7 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { Dependee, Dependent } from "./dependencies";
+import type { Dependee, Dependent } from "./dependencies";
 
 enum State {
 	Initializing,

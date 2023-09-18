@@ -4,9 +4,9 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { ISubscribable } from "../../events";
-import { Dependee } from "../dependency-tracking";
-import { StoredSchemaRepository, FieldKey } from "../schema-stored";
+import type { ISubscribable } from "../../events";
+import type { Dependee } from "../dependency-tracking";
+import type { StoredSchemaRepository, FieldKey } from "../schema-stored";
 import {
 	Anchor,
 	AnchorSet,

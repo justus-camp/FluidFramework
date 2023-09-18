@@ -4,7 +4,7 @@
  */
 
 // Used by public types, but not part of the desired API surface
-export {
+export type {
 	AllowedTypesToTypedTrees,
 	CollectOptions,
 	TypedFields,
@@ -21,8 +21,8 @@ export {
 	EmptyObject,
 } from "./schemaAware";
 
-export { ValuesOf, TypedValue, TypedValueOrUndefined } from "./schemaAwareUtil";
+export type { ValuesOf, TypedValue, TypedValueOrUndefined } from "./schemaAwareUtil";
 
-export { PrimitiveValueSchema } from "../../core";
+export type { PrimitiveValueSchema } from "../../core";
 
-export { UntypedSequenceField, UntypedOptionalField, UntypedValueField } from "./partlyTyped";
+export type { UntypedSequenceField, UntypedOptionalField, UntypedValueField } from "./partlyTyped";

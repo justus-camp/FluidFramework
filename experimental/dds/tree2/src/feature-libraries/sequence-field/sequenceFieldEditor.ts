@@ -5,10 +5,10 @@
 
 import { assert } from "@fluidframework/core-utils";
 import { jsonableTreeFromCursor } from "../treeTextCursor";
-import { ChangesetLocalId, ITreeCursor } from "../../core";
-import { FieldEditor, NodeReviver } from "../modular-schema";
+import type { ChangesetLocalId, ITreeCursor } from "../../core";
+import type { FieldEditor, NodeReviver } from "../modular-schema";
 import { brand } from "../../util";
-import {
+import type {
 	CellId,
 	Changeset,
 	Insert,

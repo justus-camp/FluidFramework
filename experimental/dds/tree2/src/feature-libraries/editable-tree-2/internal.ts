@@ -5,7 +5,7 @@
 
 // Used by public types, but not part of the desired API surface
 
-export {
+export type {
 	TypedFieldInner,
 	UnboxFieldInner,
 	TypeArrayToTypedTreeArray,

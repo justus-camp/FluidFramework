@@ -9,10 +9,10 @@ import {
 	ITreeSubscriptionCursor,
 	ITreeSubscriptionCursorState,
 } from "../../core";
-import { TreeStatus } from "../editable-tree";
+import type { TreeStatus } from "../editable-tree";
 import { fail, disposeSymbol, IDisposable } from "../../util";
-import { Context } from "./context";
-import { Tree } from "./editableTreeTypes";
+import type { Context } from "./context";
+import type { Tree } from "./editableTreeTypes";
 
 /**
  * Declare an enumerable own property on `T` under the key `key` using the implementation of one on `from`.

@@ -3,10 +3,10 @@
  * Licensed under the MIT License.
  */
 
-import { IFluidHandle } from "@fluidframework/core-interfaces";
+import type { IFluidHandle } from "@fluidframework/core-interfaces";
 import { Value, ValueSchema, PrimitiveValueSchema } from "../../core";
-import { areSafelyAssignable, isAssignableTo, requireTrue } from "../../util";
-import { PrimitiveValue } from "../contextuallyTyped";
+import type { areSafelyAssignable, isAssignableTo, requireTrue } from "../../util";
+import type { PrimitiveValue } from "../contextuallyTyped";
 
 /**
  * {@link ValueSchema} to allowed types for that schema.

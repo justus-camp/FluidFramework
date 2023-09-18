@@ -13,7 +13,7 @@ import {
 } from "../../core";
 import { brand } from "../../util";
 import { isNeverField } from "./comparison";
-import { FieldChangeHandler, FieldEditor } from "./fieldChangeHandler";
+import type { FieldChangeHandler, FieldEditor } from "./fieldChangeHandler";
 
 /**
  * Functionality for FieldKinds that is stable,

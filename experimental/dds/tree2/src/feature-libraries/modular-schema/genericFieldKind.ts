@@ -5,8 +5,8 @@
 
 import { Delta, makeAnonChange, tagChange, TaggedChange } from "../../core";
 import { brand, fail, IdAllocator } from "../../util";
-import { CrossFieldManager } from "./crossFieldQueries";
-import {
+import type { CrossFieldManager } from "./crossFieldQueries";
+import type {
 	FieldChangeHandler,
 	ToDelta,
 	NodeChangeComposer,
@@ -16,8 +16,8 @@ import {
 } from "./fieldChangeHandler";
 import { FieldKind, Multiplicity } from "./fieldKind";
 import { makeGenericChangeCodec } from "./genericFieldKindCodecs";
-import { GenericChange, GenericChangeset } from "./genericFieldKindTypes";
-import { NodeChangeset } from "./modularChangeTypes";
+import type { GenericChange, GenericChangeset } from "./genericFieldKindTypes";
+import type { NodeChangeset } from "./modularChangeTypes";
 
 /**
  * {@link FieldChangeHandler} implementation for {@link GenericChangeset}.

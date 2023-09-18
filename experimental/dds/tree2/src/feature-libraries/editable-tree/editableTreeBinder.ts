@@ -5,10 +5,10 @@
 
 import { assert } from "@fluidframework/core-utils";
 import { FieldKey, PathVisitor, ProtoNodes, UpPath, topDownPath } from "../../core";
-import { Events, ISubscribable } from "../../events";
+import type { Events, ISubscribable } from "../../events";
 import { brand, getOrCreate } from "../../util";
 import { on } from "../untypedTree";
-import { EditableTree } from "./editableTreeTypes";
+import type { EditableTree } from "./editableTreeTypes";
 
 /**
  * Binder events reflecting atomic data operations

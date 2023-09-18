@@ -12,8 +12,8 @@ import {
 } from "../../../core";
 import { brand, fail } from "../../../util";
 import { BufferFormat, IdentifierToken, Shape } from "./chunkEncodingGeneric";
-import { Counter, DeduplicationTable } from "./chunkCodecUtilities";
-import { EncodedChunkShape, EncodedFieldShape, EncodedValueShape } from "./format";
+import type { Counter, DeduplicationTable } from "./chunkCodecUtilities";
+import type { EncodedChunkShape, EncodedFieldShape, EncodedValueShape } from "./format";
 import {
 	NodeEncoder,
 	KeyedFieldEncoder,

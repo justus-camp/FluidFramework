@@ -15,7 +15,7 @@ import {
 import { brand } from "../../util";
 import { valueSymbol } from "../contextuallyTyped";
 import { FieldKinds } from "../default-field-kinds";
-import { StableNodeKey } from "../node-key";
+import type { StableNodeKey } from "../node-key";
 import { getField } from "../untypedTree";
 import { EditableTree, TreeStatus } from "./editableTreeTypes";
 

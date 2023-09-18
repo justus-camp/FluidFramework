@@ -4,7 +4,7 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { PrimitiveValueSchema, TreeSchemaIdentifier, ValueSchema } from "../../core";
+import type { PrimitiveValueSchema, TreeSchemaIdentifier, ValueSchema } from "../../core";
 import {
 	ContextuallyTypedNodeData,
 	MarkedArrayLike,
@@ -13,7 +13,12 @@ import {
 	valueSymbol,
 } from "../contextuallyTyped";
 import { Multiplicity } from "../modular-schema";
-import { InternalTypedSchemaTypes, FieldSchema, TreeSchema, AllowedTypes } from "../typed-schema";
+import type {
+	InternalTypedSchemaTypes,
+	FieldSchema,
+	TreeSchema,
+	AllowedTypes,
+} from "../typed-schema";
 import {
 	UntypedField,
 	UntypedTree,
@@ -21,9 +26,9 @@ import {
 	contextSymbol,
 	typeSymbol,
 } from "../untypedTree";
-import { Assume, FlattenKeys, _InlineTrick } from "../../util";
-import { UntypedOptionalField, UntypedSequenceField, UntypedValueField } from "./partlyTyped";
-import { TypedValue, TypedValueOrUndefined } from "./schemaAwareUtil";
+import type { Assume, FlattenKeys, _InlineTrick } from "../../util";
+import type { UntypedOptionalField, UntypedSequenceField, UntypedValueField } from "./partlyTyped";
+import type { TypedValue, TypedValueOrUndefined } from "./schemaAwareUtil";
 
 /**
  * Empty Object for use in type computations that should contribute no fields when `&`ed with another type.

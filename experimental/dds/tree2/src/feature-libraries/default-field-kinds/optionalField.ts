@@ -32,7 +32,7 @@ import {
 	FieldChangeHandler,
 } from "../modular-schema";
 import { populateChildModifications } from "../deltaUtils";
-import { OptionalChangeset, OptionalFieldChange } from "./defaultFieldChangeTypes";
+import type { OptionalChangeset, OptionalFieldChange } from "./defaultFieldChangeTypes";
 import { makeOptionalFieldCodecFamily } from "./defaultFieldChangeCodecs";
 
 type ChangeId = ChangeAtomId | "self";

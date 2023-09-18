@@ -11,7 +11,7 @@ import {
 	ITreeSubscriptionCursorState,
 	FieldAnchor,
 } from "../../core";
-import { ProxyContext } from "./editableTreeContext";
+import type { ProxyContext } from "./editableTreeContext";
 
 /**
  * This is a base class for `NodeProxyTarget` and `FieldProxyTarget`, which uniformly handles cursors and anchors.

@@ -5,18 +5,18 @@
 
 import { bufferToString, IsoBuffer } from "@fluid-internal/client-utils";
 import { assert } from "@fluidframework/core-utils";
-import { IFluidHandle } from "@fluidframework/core-interfaces";
-import {
+import type { IFluidHandle } from "@fluidframework/core-interfaces";
+import type {
 	IFluidDataStoreRuntime,
 	IChannelStorageService,
 } from "@fluidframework/datastore-definitions";
-import {
+import type {
 	ITelemetryContext,
 	ISummaryTreeWithStats,
 	IGarbageCollectionData,
 } from "@fluidframework/runtime-definitions";
 import { createSingleBlobSummary } from "@fluidframework/shared-object-base";
-import { ICodecOptions, IJsonCodec } from "../codec";
+import type { ICodecOptions, IJsonCodec } from "../codec";
 import {
 	cachedValue,
 	Dependee,
@@ -31,7 +31,11 @@ import {
 	schemaDataIsEmpty,
 	SchemaEvents,
 } from "../core";
-import { Summarizable, SummaryElementParser, SummaryElementStringifier } from "../shared-tree-core";
+import type {
+	Summarizable,
+	SummaryElementParser,
+	SummaryElementStringifier,
+} from "../shared-tree-core";
 import { isJsonObject, JsonCompatibleReadOnly } from "../util";
 import { makeSchemaCodec } from "./schemaIndexFormat";
 

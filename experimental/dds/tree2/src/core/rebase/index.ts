@@ -8,29 +8,12 @@ export {
 	mintRevisionTag,
 	isRevisionTag,
 	mintCommit,
-	GraphCommit,
-	RevisionTag,
 	RevisionTagSchema,
-	ChangesetLocalId,
-	ChangeAtomId,
-	SessionId,
 	SessionIdSchema,
 } from "./types";
-export {
-	ChangeRebaser,
-	FinalChange,
-	FinalChangeStatus,
-	makeAnonChange,
-	tagChange,
-	tagRollbackInverse,
-	TaggedChange,
-} from "./changeRebaser";
-export {
-	Exception,
-	Failure,
-	noFailure,
-	OutputType,
-	verifyChangeRebaser,
-	Violation,
-} from "./verifyChangeRebaser";
+export type { GraphCommit, RevisionTag, ChangesetLocalId, ChangeAtomId, SessionId } from "./types";
+export { FinalChangeStatus, makeAnonChange, tagChange, tagRollbackInverse } from "./changeRebaser";
+export type { ChangeRebaser, FinalChange, TaggedChange } from "./changeRebaser";
+export { noFailure, verifyChangeRebaser } from "./verifyChangeRebaser";
+export type { Exception, Failure, OutputType, Violation } from "./verifyChangeRebaser";
 export { findAncestor, findCommonAncestor, rebaseBranch, rebaseChange } from "./utils";

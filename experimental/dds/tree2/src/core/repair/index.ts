@@ -3,5 +3,5 @@
  * Licensed under the MIT License.
  */
 
-export { RepairDataStore, ReadonlyRepairDataStore } from "./repairDataStore";
-export { IRepairDataStoreProvider } from "./repairDataStoreProvider";
+export type { RepairDataStore, ReadonlyRepairDataStore } from "./repairDataStore";
+export type { IRepairDataStoreProvider } from "./repairDataStoreProvider";

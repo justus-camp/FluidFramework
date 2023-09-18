@@ -3,9 +3,9 @@
  * Licensed under the MIT License.
  */
 
-import { TAnySchema } from "@sinclair/typebox";
+import type { TAnySchema } from "@sinclair/typebox";
 import { assert } from "@fluidframework/core-utils";
-import { FieldKey, FieldKindIdentifier } from "../../core";
+import type { FieldKey, FieldKindIdentifier } from "../../core";
 import { brand, fail, JsonCompatibleReadOnly, Mutable } from "../../util";
 import {
 	ICodecFamily,
@@ -15,14 +15,14 @@ import {
 	makeCodecFamily,
 	SchemaValidationFunction,
 } from "../../codec";
-import {
+import type {
 	FieldChangeMap,
 	FieldChangeset,
 	ModularChangeset,
 	NodeChangeset,
 	RevisionInfo,
 } from "./modularChangeTypes";
-import { FieldKind } from "./fieldKind";
+import type { FieldKind } from "./fieldKind";
 import { genericFieldKind } from "./genericFieldKind";
 import {
 	EncodedFieldChange,

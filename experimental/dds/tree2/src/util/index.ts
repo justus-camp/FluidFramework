@@ -2,35 +2,32 @@
  * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
-
 export {
 	brand,
-	Brand,
 	BrandedType,
 	brandOpaque,
 	brandedNumberType,
 	brandedStringType,
 	extractFromOpaque,
-	ExtractFromOpaque,
-	NameFromBranded,
-	Opaque,
-	ValueFromBranded,
 } from "./brand";
+export type { Brand, ExtractFromOpaque, NameFromBranded, Opaque, ValueFromBranded } from "./brand";
 export {
 	deleteFromNestedMap,
 	getOrAddInMap,
 	getOrAddInNestedMap,
 	getOrDefaultInNestedMap,
-	NestedMap,
 	SizedNestedMap,
 	setInNestedMap,
 	tryAddToNestedMap,
 	tryGetFromNestedMap,
 } from "./nestedMap";
-export { addToNestedSet, NestedSet, nestedSetContains } from "./nestedSet";
-export { OffsetList, OffsetListFactory } from "./offsetList";
+export type { NestedMap } from "./nestedMap";
+export { addToNestedSet, nestedSetContains } from "./nestedSet";
+export type { NestedSet } from "./nestedSet";
+export { OffsetListFactory } from "./offsetList";
+export type { OffsetList } from "./offsetList";
 export { TransactionResult } from "./transactionResult";
-export {
+export type {
 	areSafelyAssignable,
 	Bivariant,
 	Contravariant,
@@ -56,30 +53,33 @@ export {
 	getOrCreate,
 	isJsonObject,
 	isReadonlyArray,
-	JsonCompatible,
-	JsonCompatibleObject,
-	JsonCompatibleReadOnly,
 	JsonCompatibleReadOnlySchema,
 	makeArray,
 	mapIterable,
-	Mutable,
-	RecursiveReadonly,
 	zipIterables,
-	Assume,
 	assertValidIndex,
 	assertNonNegativeSafeInteger,
 	generateStableId,
 	useDeterministicStableId,
 	objectToMap,
 	oneFromSet,
-	Named,
 	disposeSymbol,
-	IDisposable,
 	capitalize,
 } from "./utils";
-export { ReferenceCountedBase, ReferenceCounted } from "./referenceCounting";
+export type {
+	JsonCompatible,
+	JsonCompatibleObject,
+	JsonCompatibleReadOnly,
+	Mutable,
+	RecursiveReadonly,
+	Assume,
+	Named,
+	IDisposable,
+} from "./utils";
+export { ReferenceCountedBase } from "./referenceCounting";
+export type { ReferenceCounted } from "./referenceCounting";
 
-export {
+export type {
 	AllowOptional,
 	RequiredFields,
 	OptionalFields,
@@ -90,19 +90,11 @@ export {
 	RestrictiveReadonlyRecord,
 } from "./typeUtils";
 
-export {
-	BrandedKey,
-	BrandedKeyContent,
-	BrandedMapSubset,
-	getOrCreateSlotContent,
-	brandedSlot,
-} from "./brandedMap";
+export { getOrCreateSlotContent, brandedSlot } from "./brandedMap";
+export type { BrandedKey, BrandedKeyContent, BrandedMapSubset } from "./brandedMap";
 
-export { getFirstFromRangeMap, RangeEntry, RangeMap, setInRangeMap } from "./rangeMap";
+export { getFirstFromRangeMap, setInRangeMap } from "./rangeMap";
+export type { RangeEntry, RangeMap } from "./rangeMap";
 
-export {
-	IdAllocator,
-	idAllocatorFromMaxId,
-	idAllocatorFromState,
-	IdAllocationState,
-} from "./idAllocator";
+export { idAllocatorFromMaxId, idAllocatorFromState } from "./idAllocator";
+export type { IdAllocator, IdAllocationState } from "./idAllocator";

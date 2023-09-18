@@ -4,7 +4,7 @@
  */
 
 import { assert, unreachableCase } from "@fluidframework/core-utils";
-import { IFluidHandle } from "@fluidframework/core-interfaces";
+import type { IFluidHandle } from "@fluidframework/core-interfaces";
 import { fail, isReadonlyArray } from "../util";
 import {
 	EmptyKey,
@@ -28,7 +28,7 @@ import { FieldKind, Multiplicity } from "./modular-schema";
 import { AllowedTypes, FieldSchema, TreeSchema, allowedTypesToTypeSet } from "./typed-schema";
 import { singleMapTreeCursor } from "./mapTreeCursor";
 import { areCursors, isPrimitive } from "./editable-tree";
-import { AllowedTypesToTypedTrees, ApiMode, TypedField, TypedNode } from "./schema-aware";
+import type { AllowedTypesToTypedTrees, ApiMode, TypedField, TypedNode } from "./schema-aware";
 
 /**
  * This library defines a tree data format that can infer its types from context.

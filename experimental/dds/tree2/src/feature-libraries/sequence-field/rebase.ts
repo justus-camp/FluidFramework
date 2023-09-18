@@ -4,9 +4,9 @@
  */
 
 import { assert, unreachableCase } from "@fluidframework/core-utils";
-import { StableId } from "@fluidframework/runtime-definitions";
+import type { StableId } from "@fluidframework/runtime-definitions";
 import { IdAllocator, fail } from "../../util";
-import { ChangeAtomId, ChangesetLocalId, RevisionTag, TaggedChange } from "../../core";
+import type { ChangeAtomId, ChangesetLocalId, RevisionTag, TaggedChange } from "../../core";
 import {
 	CrossFieldManager,
 	CrossFieldTarget,
@@ -52,7 +52,7 @@ import {
 	PairedMarkUpdate,
 } from "./moveEffectTable";
 import { MarkQueue } from "./markQueue";
-import { EmptyInputCellMark } from "./helperTypes";
+import type { EmptyInputCellMark } from "./helperTypes";
 
 /**
  * Rebases `change` over `base` assuming they both apply to the same initial state.

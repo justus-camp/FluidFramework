@@ -3,9 +3,9 @@
  * Licensed under the MIT License.
  */
 
-import { Brand, Opaque } from "../../util";
-import { FieldKey } from "../schema-stored";
-import { ITreeCursorSynchronous } from "./cursor";
+import type { Brand, Opaque } from "../../util";
+import type { FieldKey } from "../schema-stored";
+import type { ITreeCursorSynchronous } from "./cursor";
 
 /**
  * This format describes changes that must be applied to a document tree in order to update it.

@@ -5,13 +5,13 @@
 
 import { assert } from "@fluidframework/core-utils";
 import { assertIsStableId } from "@fluidframework/container-runtime";
-import {
+import type {
 	IIdCompressor,
 	SessionSpaceCompressedId,
 	StableId,
 } from "@fluidframework/runtime-definitions";
 import { brand, extractFromOpaque } from "../../util";
-import { StableNodeKey, LocalNodeKey } from "./nodeKey";
+import type { StableNodeKey, LocalNodeKey } from "./nodeKey";
 
 /**
  * An object which handles the generation of node keys as well as conversion between their two types ({@link StableNodeKey} and {@link LocalNodeKey}).

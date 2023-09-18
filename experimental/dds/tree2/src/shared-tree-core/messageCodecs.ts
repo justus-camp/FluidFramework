@@ -4,9 +4,9 @@
  */
 
 import { TAnySchema, Type } from "@sinclair/typebox";
-import { JsonCompatibleReadOnly } from "../util";
+import type { JsonCompatibleReadOnly } from "../util";
 import { IJsonCodec, withSchemaValidation } from "../codec";
-import { DecodedMessage } from "./messageTypes";
+import type { DecodedMessage } from "./messageTypes";
 import { Message } from "./messageFormat";
 
 export function makeMessageCodec<TChangeset>(

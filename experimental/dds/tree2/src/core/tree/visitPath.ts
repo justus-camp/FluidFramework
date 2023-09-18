@@ -2,8 +2,9 @@
  * Copyright (c) Microsoft Corporation and contributors. All rights reserved.
  * Licensed under the MIT License.
  */
-import * as Delta from "./delta";
-import { UpPath } from "./pathTree";
+
+import type * as Delta from "./delta";
+import type { UpPath } from "./pathTree";
 
 /**
  * Delta visitor for the path tree.

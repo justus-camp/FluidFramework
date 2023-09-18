@@ -4,7 +4,7 @@
  */
 
 import { assert } from "@fluidframework/core-utils";
-import { FieldKey } from "../schema-stored";
+import type { FieldKey } from "../schema-stored";
 import {
 	AnchorSet,
 	DetachedField,
@@ -15,7 +15,7 @@ import {
 	DeltaVisitor,
 	applyDelta,
 } from "../tree";
-import { IForestSubscription, ITreeSubscriptionCursor } from "./forest";
+import type { IForestSubscription, ITreeSubscriptionCursor } from "./forest";
 
 /**
  * Editing APIs.

@@ -3,11 +3,11 @@
  * Licensed under the MIT License.
  */
 
-import * as SchemaAware from "../schema-aware";
-import { FieldKey, TreeSchemaIdentifier, TreeValue } from "../../core";
-import { Assume, RestrictiveReadonlyRecord, _InlineTrick } from "../../util";
-import { LocalNodeKey } from "../node-key";
-import {
+import type * as SchemaAware from "../schema-aware";
+import type { FieldKey, TreeSchemaIdentifier, TreeValue } from "../../core";
+import type { Assume, RestrictiveReadonlyRecord, _InlineTrick } from "../../util";
+import type { LocalNodeKey } from "../node-key";
+import type {
 	FieldSchema,
 	InternalTypedSchemaTypes,
 	TreeSchema,
@@ -17,10 +17,10 @@ import {
 	MapSchema,
 	StructSchema,
 } from "../typed-schema";
-import { EditableTreeEvents } from "../untypedTree";
-import { FieldKindTypes, FieldKinds } from "../default-field-kinds";
-import { TreeStatus } from "../editable-tree";
-import { TreeContext } from "./context";
+import type { EditableTreeEvents } from "../untypedTree";
+import type { FieldKindTypes, FieldKinds } from "../default-field-kinds";
+import type { TreeStatus } from "../editable-tree";
+import type { TreeContext } from "./context";
 
 /**
  * Part of a tree.

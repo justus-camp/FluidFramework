@@ -4,6 +4,8 @@
  */
 
 export { uniformChunk, ChunkShape } from "./uniformChunk";
-export { TreeChunk, dummyRoot } from "./chunk";
-export { chunkTree, defaultChunkPolicy, makeTreeChunker, IChunker } from "./chunkTree";
+export { dummyRoot } from "./chunk";
+export type { TreeChunk } from "./chunk";
+export { chunkTree, defaultChunkPolicy, makeTreeChunker } from "./chunkTree";
+export type { IChunker } from "./chunkTree";
 export { buildChunkedForest } from "./chunkedForest";

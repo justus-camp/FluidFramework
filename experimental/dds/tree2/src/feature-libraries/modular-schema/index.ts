@@ -11,38 +11,29 @@ export {
 	allowsFieldSuperset,
 	allowsTreeSuperset,
 } from "./comparison";
-export {
-	addCrossFieldQuery,
-	CrossFieldManager,
-	CrossFieldMap,
-	CrossFieldQuerySet,
-	CrossFieldTarget,
-	setInCrossFieldMap,
-} from "./crossFieldQueries";
+export { addCrossFieldQuery, CrossFieldTarget, setInCrossFieldMap } from "./crossFieldQueries";
+export type { CrossFieldManager, CrossFieldMap, CrossFieldQuerySet } from "./crossFieldQueries";
 export { ChangesetLocalIdSchema, EncodedChangeAtomId } from "./modularChangeFormat";
+export { FieldKind, Multiplicity, brandedFieldKind } from "./fieldKind";
+export type { FullSchemaPolicy, BrandedFieldKind } from "./fieldKind";
 export {
-	FieldKind,
-	FullSchemaPolicy,
-	Multiplicity,
-	BrandedFieldKind,
-	brandedFieldKind,
-} from "./fieldKind";
-export {
+	getIntention,
+	referenceFreeFieldChangeRebaser,
+	NodeExistenceState,
+} from "./fieldChangeHandler";
+export type {
 	FieldChangeHandler,
 	FieldChangeRebaser,
 	FieldEditor,
-	getIntention,
 	NodeChangeComposer,
 	NodeChangeInverter,
 	NodeChangeRebaser,
 	NodeReviver,
-	referenceFreeFieldChangeRebaser,
 	RevisionMetadataSource,
 	RevisionIndexer,
 	ToDelta,
-	NodeExistenceState,
 } from "./fieldChangeHandler";
-export {
+export type {
 	FieldChange,
 	FieldChangeMap,
 	FieldChangeset,
@@ -53,10 +44,10 @@ export {
 	NodeExistsConstraint,
 } from "./modularChangeTypes";
 export { convertGenericChange, genericChangeHandler, genericFieldKind } from "./genericFieldKind";
-export { GenericChange, GenericChangeset } from "./genericFieldKindTypes";
+export type { GenericChange, GenericChangeset } from "./genericFieldKindTypes";
 export {
 	ModularChangeFamily,
 	ModularEditBuilder,
-	EditDescription,
 	revisionMetadataSourceFromInfo,
 } from "./modularChangeFamily";
+export type { EditDescription } from "./modularChangeFamily";

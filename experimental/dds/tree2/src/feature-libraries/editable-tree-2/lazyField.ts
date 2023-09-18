@@ -18,7 +18,7 @@ import {
 	rootField,
 	EmptyKey,
 } from "../../core";
-import { FieldKind } from "../modular-schema";
+import type { FieldKind } from "../modular-schema";
 import { NewFieldContent, normalizeNewFieldContent } from "../contextuallyTyped";
 import {
 	FieldKindTypes,
@@ -36,8 +36,8 @@ import {
 	schemaIsLeaf,
 } from "../typed-schema";
 import { TreeStatus, treeStatusFromPath } from "../editable-tree";
-import { Context } from "./context";
-import {
+import type { Context } from "./context";
+import type {
 	FlexibleNodeContent,
 	OptionalField,
 	Sequence,

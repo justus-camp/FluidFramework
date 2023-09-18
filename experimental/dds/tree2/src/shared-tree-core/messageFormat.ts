@@ -4,7 +4,7 @@
  */
 
 import { Type, TSchema } from "@sinclair/typebox";
-import { JsonCompatibleReadOnly } from "../util";
+import type { JsonCompatibleReadOnly } from "../util";
 import { RevisionTag, RevisionTagSchema, SessionIdSchema } from "../core";
 
 /**

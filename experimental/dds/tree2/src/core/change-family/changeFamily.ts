@@ -3,9 +3,9 @@
  * Licensed under the MIT License.
  */
 
-import { ICodecFamily } from "../../codec";
-import { ChangeRebaser } from "../rebase";
-import { Delta } from "../tree";
+import type { ICodecFamily } from "../../codec";
+import type { ChangeRebaser } from "../rebase";
+import type { Delta } from "../tree";
 
 export interface ChangeFamily<TEditor extends ChangeFamilyEditor, TChange> {
 	buildEditor(changeReceiver: (change: TChange) => void): TEditor;

@@ -3,7 +3,7 @@
  * Licensed under the MIT License.
  */
 
-import { Dependent, Dependee } from "./dependencies";
+import type { Dependent, Dependee } from "./dependencies";
 
 /**
  * This file provides a notion of units of incremental computations which can observe each-other.
